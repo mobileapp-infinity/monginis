@@ -1,0 +1,386 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/OFFWHITE"
+    tools:context=".dashboard.activity.MyOrdersActivity">
+
+    <ScrollView
+        android:scrollbars="none"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+
+            >
+
+
+            <LinearLayout
+                android:id="@+id/linearLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:weightSum="2">
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/ivBack"
+                    android:layout_width="0dp"
+                    android:layout_height="40dp"
+                    android:layout_gravity="center"
+                    android:layout_margin="10dp"
+                    android:layout_weight="0.2"
+                    android:background="@drawable/bg_shape_for_back_button"
+                    android:padding="10dp"
+                    android:src="@drawable/ic_back" />
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="8dp"
+                    android:layout_weight="1.7"
+                    android:gravity="center">
+
+                    <com.infinity.monginis.custom_class.TextViewMediumFont
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="My Orders"
+                        android:textColor="@color/color_black"
+                        android:textSize="@dimen/text_18sp" />
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="18dp"
+                android:orientation="vertical">
+
+                <LinearLayout
+
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <com.infinity.monginis.custom_class.TextViewMediumFont
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+
+                        android:layout_weight="1"
+                        android:text="Active Order"
+                        android:textColor="@color/color_black"
+                        android:textSize="16sp" />
+
+                    <com.infinity.monginis.custom_class.TextViewMediumFont
+                        android:layout_width="0dp"
+
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Past Order"
+                        android:textColor="@color/color_black"
+                        android:textSize="16sp" />
+
+                </LinearLayout>
+
+                <com.infinity.monginis.custom_class.TextViewRegularFont
+                    android:layout_width="match_parent"
+
+                    android:id="@+id/tvItemPlacedTimeAndDate"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="Placed On 13 Jun,2019 at 12:40 PM"
+                    android:textSize="@dimen/text_14sp" />
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:background="@drawable/bg_shape_confirm_order"
+                android:orientation="vertical"
+                android:padding="18dp">
+
+                <com.infinity.monginis.custom_class.TextViewRegularFont
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+
+
+                    android:layout_weight="1"
+                    android:text="Schedule Pick Up  On  13 Jun,2020 at 12:40 PM"
+                    android:textColor="@color/color_black"
+                    android:textSize="@dimen/text_14sp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:orientation="horizontal"
+                    android:weightSum="2">
+
+                    <com.infinity.monginis.custom_class.TextViewMediumFont
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+
+
+                        android:id="@+id/tvScheduleItemName"
+                        android:layout_weight="1"
+                        android:text="Black Forest Round"
+                        android:textColor="@color/color_black"
+                        android:textSize="@dimen/text_14sp"
+                        />
+
+                    <com.infinity.monginis.custom_class.TextViewMediumFont
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+
+                        android:id="@+id/tvScheduleItePrice"
+                        android:layout_weight="1"
+                        android:gravity="end"
+                        android:text="Rs.400"
+                        android:textColor="@color/color_black"
+                        android:textSize="@dimen/text_14sp"
+                         />
+
+                </LinearLayout>
+
+                <com.infinity.monginis.custom_class.TextViewRegularFont
+                    android:layout_width="match_parent"
+
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:id="@+id/tvScheduleOrderId"
+                    android:text="Order Id :1560406841766"
+                    android:textSize="@dimen/text_14sp" />
+
+
+                <LinearLayout
+
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <com.infinity.monginis.custom_class.TextViewRegularFont
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+
+                        android:layout_marginTop="10dp"
+                        android:layout_weight="1"
+                        android:text="Accepted By Store"
+                        android:textColor="@android:color/holo_green_dark"
+                        android:textSize="@dimen/text_14sp"
+                        android:textStyle="bold" />
+
+                    <Button
+
+                        android:id="@+id/tvCancelOrder"
+                        android:layout_width="0dp"
+
+                        android:layout_height="wrap_content"
+                        android:layout_margin="12dp"
+                        android:layout_weight="1"
+                        android:text="Cancel Order" />
+
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:background="@drawable/bg_shape_confirm_order"
+                android:orientation="vertical"
+                android:padding="18dp">
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:orientation="horizontal"
+                    android:weightSum="2">
+
+                    <com.infinity.monginis.custom_class.TextViewMediumFont
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+
+
+                        android:layout_weight="1"
+                        android:text="Final Amount To Pay"
+                        android:textColor="@color/color_black"
+                        android:textSize="@dimen/text_14sp"
+                        android:textStyle="bold" />
+
+                    <com.infinity.monginis.custom_class.TextViewMediumFont
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+
+
+                        android:id="@+id/tvFinalAmountPrice"
+                        android:layout_weight="1"
+                        android:gravity="end"
+                        android:text="Rs.420.0"
+                        android:textColor="@color/color_black"
+                        android:textSize="@dimen/text_14sp"
+                        android:textStyle="bold" />
+
+                </LinearLayout>
+
+
+                <LinearLayout
+
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="12dp"
+                    android:orientation="horizontal">
+
+                    <Button
+
+                        android:layout_width="0dp"
+
+
+                        android:id="@+id/btnTackOrder"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Track  Order" />
+
+                    <Button
+
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+
+
+                        android:id="@+id/tvFinalAmountCancelOrder"
+                        android:layout_marginStart="8dp"
+                        android:layout_weight="1"
+                        android:text="Help" />
+
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+
+            <com.infinity.monginis.custom_class.TextViewRegularFont
+                android:layout_width="match_parent"
+
+
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="Placed On 13 Jun,2019 at 12:40 PM"
+                android:textAlignment="center"
+                android:textSize="@dimen/text_14sp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:background="@drawable/bg_shape_confirm_order"
+                android:orientation="vertical"
+                android:padding="18dp">
+
+                <com.infinity.monginis.custom_class.TextViewRegularFont
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+
+
+                    android:layout_weight="1"
+                    android:text="ASAP pickup"
+                    android:textColor="@color/color_black"
+                    android:textSize="@dimen/text_14sp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:orientation="horizontal"
+                    android:weightSum="2">
+
+                    <com.infinity.monginis.custom_class.TextViewMediumFont
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+
+
+                        android:id="@+id/tvItemName"
+                        android:layout_weight="1"
+                        android:text="Black Forest Round"
+                        android:textColor="@color/color_black"
+                        android:textSize="@dimen/text_14sp"
+                        />
+
+                    <com.infinity.monginis.custom_class.TextViewMediumFont
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+
+
+                        android:id="@+id/tvItemPrice"
+                        android:layout_weight="1"
+                        android:gravity="end"
+                        android:text="Rs.400"
+                        android:textColor="@color/color_black"
+                        android:textSize="@dimen/text_14sp"
+                       />
+
+                </LinearLayout>
+
+                <com.infinity.monginis.custom_class.TextViewRegularFont
+                    android:layout_width="match_parent"
+
+                    android:id="@+id/tvOrderId"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:text="Order Id :1560406841766"
+                    android:textSize="@dimen/text_14sp" />
+
+
+                <LinearLayout
+
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <com.infinity.monginis.custom_class.TextViewRegularFont
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+
+                        android:layout_marginTop="10dp"
+                        android:layout_weight="1"
+                        android:text="Order Is Ready"
+                        android:textColor="@android:color/holo_green_dark"
+                        android:textSize="@dimen/text_14sp"
+                        android:textStyle="bold" />
+
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+    </ScrollView>
+
+
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

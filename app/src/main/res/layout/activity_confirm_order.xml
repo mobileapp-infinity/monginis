@@ -1,0 +1,278 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:background="@color/OFFWHITE"
+    android:layout_height="match_parent"
+
+    tools:context=".dashboard.activity.ConfirmOrderActivity">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:weightSum="2">
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:layout_width="0dp"
+                    android:layout_height="40dp"
+                    android:layout_gravity="center"
+                    android:layout_margin="10dp"
+                    android:id="@+id/ivBack"
+                    android:layout_weight="0.2"
+                    android:background="@drawable/bg_shape_for_back_button"
+                    android:padding="10dp"
+                    android:src="@drawable/ic_back" />
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="8dp"
+                    android:layout_weight="1.7"
+                    android:gravity="center">
+
+
+                    <LinearLayout
+
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="8dp"
+                        android:layout_marginStart="8dp"
+                        android:orientation="vertical">
+
+                        <com.infinity.monginis.custom_class.TextViewMediumFont
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Confirm Order"
+                            android:textColor="@android:color/black"
+                            android:textSize="@dimen/text_18sp" />
+
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:background="@drawable/bg_shape_confirm_order"
+                android:orientation="vertical"
+                android:padding="10dp">
+
+                <com.infinity.monginis.custom_class.TextViewMediumFont
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:text="Delivery Type"
+                    android:textColor="@android:color/black"
+                    android:textSize="@dimen/text_16sp" />
+
+
+                <RadioButton
+                    android:id="@+id/rbNow"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:text="Now"
+                    android:checked="false"
+                    android:textSize="@dimen/text_14sp"
+                    android:textStyle="bold" />
+
+                <com.infinity.monginis.custom_class.TextViewRegularFont
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="24dp"
+                    android:layout_marginTop="4dp"
+                    android:text="Now Order Are Meant To Place Orders Where
+The Courier Delivers  Your Order Asap"
+                    android:textSize="@dimen/text_12sp" />
+
+                <RadioButton
+                    android:id="@+id/rbSchedule"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:text="Schedule"
+                    android:checked="false"
+                    android:textSize="@dimen/text_14sp"
+                    android:textStyle="bold" />
+
+                <com.infinity.monginis.custom_class.TextViewRegularFont
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="24dp"
+                    android:layout_marginTop="6dp"
+                    android:text="Schedule Orders    Are Meant To Place Orders Where
+The Courier Delivers  Your Order At Selected Delivery Slot"
+                    android:textSize="@dimen/text_12sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:background="@drawable/bg_shape_confirm_order"
+                android:orientation="vertical"
+                android:padding="10dp">
+
+                <com.infinity.monginis.custom_class.TextViewMediumFont
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:text="Delivery Location"
+                    android:textColor="@android:color/black"
+                    android:textSize="@dimen/text_16sp" />
+
+                <LinearLayout
+                    android:layout_marginTop="14dp"
+                    android:weightSum="1"
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+
+                    <ImageView
+                        android:layout_weight="0.1"
+                        android:layout_width="0dp"
+                        android:layout_gravity="center_vertical"
+                        android:src="@drawable/ic_location"
+                        android:layout_height="wrap_content"/>
+
+                    <com.infinity.monginis.custom_class.TextViewRegularFont
+                        android:id="@+id/tvSelectAddress"
+                        android:layout_weight="0.9"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+
+
+                        android:text="Select Address"
+                        android:textColor="@android:color/black"
+                        android:textSize="@dimen/text_16sp" />
+
+                </LinearLayout>
+
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:background="@drawable/bg_shape_confirm_order"
+                android:orientation="vertical"
+                android:padding="10dp">
+
+                <com.infinity.monginis.custom_class.TextViewMediumFont
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Payment Method"
+                    android:textColor="@android:color/black"
+                    android:textSize="@dimen/text_16sp" />
+
+                <LinearLayout
+                    android:id="@+id/llSelectPayment"
+                    android:layout_marginTop="14dp"
+                    android:weightSum="1"
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+
+                    <ImageView
+                        android:layout_weight="0.1"
+                        android:layout_width="0dp"
+                        android:layout_gravity="center_vertical"
+                        android:src="@drawable/ic_payment_card"
+                        android:layout_height="wrap_content"/>
+
+                    <com.infinity.monginis.custom_class.TextViewRegularFont
+
+                        android:layout_weight="0.9"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+
+
+                        android:text="Select Payment"
+                        android:textColor="@android:color/black"
+                        android:textSize="@dimen/text_16sp" />
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:background="@drawable/bg_shape_confirm_order"
+                android:orientation="vertical"
+                android:padding="10dp">
+
+                <com.infinity.monginis.custom_class.TextViewMediumFont
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:text="Promo Code"
+                    android:textColor="@android:color/black"
+                    android:textSize="@dimen/text_16sp" />
+
+                <LinearLayout
+                    android:layout_marginTop="14dp"
+                    android:weightSum="1"
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+
+                    <ImageView
+                        android:layout_weight="0.1"
+                        android:layout_width="0dp"
+                        android:layout_gravity="center_vertical"
+                        android:src="@drawable/ic_coupon"
+                        android:layout_height="wrap_content"/>
+
+                    <com.infinity.monginis.custom_class.TextViewRegularFont
+
+                        android:layout_weight="0.9"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+
+
+                        android:text="Apply Coupon"
+                        android:textColor="@android:color/black"
+                        android:textSize="@dimen/text_16sp" />
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

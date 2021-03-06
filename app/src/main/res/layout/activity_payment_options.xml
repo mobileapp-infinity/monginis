@@ -1,0 +1,292 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:background="@color/OFFWHITE"
+
+    android:layout_height="match_parent"
+    tools:context=".dashboard.activity.PaymentOptionsActivity">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+
+
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:layout_marginEnd="4dp"
+                android:background="@drawable/bg_shape_payment_option"
+                android:orientation="vertical"
+                android:padding="10dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    android:weightSum="2">
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/ivBack"
+                        android:layout_width="0dp"
+                        android:layout_height="40dp"
+                        android:layout_gravity="center"
+                        android:layout_margin="10dp"
+                        android:layout_weight="0.2"
+                        android:background="@drawable/bg_shape_for_back_button"
+                        android:padding="10dp"
+                        android:src="@drawable/ic_back" />
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginStart="8dp"
+                        android:layout_weight="1.8"
+                        android:gravity="center">
+
+
+                        <LinearLayout
+
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="8dp"
+                            android:layout_marginStart="8dp"
+                            android:orientation="vertical">
+
+                            <com.infinity.monginis.custom_class.TextViewMediumFont
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Payment Options"
+                                android:textColor="@android:color/black"
+                                android:textSize="@dimen/text_18sp" />
+
+                            <com.infinity.monginis.custom_class.TextViewRegularFont
+                                android:layout_width="match_parent"
+
+                                android:layout_height="wrap_content"
+                                android:text="1 item(s),To pay:  Rs.460"
+                                android:textColor="@android:color/darker_gray"
+                                android:textStyle="bold" />
+
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+
+                </LinearLayout>
+
+                <com.infinity.monginis.custom_class.TextViewMediumFont
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:layout_marginTop="10dp"
+                    android:text="Wallets"
+                    android:textColor="@android:color/black"
+                    android:textSize="@dimen/text_16sp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:orientation="horizontal"
+                    android:weightSum="2">
+
+                    <ImageView
+                        android:layout_width="0dp"
+                        android:layout_height="30dp"
+                        android:layout_weight="0.2"
+                        android:src="@drawable/monginis_logo" />
+
+
+                    <com.infinity.monginis.custom_class.TextViewRegularFont
+
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginStart="10dp"
+                        android:layout_weight="0.9"
+                        android:text="Paytm"
+                        android:textColor="@android:color/black"
+                        android:textSize="@dimen/text_14sp" />
+
+                    <com.infinity.monginis.custom_class.TextViewRegularFont
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="0.9"
+                        android:gravity="end"
+                        android:text="LINK ACCOUNT"
+                        android:textColor="@android:color/black"
+                        android:textSize="@dimen/text_14sp" />
+
+                </LinearLayout>
+
+                <com.infinity.monginis.custom_class.TextViewRegularFont
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="end"
+                    android:text="Low Balance, Add More Rs.400 in Your Account"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="@dimen/text_14sp" />
+            </LinearLayout>
+
+
+            <LinearLayout
+
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="4dp"
+                android:background="@drawable/bg_shape_payment_option"
+                android:orientation="vertical"
+                android:padding="20dp">
+
+                <com.infinity.monginis.custom_class.TextViewMediumFont
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="Credit/Debit Cards"
+                    android:textColor="@android:color/black"
+                    android:textSize="@dimen/text_16sp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:orientation="horizontal"
+                    android:weightSum="2.3">
+
+                    <ImageView
+                        android:layout_width="0dp"
+                        android:layout_height="30dp"
+                        android:layout_gravity="center"
+                        android:layout_weight="0.3"
+                        android:src="@drawable/monginis_logo" />
+
+                    <com.infinity.monginis.custom_class.TextViewRegularFont
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="4dp"
+
+                        android:layout_weight="1.8"
+                        android:gravity="center_vertical"
+
+                        android:text="480-xxxx-xxxx-x844"
+                        android:textColor="@android:color/black"
+                        android:textSize="@dimen/text_14sp" />
+
+                    <RadioButton
+                        android:id="@+id/rbVisaCard"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.3" />
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.6dp"
+                    android:layout_margin="14dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@color/gray" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+
+                    android:orientation="horizontal"
+                    android:weightSum="2.3">
+
+                    <ImageView
+                        android:layout_width="0dp"
+                        android:layout_height="30dp"
+                        android:layout_gravity="center"
+                        android:layout_weight="0.3"
+                        android:src="@drawable/monginis_logo" />
+
+                    <com.infinity.monginis.custom_class.TextViewRegularFont
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="4dp"
+
+                        android:layout_weight="1.8"
+                        android:gravity="center_vertical"
+
+                        android:text="480-xxxx-xxxx-x844"
+                        android:textColor="@android:color/black"
+                        android:textSize="@dimen/text_14sp" />
+
+                    <RadioButton
+                        android:id="@+id/rbMasterCard"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.3" />
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.6dp"
+                    android:layout_margin="14dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@color/gray" />
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:orientation="horizontal"
+                    android:weightSum="2">
+
+                    <com.infinity.monginis.custom_class.TextViewRegularFont
+                        android:id="@+id/tvAddNewCard"
+
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+
+                        android:layout_gravity="center"
+                        android:layout_weight="1"
+                        android:text="ADD NEW CARD"
+                        android:textAlignment="center"
+                        android:textColor="@android:color/black"
+                        android:textSize="@dimen/text_14sp" />
+
+                    <ImageView
+                        android:id="@+id/ivVisaLogo"
+                        android:layout_width="0dp"
+                        android:layout_height="30dp"
+                        android:layout_weight="0.5"
+                        android:src="@drawable/monginis_logo" />
+
+                    <ImageView
+                        android:id="@+id/ivMasterCard"
+                        android:layout_width="0dp"
+                        android:layout_height="30dp"
+                        android:layout_weight="0.5"
+                        android:src="@drawable/monginis_logo" />
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+    </ScrollView>
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

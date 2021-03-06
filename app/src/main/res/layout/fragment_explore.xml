@@ -1,0 +1,323 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".dashboard.fragments.ExploreFragment">
+
+    <LinearLayout
+        android:id="@+id/llActionBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="8dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_location"
+                    android:tint="@color/color_black" />
+
+                <com.infinity.monginis.custom_class.TextViewMediumFont
+                    android:id="@+id/tvStreetName"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="2dp"
+                    android:layout_marginRight="2dp"
+                    android:layout_weight="1"
+                    android:maxLines="1"
+                    android:singleLine="true"
+                    android:text="-"
+                    android:textColor="@color/color_black"
+                    android:textSize="@dimen/text_14sp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingLeft="4dp"
+                android:paddingRight="8dp">
+
+                <com.infinity.monginis.custom_class.TextViewRegularFont
+                    android:id="@+id/tvUserAddress"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:maxLines="1"
+                    android:singleLine="true"
+                    android:text="-"
+                    android:textColor="@android:color/darker_gray"
+                    android:textSize="@dimen/text_12sp" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.6dp"
+            android:background="@color/gray" />
+
+    </LinearLayout>
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:fillViewport="true"
+        android:scrollbars="none"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/llActionBar">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:orientation="vertical"
+            android:visibility="visible">
+
+
+
+              <LinearLayout
+                  android:id="@+id/llExploreContent"
+                  android:visibility="visible"
+                  android:orientation="vertical"
+                  android:layout_width="match_parent"
+                  android:layout_height="wrap_content">
+
+                  <LinearLayout
+                      android:id="@+id/llTopCategories"
+                      android:layout_width="match_parent"
+                      android:layout_height="wrap_content"
+                      android:orientation="vertical">
+
+                      <LinearLayout
+                          android:layout_width="match_parent"
+                          android:layout_height="wrap_content"
+                          android:layout_marginLeft="10dp"
+                          android:layout_marginTop="10dp"
+                          android:layout_marginRight="10dp"
+                          android:gravity="center_vertical"
+                          android:orientation="horizontal">
+
+                          <com.infinity.monginis.custom_class.TextViewMediumFont
+                              android:layout_width="0dp"
+                              android:layout_height="wrap_content"
+                              android:layout_weight="1"
+                              android:text="@string/dashboard_top_categories"
+                              android:textColor="@android:color/black"
+                              android:textSize="@dimen/text_14sp" />
+
+                          <LinearLayout
+                              android:id="@+id/llTopCategoryFilter"
+                              android:layout_width="wrap_content"
+                              android:layout_height="wrap_content"
+                              android:background="?selectableItemBackground"
+                              android:orientation="horizontal">
+
+                              <ImageView
+                                  android:layout_width="24dp"
+                                  android:layout_height="24dp"
+                                  android:src="@drawable/ic_filter" />
+
+                              <com.infinity.monginis.custom_class.TextViewRegularFont
+                                  android:layout_width="wrap_content"
+                                  android:layout_height="wrap_content"
+                                  android:padding="6dp"
+                                  android:text="Filter"
+                                  android:textColor="@android:color/darker_gray"
+                                  android:textSize="@dimen/text_14sp" />
+
+                          </LinearLayout>
+
+                      </LinearLayout>
+                      <androidx.recyclerview.widget.RecyclerView
+                          android:id="@+id/rvTopCategories"
+                          android:layout_width="match_parent"
+                          android:layout_height="wrap_content"
+                          android:layout_marginLeft="4dp"
+                          android:layout_marginTop="10dp" />
+                      <LinearLayout
+                          android:id="@+id/llCategoryProgressbar"
+                          android:layout_width="match_parent"
+                          android:layout_height="0dp"
+                          android:layout_weight="1"
+                          android:gravity="center"
+                          android:orientation="vertical"
+                          android:visibility="visible">
+
+                          <!--        <ProgressBar-->
+                          <!--            android:layout_width="wrap_content"-->
+                          <!--            android:layout_height="wrap_content"-->
+                          <!--            android:indeterminate="true"-->
+                          <!--            android:indeterminateTint="@color/colorPrimary" />-->
+
+                          <com.github.ybq.android.spinkit.SpinKitView xmlns:app="http://schemas.android.com/apk/res-auto"
+                              style="@style/SpinKitView.Large.Circle"
+                              android:layout_width="60dp"
+                              android:layout_height="60dp"
+                              android:layout_gravity="center"
+                              app:SpinKit_Color="@color/colorPrimary" />
+
+                      </LinearLayout>
+
+
+                      <View
+                          android:layout_width="match_parent"
+                          android:layout_height="0.6dp"
+                          android:layout_marginTop="10dp"
+                          android:background="@color/gray" />
+
+                  </LinearLayout>
+
+                  <LinearLayout
+                      android:id="@+id/llPopularItems"
+                      android:layout_width="match_parent"
+                      android:layout_height="wrap_content"
+                      android:orientation="vertical">
+
+                      <LinearLayout
+                          android:layout_width="match_parent"
+                          android:layout_height="wrap_content"
+                          android:layout_marginLeft="10dp"
+                          android:layout_marginTop="10dp"
+                          android:layout_marginRight="10dp"
+                          android:gravity="center_vertical"
+                          android:orientation="horizontal">
+
+                          <com.infinity.monginis.custom_class.TextViewMediumFont
+                              android:layout_width="0dp"
+                              android:layout_height="wrap_content"
+                              android:layout_gravity="center"
+                              android:layout_weight="1"
+                              android:text="@string/dashboard_popular_items"
+                              android:textColor="@android:color/black"
+                              android:textSize="@dimen/text_14sp" />
+
+                          <com.infinity.monginis.custom_class.TextViewRegularFont
+                              android:id="@+id/tvViewAllPopularItems"
+                              android:layout_width="wrap_content"
+                              android:layout_height="wrap_content"
+                              android:background="?selectableItemBackground"
+                              android:padding="6dp"
+                              android:text="View All"
+                              android:textColor="@android:color/darker_gray"
+                              android:textSize="@dimen/text_14sp" />
+
+                      </LinearLayout>
+
+                      <androidx.recyclerview.widget.RecyclerView
+                          android:id="@+id/rvPopularItems"
+                          android:layout_width="match_parent"
+                          android:layout_height="match_parent"
+                          android:layout_marginTop="10dp" />
+
+                      <LinearLayout
+                          android:id="@+id/llPopularProgressbar"
+                          android:layout_width="match_parent"
+                          android:layout_height="0dp"
+                          android:layout_weight="1"
+                          android:gravity="center"
+                          android:orientation="vertical"
+                          android:visibility="visible">
+
+                          <!--        <ProgressBar-->
+                          <!--            android:layout_width="wrap_content"-->
+                          <!--            android:layout_height="wrap_content"-->
+                          <!--            android:indeterminate="true"-->
+                          <!--            android:indeterminateTint="@color/colorPrimary" />-->
+
+                          <com.github.ybq.android.spinkit.SpinKitView xmlns:app="http://schemas.android.com/apk/res-auto"
+                              style="@style/SpinKitView.Large.Circle"
+                              android:layout_width="60dp"
+                              android:layout_height="60dp"
+                              android:layout_gravity="center"
+                              app:SpinKit_Color="@color/colorPrimary" />
+
+                      </LinearLayout>
+
+                      <View
+                          android:layout_width="match_parent"
+                          android:layout_height="0.6dp"
+                          android:layout_marginTop="10dp"
+                          android:background="@color/gray" />
+
+                  </LinearLayout>
+
+                  <LinearLayout
+                      android:id="@+id/llNearByDeals"
+                      android:layout_width="match_parent"
+                      android:layout_height="wrap_content"
+                      android:layout_marginBottom="12dp"
+                      android:orientation="vertical">
+
+                      <LinearLayout
+                          android:layout_width="match_parent"
+                          android:layout_height="wrap_content"
+                          android:layout_marginLeft="10dp"
+                          android:layout_marginTop="10dp"
+                          android:layout_marginRight="10dp"
+                          android:orientation="horizontal">
+
+                          <com.infinity.monginis.custom_class.TextViewMediumFont
+                              android:layout_width="0dp"
+                              android:layout_height="wrap_content"
+                              android:layout_gravity="center"
+                              android:layout_weight="1"
+                              android:text="@string/dashboard_near_by_deals"
+                              android:textColor="@android:color/black"
+                              android:textSize="@dimen/text_14sp" />
+
+                          <com.infinity.monginis.custom_class.TextViewRegularFont
+                              android:id="@+id/tvViewAllNearByDeals"
+                              android:layout_width="wrap_content"
+                              android:layout_height="wrap_content"
+                              android:background="?selectableItemBackground"
+                              android:padding="6dp"
+                              android:text="View All"
+                              android:textColor="@android:color/darker_gray"
+                              android:textSize="@dimen/text_14sp" />
+
+                      </LinearLayout>
+
+                      <androidx.recyclerview.widget.RecyclerView
+                          android:id="@+id/rvNearbyDeals"
+                          android:layout_width="match_parent"
+                          android:layout_height="wrap_content"
+                          android:layout_marginTop="10dp"
+                          android:visibility="visible" />
+
+                  </LinearLayout>
+
+              </LinearLayout>
+
+
+
+
+
+
+        </LinearLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,262 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+
+    tools:context=".dashboard.activity.DashboardActivity">
+
+<!--    <ScrollView-->
+
+<!--        android:id="@+id/scrollView2"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="0dp"-->
+<!--        app:layout_constraintBottom_toTopOf="@+id/linearLayout2"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toTopOf="parent">-->
+
+<!--        <LinearLayout-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="match_parent"-->
+<!--            android:orientation="vertical">-->
+
+<!--            <LinearLayout-->
+<!--                android:id="@+id/llExplore"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:orientation="vertical"-->
+<!--                android:visibility="visible">-->
+
+<!--                <LinearLayout-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_margin="5dp"-->
+<!--                    android:orientation="horizontal">-->
+
+<!--                    <com.google.android.material.card.MaterialCardView-->
+
+<!--                        android:layout_width="0dp"-->
+<!--                        android:layout_height="45dp"-->
+<!--                        android:layout_gravity="center"-->
+<!--                        android:layout_margin="5dp"-->
+<!--                        android:layout_weight="0.10"-->
+<!--                        android:background="#FFF"-->
+<!--                        app:cardCornerRadius="7dp"-->
+<!--                        app:cardElevation="7dp">-->
+
+<!--                        <ImageView-->
+
+<!--                            android:id="@+id/ivLocation"-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:layout_gravity="center"-->
+<!--                            android:background="@drawable/ic_location" />-->
+<!--                    </com.google.android.material.card.MaterialCardView>-->
+
+<!--                    <com.google.android.material.card.MaterialCardView-->
+
+<!--                        android:layout_width="0dp"-->
+
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_margin="5dp"-->
+<!--                        android:layout_weight="0.70"-->
+<!--                        android:background="#FFF"-->
+<!--                        app:cardCornerRadius="7dp"-->
+<!--                        app:cardElevation="7dp">-->
+
+<!--                        <EditText-->
+<!--                            android:id="@+id/edtSearch"-->
+<!--                            android:layout_width="match_parent"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:background="@null"-->
+<!--                            android:drawableRight="@drawable/ic_search"-->
+<!--                            android:fontFamily="@font/ubuntu_r"-->
+<!--                            android:hint="Search Cakes"-->
+<!--                            android:padding="10dp" />-->
+
+<!--                    </com.google.android.material.card.MaterialCardView>-->
+
+
+<!--                </LinearLayout>-->
+
+
+<!--                <LinearLayout-->
+<!--                    android:id="@+id/llMiddleView"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:orientation="vertical"-->
+<!--                    android:visibility="visible">-->
+
+
+<!--                    <LinearLayout-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_marginLeft="10dp"-->
+<!--                        android:layout_marginTop="15dp"-->
+<!--                        android:orientation="horizontal">-->
+
+<!--                        <com.infinity.monginis.custom_class.TextViewRegularFont-->
+<!--                            android:layout_width="match_parent"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:layout_weight="1"-->
+<!--                            android:text="@string/dashboard_top_categories"-->
+<!--                            android:textColor="@android:color/black"-->
+<!--                            android:textSize="@dimen/text_14sp" />-->
+
+
+<!--                        <LinearLayout-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:orientation="horizontal"-->
+<!--                            android:paddingRight="10dp">-->
+
+<!--                            <ImageView-->
+<!--                                android:layout_width="20dp"-->
+<!--                                android:layout_height="20dp"-->
+
+<!--                                android:layout_weight="1"-->
+<!--                                android:src="@drawable/ic_filter" />-->
+
+<!--                            <com.infinity.monginis.custom_class.TextViewRegularFont-->
+
+<!--                                android:layout_width="wrap_content"-->
+<!--                                android:layout_height="wrap_content"-->
+<!--                                android:layout_gravity="center"-->
+<!--                                android:layout_marginLeft="8dp"-->
+<!--                                android:layout_weight="1"-->
+<!--                                android:text="@string/explore_filter"-->
+<!--                                android:textSize="@dimen/text_14sp" />-->
+
+<!--                        </LinearLayout>-->
+
+<!--                    </LinearLayout>-->
+
+<!--                    <androidx.recyclerview.widget.RecyclerView-->
+<!--                        android:id="@+id/rvTopCategories"-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="wrap_content"-->
+
+<!--                        android:layout_marginTop="10dp">-->
+
+<!--                    </androidx.recyclerview.widget.RecyclerView>-->
+
+
+<!--                    <View-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="0.8dp"-->
+<!--                        android:layout_marginTop="10dp"-->
+<!--                        android:background="@color/color_view_all_background" />-->
+
+
+<!--                    <LinearLayout-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_marginLeft="10dp"-->
+<!--                        android:layout_marginTop="15dp"-->
+<!--                        android:orientation="horizontal">-->
+
+<!--                        <com.infinity.monginis.custom_class.TextViewRegularFont-->
+<!--                            android:layout_width="0dp"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:layout_gravity="center"-->
+<!--                            android:layout_weight="1"-->
+<!--                            android:text="@string/dashboard_popular_items"-->
+<!--                            android:textColor="@android:color/black"-->
+<!--                            android:textSize="@dimen/text_14sp" />-->
+
+
+<!--                        <LinearLayout-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:orientation="horizontal"-->
+<!--                            android:paddingRight="10dp">-->
+
+<!--                            <androidx.appcompat.widget.AppCompatButton-->
+<!--                                android:layout_width="wrap_content"-->
+<!--                                android:layout_height="30dp"-->
+<!--                                android:layout_gravity="center_vertical"-->
+<!--                                android:layout_marginTop="5dp"-->
+<!--                                android:layout_marginBottom="5dp"-->
+<!--                                android:background="@drawable/btn_view_all_shape"-->
+<!--                                android:elevation="0dp"-->
+<!--                                android:fontFamily="@font/ubuntu_r"-->
+<!--                                android:text="@string/explore_view_all"-->
+<!--                                android:textAllCaps="false"-->
+<!--                                android:textColor="@color/white"-->
+<!--                                android:textSize="@dimen/text_14sp" />-->
+
+<!--                        </LinearLayout>-->
+
+<!--                    </LinearLayout>-->
+
+
+<!--                    <androidx.recyclerview.widget.RecyclerView-->
+<!--                        android:id="@+id/rvPopularItems"-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="match_parent"-->
+<!--                        android:layout_marginTop="10dp" />-->
+
+<!--                    <View-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="0.8dp"-->
+<!--                        android:layout_marginTop="10dp"-->
+<!--                        android:background="@color/color_view_all_background" />-->
+
+
+<!--                    <LinearLayout-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_marginLeft="10dp"-->
+<!--                        android:layout_marginTop="15dp"-->
+<!--                        android:orientation="horizontal">-->
+
+<!--                        <com.infinity.monginis.custom_class.TextViewRegularFont-->
+<!--                            android:layout_width="0dp"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:layout_gravity="center"-->
+<!--                            android:layout_weight="1"-->
+<!--                            android:text="@string/dashboard_near_by_deals"-->
+<!--                            android:textColor="@android:color/black"-->
+<!--                            android:textSize="@dimen/text_14sp" />-->
+
+
+<!--                        <LinearLayout-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:orientation="horizontal"-->
+<!--                            android:paddingRight="10dp">-->
+<!--                            -->
+<!--                            <androidx.appcompat.widget.AppCompatButton-->
+<!--                                android:layout_width="wrap_content"-->
+<!--                                android:layout_height="30dp"-->
+<!--                                android:layout_gravity="center_vertical"-->
+<!--                                android:layout_marginTop="5dp"-->
+<!--                                android:layout_marginBottom="5dp"-->
+<!--                                android:background="@drawable/btn_view_all_shape"-->
+<!--                                android:elevation="0dp"-->
+<!--                                android:fontFamily="@font/ubuntu_r"-->
+<!--                                android:text="@string/explore_view_all"-->
+<!--                                android:textAllCaps="false"-->
+<!--                                android:textColor="@color/white"-->
+<!--                                android:textSize="@dimen/text_14sp" />-->
+
+<!--                        </LinearLayout>-->
+
+<!--                    </LinearLayout>-->
+
+<!--                    <androidx.recyclerview.widget.RecyclerView-->
+<!--                        android:id="@+id/rvNearbyDeals"-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_marginTop="10dp"-->
+<!--                        android:visibility="visible" />-->
+
+<!--                </LinearLayout>-->
+
+<!--            </LinearLayout>-->
+<!--        </LinearLayout>-->
+<!--    </ScrollView>-->
+
+</androidx.constraintlayout.widget.ConstraintLayout>

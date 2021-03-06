@@ -1,0 +1,306 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".dashboard.activity.RateThisOrderActivity">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:weightSum="2"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:layout_gravity="center"
+                    android:id="@+id/ivBack"
+                    android:layout_margin="10dp"
+                    android:layout_weight="0.2"
+                    android:background="@drawable/bg_shape_for_back_button"
+                    android:layout_width="0dp"
+                    android:padding="10dp"
+                    android:src="@drawable/ic_back"
+                    android:layout_height="40dp"/>
+
+                <LinearLayout
+                    android:layout_marginStart="8dp"
+                    android:gravity="center"
+                    android:layout_weight="1.7"
+                    android:layout_gravity="center"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content">
+
+                    <com.infinity.monginis.custom_class.TextViewMediumFont
+                        android:layout_width="match_parent"
+                        android:text="Rate This Order"
+                        android:textSize="@dimen/text_18sp"
+                        android:textColor="@android:color/black"
+                        android:layout_height="wrap_content"/>
+
+                </LinearLayout>
+
+
+
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:padding="4dp"
+                android:layout_margin="12dp"
+                android:background="@drawable/bg_shape_confirm_order"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <com.infinity.monginis.custom_class.TextViewMediumFont
+                    android:layout_width="match_parent"
+                    android:text="Rs.420.00"
+
+                    android:layout_marginTop="8dp"
+                    android:textAlignment="center"
+                    android:textSize="@dimen/text_18sp"
+                    android:textColor="@android:color/black"
+                    android:layout_height="wrap_content"/>
+                <com.infinity.monginis.custom_class.TextViewRegularFont
+                    android:layout_width="match_parent"
+                    android:text="1560409841766"
+                    android:layout_marginTop="2dp"
+                    android:textAlignment="center"
+                    android:textSize="@dimen/text_16sp"
+
+                    android:layout_height="wrap_content"/>
+
+                <LinearLayout
+
+                    android:layout_margin="8dp"
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <LinearLayout
+                        android:weightSum="3.5"
+                        android:orientation="vertical"
+                        android:layout_margin="20dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+
+                        <ImageView
+                            android:layout_weight="1.5"
+                            android:layout_width="30dp"
+                            android:src="@drawable/ic_location"
+                            android:layout_height="0dp"/>
+
+
+                        <LinearLayout
+                            android:layout_marginStart="5dp"
+                            android:layout_weight="0.5"
+                            android:weightSum="3"
+                            android:layout_margin="12dp"
+                            android:orientation="vertical"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content">
+                            <com.infinity.monginis.custom_class.TextViewRegularFont
+                                android:layout_width="wrap_content"
+                                android:text="|"
+                                android:textStyle="bold"
+                                android:layout_weight="1"
+                                android:layout_height="0dp"/>
+                            <com.infinity.monginis.custom_class.TextViewRegularFont
+                                android:layout_width="wrap_content"
+                                android:text="|"
+                                android:textStyle="bold"
+                                android:layout_weight="1"
+                                android:layout_height="0dp"/>
+
+                            <com.infinity.monginis.custom_class.TextViewRegularFont
+                                android:layout_width="wrap_content"
+                                android:text="|"
+                                android:textStyle="bold"
+                                android:layout_weight="1"
+                                android:layout_height="0dp"/>
+
+
+
+                        </LinearLayout>
+
+
+                        <ImageView
+                            android:layout_weight="1.5"
+                            android:layout_width="30dp"
+                            android:src="@drawable/ic_baseline_home_24"
+                            android:layout_height="0dp"/>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:orientation="vertical"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <LinearLayout
+                            android:layout_margin="20dp"
+                            android:layout_width="match_parent"
+                            android:orientation="vertical"
+                            android:layout_height="wrap_content">
+
+                            <com.infinity.monginis.custom_class.TextViewRegularFont
+                                android:layout_width="match_parent"
+                                android:text="Krishna Complex"
+                                android:textSize="@dimen/text_14sp"
+                                android:textColor="@android:color/black"
+                                android:layout_height="wrap_content"/>
+
+                            <com.infinity.monginis.custom_class.TextViewRegularFont
+                                android:layout_width="match_parent"
+                                android:text="415, University Road"
+                                android:layout_marginTop="6dp"
+                                android:textSize="@dimen/text_14sp"
+                                android:layout_height="wrap_content"/>
+
+                        </LinearLayout>
+
+                        <LinearLayout
+
+                            android:layout_margin="20dp"
+
+                            android:layout_width="match_parent"
+                            android:orientation="vertical"
+                            android:layout_height="wrap_content">
+
+                            <com.infinity.monginis.custom_class.TextViewRegularFont
+                                android:layout_width="match_parent"
+                                android:text="Home"
+                                android:textSize="@dimen/text_14sp"
+                                android:textColor="@android:color/black"
+                                android:layout_height="wrap_content"/>
+
+                            <com.infinity.monginis.custom_class.TextViewRegularFont
+                                android:layout_width="match_parent"
+                                android:text="Vatshalya,Sardar Nagar ,5,Kalavad Road"
+                                android:layout_marginTop="6dp"
+                                android:textSize="@dimen/text_14sp"
+                                android:layout_height="wrap_content"/>
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+
+
+
+
+
+
+
+
+                </LinearLayout>
+
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:padding="4dp"
+                android:layout_margin="18dp"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:background="@drawable/bg_shape_confirm_order"
+                android:layout_height="wrap_content">
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:layout_margin="18dp"
+                    android:layout_width="25dp"
+                    android:src="@drawable/ic_launcher_background"
+                    android:layout_height="25dp"/>
+
+                <com.infinity.monginis.custom_class.TextViewRegularFont
+                    android:layout_width="match_parent"
+                    android:text="Mitul Seth"
+                    android:layout_margin="14dp"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="8dp"
+                    android:textColor="@android:color/black"
+                    android:textSize="@dimen/text_14sp"
+                    android:layout_height="wrap_content"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:padding="8dp"
+                android:layout_margin="18dp"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:background="@drawable/bg_shape_confirm_order"
+                android:layout_height="wrap_content">
+
+                <com.infinity.monginis.custom_class.TextViewRegularFont
+                    android:layout_width="match_parent"
+                    android:text="Rate Your Experience"
+                    android:textSize="@dimen/text_14sp"
+
+                    android:layout_margin="10dp"
+                    android:textColor="@android:color/black"
+                    android:layout_height="wrap_content"/>
+
+
+                <EditText
+                    android:layout_margin="10dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_width="match_parent"
+                    android:hint="Delivery"
+                    android:textSize="@dimen/text_14sp"
+                    android:layout_height="wrap_content"/>
+
+
+                <RatingBar
+                    android:layout_margin="12dp"
+                    android:layout_width="wrap_content"
+                    style="?android:attr/ratingBarStyleSmall"
+
+                    android:rating="4"
+                    android:numStars="5"
+
+                    android:layout_height="wrap_content"/>
+
+                <EditText
+                    android:layout_margin="10dp"
+                    android:layout_marginTop="8dp"
+                    android:textSize="@dimen/text_14sp"
+                    android:layout_width="match_parent"
+                    android:hint="What Can We Improve"
+                    android:layout_height="wrap_content"/>
+
+
+
+
+
+            </LinearLayout>
+
+
+
+
+
+        </LinearLayout>
+
+
+
+
+    </ScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

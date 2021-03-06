@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="12dp"
+    app:contentPadding="8dp"
+    android:orientation="vertical"
+    app:cardCornerRadius="7dp"
+    app:cardElevation="7dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_gravity="center_vertical"
+            android:gravity="center_vertical"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.30">
+
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/ivPopularItem"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:adjustViewBounds="true"
+                android:scaleType="centerInside"
+                android:src="@drawable/dummy_img_5" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:layout_weight="0.70"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <com.infinity.monginis.custom_class.TextViewRegularFont
+                    android:id="@+id/tvPopularItemName"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:maxLines="1"
+                    android:singleLine="true"
+                    android:text="Chocolate Vanilla"
+                    android:textColor="@android:color/black"
+                    android:textSize="@dimen/text_13sp" />
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_veg"/>
+
+            </LinearLayout>
+
+            <com.infinity.monginis.custom_class.TextViewRegularFont
+                android:id="@+id/tvBy"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:maxLines="1"
+                android:singleLine="true"
+                android:text="Round"
+                android:textColor="@android:color/darker_gray"
+                android:textSize="@dimen/text_12sp"
+                android:textStyle="bold" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:orientation="vertical">
+
+                <View
+                    android:id="@+id/line"
+                    android:layout_width="50dp"
+                    android:layout_height="0.6dp"
+                    android:background="@color/gray" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_gravity="end"
+                android:background="?selectableItemBackground">
+
+                <com.infinity.monginis.custom_class.TextViewRegularFont
+                    android:id="@+id/tvNewPrice"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    android:maxLines="1"
+                    android:singleLine="true"
+                    android:text="Rs. 400"
+                    android:textColor="@android:color/black"
+                    android:textSize="@dimen/text_12sp" />
+
+                <com.infinity.monginis.custom_class.TextViewRegularFont
+                    android:id="@+id/btnAddItemCount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/common_shape"
+                    android:fontFamily="@font/poppins_regular"
+                    android:paddingLeft="14dp"
+                    android:paddingTop="4dp"
+                    android:paddingRight="16dp"
+                    android:paddingBottom="4dp"
+                    android:text="Add"
+                    android:visibility="gone"
+                    android:textColor="@color/color_white"
+                    android:textSize="@dimen/text_12sp" />
+
+                <LinearLayout
+                    android:id="@+id/llAddMoreItem"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:background="@drawable/common_outlined_shape">
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/imgAdd"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/ic_add"
+                        android:background="?selectableItemBackground"
+                        android:padding="3dp"
+                        android:tint="@color/colorPrimary"/>
+
+                    <androidx.appcompat.widget.AppCompatEditText
+                        android:id="@+id/edItemCount"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:text="0"
+                        android:background="@null"
+                        android:gravity="center"
+                        android:inputType="number"
+                        android:imeOptions="actionDone"
+                        android:padding="3dp"
+                        android:textColor="@color/colorPrimary"/>
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/imgMinus"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/ic_minus"
+                        android:background="?selectableItemBackground"
+                        android:padding="3dp"
+                        android:tint="@color/colorPrimary"/>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</com.google.android.material.card.MaterialCardView>
+
+
+
+
+

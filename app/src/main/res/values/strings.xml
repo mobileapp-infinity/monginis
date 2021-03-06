@@ -1,0 +1,43 @@
+<resources>
+    <string name="app_name">monginis</string>
+
+    <string name="permissions_has_not_grant">Permissions has not been granted</string>
+    <string name="permission_request">Permission Request</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+
+    <string name="dashboard_top_categories">Top Categories</string>
+
+    <string name="dashboard_popular_items">Popular Items</string>
+
+    <string name="dashboard_near_by_deals">Near By Deals</string>
+
+    <string name="nav_explore">Explore</string>
+
+    <string name="nav_offers">Offers</string>
+
+    <string name="nav_cart">Cart</string>
+
+    <string name="nav_account">Account</string>
+
+    <string name="offers_shop">Shop</string>
+
+    <string name="offers_schemes">Schemes</string>
+
+    <string name="offers_todays_offers">Today`s Offers</string>
+
+    <string name="offers_free_delivery">Free Delivery *</string>
+
+    <string name="offers_view_all">View All</string>
+
+    <string name="explore_view_all">View All</string>
+
+    <string name="offers_all_offers">All Offers *</string>
+
+    <string name="explore_filter">Filter</string>
+
+    <string name="something_went_wrong">Please Try Again</string>
+
+
+</resources>

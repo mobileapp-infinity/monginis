@@ -1,0 +1,328 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+
+    tools:context=".login.LoginActivity">
+
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="22dp"
+            android:orientation="vertical">
+
+
+            <com.infinity.monginis.custom_class.TextViewRegularFont
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Customize Chocolate Vanila"
+                android:textColor="@color/color_black"
+                android:textSize="@dimen/text_18sp" />
+
+            <com.infinity.monginis.custom_class.TextViewRegularFont
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:layout_marginBottom="8dp"
+                android:text="Rs. 200 (Per Kg)"
+                android:textSize="@dimen/text_12sp" />
+
+
+
+
+
+        </LinearLayout>
+
+
+
+
+        <LinearLayout
+            android:background="@color/color_white"
+            android:layout_margin="22dp"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <com.toptoche.searchablespinnerlibrary.SearchableSpinner
+                android:id="@+id/spMenu"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="10dp" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.6dp"
+                android:layout_marginTop="10dp"
+                android:background="@color/gray" />
+
+            <com.toptoche.searchablespinnerlibrary.SearchableSpinner
+                android:id="@+id/spSpecialCakeShop"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="10dp" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.6dp"
+                android:layout_marginTop="10dp"
+                android:background="@color/gray" />
+
+            <LinearLayout
+                android:baselineAligned="false"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="2">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <com.toptoche.searchablespinnerlibrary.SearchableSpinner
+                        android:id="@+id/spWeight"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+
+                        android:padding="10dp" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="0.6dp"
+                        android:layout_marginTop="10dp"
+                        android:background="@color/gray" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <com.toptoche.searchablespinnerlibrary.SearchableSpinner
+
+                        android:id="@+id/spFlavour"
+                        style="@style/TextAppearance.AppCompat.Widget.DropDownItem"
+                        android:layout_width="match_parent"
+
+                        android:layout_height="wrap_content"
+                        android:padding="10dp" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="0.6dp"
+                        android:layout_marginTop="10dp"
+                        android:background="@color/gray" />
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+            <com.infinity.monginis.custom_class.TextViewRegularFont
+                android:id="@+id/tvPhotoUpload"
+                android:layout_margin="8dp"
+                android:layout_width="match_parent"
+
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:drawableRight="@drawable/ic_baseline_expand_more_24"
+                android:editable="false"
+
+                android:focusable="false"
+                android:singleLine="true"
+                android:text="Upload Photo"
+                android:textColor="@android:color/black"
+                android:textStyle="bold" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.6dp"
+                android:layout_marginTop="10dp"
+                android:background="@color/gray" />
+
+            <LinearLayout
+
+                android:baselineAligned="false"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:orientation="horizontal"
+                android:weightSum="2">
+
+                <LinearLayout
+
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <com.toptoche.searchablespinnerlibrary.SearchableSpinner
+                        android:id="@+id/spQty"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+
+                        android:dropDownSelector="@drawable/ic_baseline_expand_more_24"
+
+                        />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="0.6dp"
+                        android:layout_marginTop="10dp"
+                        android:background="@color/gray" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_weight="1"
+
+                    android:orientation="vertical">
+
+                    <com.infinity.monginis.custom_class.TextViewRegularFont
+                        android:layout_width="match_parent"
+
+                        android:id="@+id/tvDeliveryDate"
+                        android:layout_height="wrap_content"
+                        android:drawableEnd="@drawable/ic_baseline_expand_more_24"
+                        android:editable="false"
+                        android:focusable="false"
+                        android:singleLine="true"
+                        android:text="Delivery Date"
+                        android:textColor="@android:color/black"
+                        android:textStyle="bold" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="0.6dp"
+                        android:layout_marginTop="10dp"
+                        android:background="@color/gray" />
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_margin="8dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <com.infinity.monginis.custom_class.TextViewRegularFont
+
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="8dp"
+                    android:text="Your Message"
+                    android:textSize="@dimen/text_12sp" />
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@null"
+                    android:hint="Hello I want This Type Of Cake"
+                    android:maxLines="2"
+                    android:textColor="@color/color_black"
+                    android:textColorHint="@android:color/black"
+                    android:textSize="@dimen/text_12sp"
+                    android:textStyle="bold" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.6dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@color/gray" />
+
+
+                <com.infinity.monginis.custom_class.TextViewRegularFont
+
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="8dp"
+                    android:text="Instruction If Only"
+                    android:textSize="@dimen/text_12sp" />
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@null"
+                    android:hint="Hello I want This Type Of Cake"
+                    android:maxLines="2"
+                    android:textColor="@color/color_black"
+                    android:textColorHint="@android:color/black"
+                    android:textSize="@dimen/text_12sp"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.6dp"
+                android:layout_marginTop="10dp"
+                android:background="@color/gray" />
+
+
+            <LinearLayout
+                android:layout_margin="8dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:orientation="vertical">
+
+                <com.infinity.monginis.custom_class.TextViewRegularFont
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Almost There !"
+                    android:textColor="@color/color_black"
+                    android:textSize="@dimen/text_18sp" />
+
+                <com.infinity.monginis.custom_class.TextViewRegularFont
+
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="8dp"
+                    android:text="Login/Create Account Quickly To Place Order"
+                    android:textSize="@dimen/text_14sp"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+
+            <Button
+                android:layout_marginTop="5dp"
+                android:text="Proceed"
+
+                android:id="@+id/btnProceed"
+                android:textColor="@android:color/white"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+
+</ScrollView>

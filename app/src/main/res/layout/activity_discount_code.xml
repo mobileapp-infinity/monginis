@@ -1,0 +1,329 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/OFFWHITE"
+
+    tools:context=".dashboard.activity.CartActivity">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/OFFWHITE"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:layout_marginStart="4dp"
+                android:layout_marginEnd="4dp"
+                android:background="@drawable/bg_shape_profile"
+                android:orientation="vertical">
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    android:weightSum="2">
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/ivBack"
+                        android:layout_width="0dp"
+                        android:layout_height="40dp"
+                        android:layout_gravity="center"
+                        android:layout_margin="10dp"
+                        android:layout_weight="0.2"
+                        android:background="@drawable/bg_shape_for_back_button"
+                        android:padding="10dp"
+                        android:src="@drawable/ic_back" />
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginStart="8dp"
+                        android:layout_weight="1.7"
+                        android:gravity="center">
+
+                        <com.infinity.monginis.custom_class.TextViewMediumFont
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Enter Discount Code"
+                            android:textColor="@color/color_black"
+                            android:textSize="@dimen/text_18sp" />
+
+                    </LinearLayout>
+
+
+                </LinearLayout>
+
+                <com.infinity.monginis.custom_class.TextViewRegularFont
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp"
+
+                    android:text="Enter Discount Code"
+                    android:textColor="@color/color_black"
+                    android:textSize="@dimen/text_14sp" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/tilMobileNumber"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp"
+
+                    android:gravity="center_vertical">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/edCouponCode"
+
+                        android:layout_width="match_parent"
+                        android:layout_height="58dp"
+                        android:fontFamily="@font/poppins_regular"
+                        android:gravity="center_vertical"
+                        android:hint="Coupen Code"
+                        android:inputType="number"
+                        android:maxLength="10"
+                        android:textSize="@dimen/text_16sp"
+                        app:errorIconDrawable="@null" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <Button
+
+                    android:id="@+id/btnApplyNow"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+
+
+                    android:layout_margin="8dp"
+
+                    android:text="Apply Now !"
+                    android:textColor="@android:color/white" />
+
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+
+                android:layout_margin="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="4dp"
+                android:background="@drawable/bg_shape_payment_option"
+                android:orientation="vertical">
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:baselineAligned="false"
+                    android:orientation="horizontal"
+                    android:weightSum="2">
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1">
+
+                        <ImageView
+
+
+                            android:layout_width="75dp"
+                            android:layout_height="40dp"
+                            android:src="@drawable/paytm" />
+                    </LinearLayout>
+
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="end">
+
+                        <com.infinity.monginis.custom_class.TextViewRegularFont
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/dotted_primary"
+                            android:padding="10dp"
+                            android:text="FREEDELPTM"
+
+                            android:textSize="@dimen/text_16sp" />
+                    </LinearLayout>
+
+
+                </LinearLayout>
+
+                <com.infinity.monginis.custom_class.TextViewMediumFont
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:text="Get Unlimited  Free Delivery  Using Paytm"
+
+                    android:textColor="@color/color_black"
+                    android:textSize="@dimen/text_14sp" />
+
+
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:id="@+id/llContent"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <com.infinity.monginis.custom_class.TextViewRegularFont
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+
+                        android:layout_margin="10dp"
+                        android:text="Use Code FREEDELPM And Get Free Delivery on all
+orders above Rs.99"
+                        android:textSize="@dimen/text_12sp" />
+
+
+                    <com.infinity.monginis.custom_class.TextViewRegularFont
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="10dp"
+                        android:text="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum."
+                        android:textSize="@dimen/text_12sp" />
+
+                </LinearLayout>
+
+
+                <com.infinity.monginis.custom_class.TextViewRegularFont
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:drawableRight="@drawable/ic_baseline_expand_more_24"
+                    android:text="Close"
+                    android:id="@+id/tvPayTmExpandClose"
+                    android:textColor="@color/color_black" />
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:layout_margin="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="4dp"
+                android:background="@drawable/bg_shape_payment_option"
+                android:orientation="vertical">
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:baselineAligned="false"
+                    android:orientation="horizontal"
+                    android:weightSum="2">
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1">
+
+                        <ImageView
+
+                            android:layout_width="75dp"
+                            android:layout_height="40dp"
+                            android:src="@drawable/gpay" />
+                    </LinearLayout>
+
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="end">
+
+                        <com.infinity.monginis.custom_class.TextViewRegularFont
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/dotted_primary"
+                            android:padding="10dp"
+                            android:text="Delivery"
+
+                            android:textSize="@dimen/text_16sp" />
+                    </LinearLayout>
+
+
+                </LinearLayout>
+
+                <com.infinity.monginis.custom_class.TextViewMediumFont
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:text="Free Delivery For The First Time User"
+
+                    android:textColor="@color/color_black"
+                    android:textSize="@dimen/text_14sp" />
+
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:id="@+id/llGooglePayContent"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <com.infinity.monginis.custom_class.TextViewRegularFont
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+
+                        android:layout_margin="10dp"
+                        android:text="Use Code FREEDELPM And Get Free Delivery on all
+orders above Rs.99"
+                        android:textSize="@dimen/text_12sp" />
+
+
+                    <com.infinity.monginis.custom_class.TextViewRegularFont
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="10dp"
+                        android:text="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum."
+                        android:textSize="@dimen/text_12sp" />
+
+                </LinearLayout>
+
+
+                <com.infinity.monginis.custom_class.TextViewRegularFont
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:drawableRight="@drawable/ic_baseline_expand_more_24"
+                    android:text="Close"
+                    android:id="@+id/tvGooglePayExpandClose"
+                    android:textColor="@color/color_black" />
+
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+    </ScrollView>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

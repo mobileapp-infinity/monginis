@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#de1f81</color>
+    <color name="colorPrimaryDark">#a70055</color>
+    <color name="colorAccent">#002581</color>
+    <color name="OFFWHITE">#F3F3F3</color>
+    <color name="color_white">#FFFFFF</color>
+    <color name="color_black">#000000</color>
+    <color name="color_black_with_90_opacity">#E6000000</color>
+    <color name="color_black_with_85_opacity">#D9000000</color>
+    <color name="color_black_with_75_opacity">#BF000000</color>
+    <color name="color_black_with_70_opacity">#B3000000</color>
+    <color name="color_transparent">#ffffff</color>
+    <color name="common_bg_color">#F3F4F6</color>
+
+    <color name="white_color_with_85_opacity">#26FFFFFF</color>
+    <color name="white_color_with_75_opacity">#BFFFFFFF</color>
+    <color name="color_primary_with_75_opacity">#BFde1f81</color>
+    <color name="color_primary_with_80_opacity">#CCde1f81</color>
+    <color name="color_primary_with_90_opacity">#E6de1f81</color>
+    <color name="color_primary_with_60_opacity">#4Dde1f81</color>
+    <color name="color_primary_with_30_opacity">#33de1f81</color>
+    <color name="color_primary_with_70_opacity">#B3de1f81</color>
+
+    <color name="color_accent_with_90_opacity">#E6002581</color>
+    <color name="color_accent_with_75_opacity">#66002581</color>
+    <color name="color_accent_with_80_opacity">#CC002581</color>
+
+    <color name="light_gray">#E0E0E0</color>
+    <color name="gray">#eaeaea</color>
+    <color name="green">#197319</color>
+    <color name="exam_module_row_color">#EEEEEE</color>
+
+    <color name="color_view_all_background">#F7F7F7</color>
+    <color name="color_item_divider">#808080</color>
+
+
+</resources>

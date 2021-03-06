@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "10675315784",
+    "project_id": "monginis-5c1b3",
+    "storage_bucket": "monginis-5c1b3.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:10675315784:android:f264d13849d1e42efce47d",
+        "android_client_info": {
+          "package_name": "com.infinity.monginis"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "10675315784-29qh39dpmg8rj28uel65s2muhqlj1bif.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.infinity.monginis",
+            "certificate_hash": "c5f76021bde514de95b6b3e6175444fb3936130a"
+          }
+        },
+        {
+          "client_id": "10675315784-inl6km5bmb9oj460b0ump17qer9uop4p.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB0kxShtkrrPsFC_hU8NkD6JmDIDBcMbuE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "10675315784-inl6km5bmb9oj460b0ump17qer9uop4p.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

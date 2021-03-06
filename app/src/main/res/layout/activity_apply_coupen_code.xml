@@ -1,0 +1,505 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".dashboard.activity.ApplyCoupenCodeActivity">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:weightSum="2">
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:layout_width="0dp"
+                    android:layout_height="40dp"
+                    android:layout_gravity="center"
+                    android:layout_margin="10dp"
+                    android:id="@+id/ivBack"
+                    android:layout_weight="0.2"
+                    android:background="@drawable/bg_shape_for_back_button"
+                    android:padding="10dp"
+                    android:src="@drawable/ic_back" />
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="8dp"
+                    android:layout_weight="1.7"
+                    android:gravity="center">
+
+
+                    <LinearLayout
+
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="8dp"
+                        android:layout_marginStart="8dp"
+                        android:orientation="vertical">
+
+                        <com.infinity.monginis.custom_class.TextViewMediumFont
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="1560409841766"
+                            android:textColor="@android:color/black"
+                            android:textSize="@dimen/text_18sp" />
+
+                        <com.infinity.monginis.custom_class.TextViewRegularFont
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="12:40 PM | item Rs.420.00"
+
+                            android:textSize="@dimen/text_16sp" />
+
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:padding="4dp"
+                android:layout_margin="12dp"
+                android:background="@drawable/bg_shape_confirm_order"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+
+                <LinearLayout
+
+                    android:layout_margin="14dp"
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <LinearLayout
+                        android:weightSum="3.5"
+                        android:orientation="vertical"
+                        android:layout_margin="20dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+
+                        <ImageView
+                            android:layout_weight="1.5"
+                            android:layout_width="30dp"
+                            android:src="@drawable/ic_location"
+                            android:layout_height="0dp"/>
+
+
+                        <LinearLayout
+                            android:layout_marginStart="5dp"
+                            android:layout_weight="0.5"
+                            android:weightSum="3"
+                            android:layout_margin="12dp"
+                            android:orientation="vertical"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content">
+                            <com.infinity.monginis.custom_class.TextViewRegularFont
+                                android:layout_width="wrap_content"
+                                android:text="|"
+                                android:textStyle="bold"
+                                android:layout_weight="1"
+                                android:layout_height="0dp"/>
+                            <com.infinity.monginis.custom_class.TextViewRegularFont
+                                android:layout_width="wrap_content"
+                                android:text="|"
+                                android:textStyle="bold"
+                                android:layout_weight="1"
+                                android:layout_height="0dp"/>
+
+                            <com.infinity.monginis.custom_class.TextViewRegularFont
+                                android:layout_width="wrap_content"
+                                android:text="|"
+                                android:textStyle="bold"
+                                android:layout_weight="1"
+                                android:layout_height="0dp"/>
+
+
+
+                        </LinearLayout>
+
+
+                        <ImageView
+                            android:layout_weight="1.5"
+                            android:layout_width="30dp"
+                            android:src="@drawable/ic_baseline_home_24"
+                            android:layout_height="0dp"/>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:orientation="vertical"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <LinearLayout
+                            android:layout_margin="20dp"
+                            android:layout_width="match_parent"
+                            android:orientation="vertical"
+                            android:layout_height="wrap_content">
+
+                            <com.infinity.monginis.custom_class.TextViewRegularFont
+                                android:layout_width="match_parent"
+                                android:text="Krishna Complex"
+                                android:textSize="@dimen/text_14sp"
+                                android:textColor="@android:color/black"
+                                android:layout_height="wrap_content"/>
+
+                            <com.infinity.monginis.custom_class.TextViewRegularFont
+                                android:layout_width="match_parent"
+                                android:text="415, University Road"
+                                android:layout_marginTop="6dp"
+                                android:textSize="@dimen/text_14sp"
+                                android:layout_height="wrap_content"/>
+
+                        </LinearLayout>
+
+                        <LinearLayout
+
+                            android:layout_margin="20dp"
+
+                            android:layout_width="match_parent"
+                            android:orientation="vertical"
+                            android:layout_height="wrap_content">
+
+                            <com.infinity.monginis.custom_class.TextViewRegularFont
+                                android:layout_width="match_parent"
+                                android:text="Home"
+                                android:textSize="@dimen/text_14sp"
+                                android:textColor="@android:color/black"
+                                android:layout_height="wrap_content"/>
+
+                            <com.infinity.monginis.custom_class.TextViewRegularFont
+                                android:layout_width="match_parent"
+                                android:text="Vatshalya,Sardar Nagar ,5,Kalavad Road"
+                                android:layout_marginTop="6dp"
+                                android:textSize="@dimen/text_14sp"
+                                android:layout_height="wrap_content"/>
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+
+
+
+
+
+
+
+
+                </LinearLayout>
+
+
+
+            </LinearLayout>
+
+            <LinearLayout
+
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="12dp"
+                android:weightSum="1.4"
+                android:background="@drawable/bg_shape_confirm_order"
+                android:orientation="horizontal"
+                android:padding="16dp">
+
+              <ImageView
+                  android:layout_weight="0.2"
+                  android:layout_width="0dp"
+                  android:layout_gravity="center_vertical"
+                  android:src="@drawable/ic_order_completed"
+                  android:layout_height="25dp"/>
+
+                <com.infinity.monginis.custom_class.TextViewRegularFont
+                    android:layout_width="0dp"
+                    android:layout_weight="0.8"
+                  android:textColor="@android:color/black"
+                    android:textAlignment="center"
+                    android:text="Your Order Is Completed"
+                    android:layout_height="wrap_content"/>
+
+
+                <com.infinity.monginis.custom_class.TextViewMediumFont
+                    android:id="@+id/tvViewOrder"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.4"
+                    android:background="@drawable/common_outlined_shape_bold"
+                    android:padding="4dp"
+                    android:text="Review"
+                    android:textAlignment="center"
+                    android:textColor="@color/colorPrimary" />
+
+
+
+
+
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+
+                android:background="@drawable/bg_shape_confirm_order"
+                android:orientation="vertical"
+                android:padding="10dp">
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:weightSum="1"
+                    android:layout_height="wrap_content">
+
+                    <com.google.android.material.imageview.ShapeableImageView
+                        android:layout_width="0dp"
+                        android:layout_weight="0.3"
+                        android:src="@drawable/monginis_logo"
+                        android:layout_height="90dp"/>
+
+                    <LinearLayout
+
+                        android:layout_margin="8dp"
+                        android:orientation="vertical"
+                        android:layout_width="0dp"
+                        android:layout_weight="0.7"
+                        android:layout_height="wrap_content">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="0dp"
+                            android:layout_weight="1"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal">
+
+                            <com.infinity.monginis.custom_class.TextViewRegularFont
+                                android:id="@+id/tvPopularItemName"
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:gravity="center_vertical"
+                                android:maxLines="1"
+                                android:singleLine="true"
+                                android:text="Chocolate Vanilla"
+                                android:textColor="@android:color/black"
+                                android:textSize="@dimen/text_16sp" />
+
+                            <androidx.appcompat.widget.AppCompatImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:src="@drawable/ic_veg"/>
+
+                        </LinearLayout>
+
+                        <com.infinity.monginis.custom_class.TextViewRegularFont
+                            android:id="@+id/tvBy"
+                            android:layout_width="match_parent"
+                            android:layout_height="0dp"
+                            android:layout_weight="1"
+                            android:gravity="center_vertical"
+                            android:maxLines="1"
+                            android:singleLine="true"
+                            android:text="Round"
+                            android:textColor="@android:color/darker_gray"
+                            android:textSize="@dimen/text_14sp"
+                            android:textStyle="bold" />
+                        <View
+                            android:id="@+id/line"
+                            android:layout_width="55dp"
+                           android:layout_marginTop="6dp"
+                            android:layout_height="0.6dp"
+                            android:background="@color/gray" />
+
+                        <com.infinity.monginis.custom_class.TextViewRegularFont
+                            android:layout_width="match_parent"
+                            android:text="Rs.400"
+                            android:layout_marginTop="8dp"
+                            android:textSize="@dimen/text_16sp"
+                            android:textColor="@android:color/black"
+                            android:layout_height="wrap_content"/>
+
+
+
+
+
+                    </LinearLayout>
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_margin="6dp"
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <LinearLayout
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:weightSum="1"
+                        android:layout_height="wrap_content">
+
+                        <com.infinity.monginis.custom_class.TextViewRegularFont
+                            android:layout_width="0dp"
+                            android:layout_weight="0.5"
+                            android:text="Sub Total :"
+                            android:textColor="@android:color/black"
+                            android:textSize="@dimen/text_14sp"
+                            android:layout_height="wrap_content"/>
+
+                        <com.infinity.monginis.custom_class.TextViewRegularFont
+                            android:layout_width="0dp"
+                            android:layout_weight="0.5"
+                            android:text="Rs.400.0"
+                            android:textSize="@dimen/text_14sp"
+                            android:textColor="@android:color/black"
+                            android:gravity="end"
+                            android:layout_height="wrap_content"/>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:weightSum="1"
+                        android:layout_height="wrap_content">
+
+                        <com.infinity.monginis.custom_class.TextViewRegularFont
+                            android:layout_width="0dp"
+                            android:layout_marginTop="6dp"
+                            android:layout_weight="0.5"
+                            android:text="Delivery Charges"
+                            android:textColor="@android:color/black"
+                            android:textSize="@dimen/text_14sp"
+                            android:layout_height="wrap_content"/>
+
+                        <com.infinity.monginis.custom_class.TextViewRegularFont
+                            android:layout_width="0dp"
+                            android:layout_weight="0.5"
+                            android:text="Rs.20.0"
+                            android:textSize="@dimen/text_14sp"
+                            android:textColor="@android:color/black"
+                            android:gravity="end"
+                            android:layout_height="wrap_content"/>
+
+                    </LinearLayout>
+                    <LinearLayout
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:weightSum="1"
+                        android:layout_height="wrap_content">
+
+                        <com.infinity.monginis.custom_class.TextViewRegularFont
+                            android:layout_width="0dp"
+                            android:layout_weight="0.5"
+                            android:text="Total :"
+                            android:layout_marginTop="6dp"
+                            android:textColor="@android:color/black"
+                            android:textSize="@dimen/text_14sp"
+                            android:layout_height="wrap_content"/>
+
+                        <com.infinity.monginis.custom_class.TextViewRegularFont
+                            android:layout_width="0dp"
+                            android:layout_weight="0.5"
+                            android:text="Rs.420.0"
+                            android:textSize="@dimen/text_14sp"
+                            android:textColor="@android:color/black"
+                            android:gravity="end"
+                            android:layout_height="wrap_content"/>
+
+                    </LinearLayout>
+
+
+                </LinearLayout>
+
+
+
+
+
+
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="12dp"
+                android:background="@drawable/bg_shape_confirm_order"
+                android:orientation="vertical"
+                android:padding="16dp">
+
+
+                <LinearLayout
+                    android:id="@+id/llSelectPayment"
+                    android:padding="10dp"
+                    android:weightSum="1"
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+
+                    <ImageView
+                        android:layout_weight="0.1"
+                        android:layout_width="0dp"
+                        android:layout_gravity="center_vertical"
+                        android:src="@drawable/ic_payment_card"
+                        android:layout_height="wrap_content"/>
+
+                    <com.infinity.monginis.custom_class.TextViewRegularFont
+
+                        android:layout_weight="0.45"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+
+
+                        android:layout_marginStart="4dp"
+                        android:text="To Pay"
+                        android:textColor="@android:color/black"
+                        android:textSize="@dimen/text_16sp" />
+                    <com.infinity.monginis.custom_class.TextViewRegularFont
+
+                        android:layout_weight="0.45"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+
+
+
+                        android:text="Rs.420.0"
+                        android:gravity="end"
+                        android:textColor="@android:color/black"
+                        android:textSize="@dimen/text_16sp" />
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

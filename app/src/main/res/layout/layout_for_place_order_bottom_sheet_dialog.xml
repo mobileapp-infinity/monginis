@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    tools:context=".login.LoginActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="24dp"
+        android:orientation="vertical">
+
+        <com.infinity.monginis.custom_class.TextViewRegularFont
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Customize Chocolate Vanila"
+            android:textColor="@color/color_black"
+            android:textSize="@dimen/text_18sp" />
+
+        <com.infinity.monginis.custom_class.TextViewRegularFont
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:layout_marginBottom="8dp"
+            android:text="Rs. 200"
+            android:textSize="@dimen/text_12sp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:layout_marginBottom="8dp"
+            android:orientation="vertical">
+
+            <com.infinity.monginis.custom_class.TextViewRegularFont
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Repeat last used customized?"
+                android:textSize="@dimen/text_12sp" />
+
+            <com.infinity.monginis.custom_class.TextViewRegularFont
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:text="Truffle Heart Cake"
+                android:textColor="@color/color_black"
+                android:textSize="@dimen/text_12sp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:layout_marginBottom="12dp"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="12dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:id="@+id/llIWillChoose"
+                android:background="?selectableItemBackground"
+                android:orientation="vertical">
+
+                <com.infinity.monginis.custom_class.TextViewRegularFont
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/shape_i_will_choose_btn"
+                    android:gravity="center"
+                    android:padding="8dp"
+                    android:text="I'LL CHOOSE"
+                    android:textColor="@color/colorPrimary"
+                    app:textAllCaps="true" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/llRepeatLast"
+                android:layout_width="0dp"
+                android:gravity="center"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="12dp"
+                android:layout_weight="1"
+                android:background="?selectableItemBackground"
+                android:orientation="vertical">
+
+                <com.infinity.monginis.custom_class.TextViewRegularFont
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/shape_repeat_last_btn"
+                    android:gravity="center"
+                    android:padding="8dp"
+                    android:text="REPEAT LAST"
+                    android:textColor="@color/color_white"
+                    app:textAllCaps="true" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>

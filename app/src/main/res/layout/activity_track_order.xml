@@ -1,0 +1,266 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".dashboard.activity.RateThisOrderActivity">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:weightSum="2"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:layout_gravity="center"
+                    android:id="@+id/ivBack"
+                    android:layout_margin="10dp"
+                    android:layout_weight="0.2"
+                    android:background="@drawable/bg_shape_for_back_button"
+                    android:layout_width="0dp"
+                    android:padding="10dp"
+                    android:src="@drawable/ic_back"
+                    android:layout_height="40dp"/>
+
+                <LinearLayout
+                    android:layout_marginStart="8dp"
+                    android:gravity="center"
+                    android:layout_weight="1.7"
+                    android:layout_gravity="center"
+                    android:layout_width="0dp"
+                    android:orientation="vertical"
+                    android:layout_height="wrap_content">
+
+                    <com.infinity.monginis.custom_class.TextViewMediumFont
+                        android:layout_width="match_parent"
+                        android:text="1560409841766"
+                        android:textSize="@dimen/text_18sp"
+                        android:textColor="@android:color/black"
+                        android:layout_height="wrap_content"/>
+                    <com.infinity.monginis.custom_class.TextViewRegularFont
+                        android:layout_width="match_parent"
+                        android:text="12 : 40 PM | item Rs.420.0"
+                        android:textSize="@dimen/text_16sp"
+
+                        android:layout_height="wrap_content"/>
+
+                </LinearLayout>
+
+
+
+
+            </LinearLayout>
+
+
+                   <androidx.fragment.app.FragmentContainerView
+
+                android:id="@+id/viewLocationMap"
+                       android:layout_margin="8dp"
+                       android:background="@drawable/bg_shape_confirm_order"
+                android:name="com.google.android.gms.maps.SupportMapFragment"
+                android:layout_width="match_parent"
+                android:layout_height="300dp" />
+
+
+
+
+            <LinearLayout
+
+                android:padding="10dp"
+                android:layout_margin="8dp"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:background="@drawable/bg_shape_confirm_order"
+                android:layout_height="wrap_content">
+
+
+
+                <LinearLayout
+
+                    android:layout_margin="10dp"
+                    android:orientation="horizontal"
+                    android:weightSum="1"
+
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <RadioButton
+
+
+
+
+                        android:id="@+id/rbLiveStatus"
+                        android:layout_margin="14dp"
+                        android:layout_width="0dp"
+                        android:layout_weight="0.2"
+
+
+                        android:layout_gravity="center"
+                        android:layout_height="wrap_content"/>
+
+                    <LinearLayout
+                        android:layout_gravity="center"
+                        android:orientation="vertical"
+                        android:layout_width="0dp"
+                        android:layout_weight="0.8"
+                        android:layout_height="wrap_content">
+
+                        <com.infinity.monginis.custom_class.TextViewRegularFont
+                            android:layout_width="match_parent"
+                            android:text="Live Status"
+                            android:textColor="@android:color/black"
+                            android:layout_height="wrap_content"/>
+
+                        <com.infinity.monginis.custom_class.TextViewRegularFont
+                            android:layout_width="match_parent"
+                            android:text="Your Order Is Ready"
+
+                            android:layout_height="wrap_content"/>
+
+                    </LinearLayout>
+
+
+
+                </LinearLayout>
+
+                <View
+                    android:layout_margin="10dp"
+                    android:layout_width="match_parent"
+                    android:background="@color/gray"
+                    android:layout_height="0.6dp"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:orientation="horizontal"
+                    android:weightSum="1">
+
+                    <de.hdodenhof.circleimageview.CircleImageView
+
+                        android:layout_width="0dp"
+                        android:layout_height="25dp"
+                        android:layout_weight="0.2"
+                        android:src="@drawable/ic_launcher_background" />
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.7"
+                        android:orientation="vertical">
+
+                        <com.infinity.monginis.custom_class.TextViewRegularFont
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+
+                            android:text="Mitul Reached The Restaurant And Picking Up The Order" />
+
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.1"
+                        android:orientation="vertical">
+
+                        <ImageView
+
+                            android:src="@drawable/ic_baseline_message_24"
+                            android:layout_width="25dp"
+
+                            android:layout_height="25dp"/>
+
+                        <ImageView
+
+                            android:layout_marginTop="4dp"
+                            android:src="@drawable/ic_phone"
+                            android:layout_width="25dp"
+
+                            android:layout_height="25dp"/>
+
+
+                    </LinearLayout>
+
+
+                </LinearLayout>
+
+                <View
+                    android:layout_margin="10dp"
+                    android:layout_width="match_parent"
+                    android:background="@color/gray"
+                    android:layout_height="0.6dp"/>
+
+
+                <LinearLayout
+                    android:layout_margin="10dp"
+                    android:orientation="horizontal"
+                    android:weightSum="1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <ImageView
+                        android:src="@drawable/ic_baseline_message_24"
+                        android:layout_width="0dp"
+                        android:layout_weight="0.2"
+                        android:layout_height="25dp"/>
+
+                    <LinearLayout
+                        android:orientation="vertical"
+                        android:layout_width="0dp"
+                        android:layout_weight="0.8"
+                        android:layout_height="wrap_content">
+
+                        <com.infinity.monginis.custom_class.TextViewRegularFont
+                            android:layout_width="match_parent"
+                            android:text="Have An Issue?  Chat With Us"
+
+                            android:layout_height="wrap_content"/>
+
+
+
+                    </LinearLayout>
+
+
+
+                </LinearLayout>
+
+                <View
+                    android:layout_margin="10dp"
+                    android:layout_width="match_parent"
+                    android:background="@color/gray"
+                    android:layout_height="0.6dp"/>
+
+
+
+            </LinearLayout>
+
+
+
+
+
+
+
+        </LinearLayout>
+
+
+
+
+    </ScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
