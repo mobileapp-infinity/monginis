@@ -26,7 +26,9 @@ import com.infinity.monginis.api.ApiUrls;
 import com.infinity.monginis.dashboard.adapter.SearchCategoryAdapter;
 import com.infinity.monginis.dashboard.pojo.SearchCategoryPojo;
 import com.infinity.monginis.dashboard.pojo.TestPojo;
+import com.infinity.monginis.utils.CommonUtil;
 import com.infinity.monginis.utils.ConnectionDetector;
+import com.infinity.monginis.utils.MySharedPreferences;
 
 import java.util.ArrayList;
 
@@ -57,6 +59,7 @@ public class SearchFragment extends Fragment implements View.OnClickListener {
     private LinearLayout llMain;
     private ConnectionDetector connectionDetector;
     private static boolean isItemSelected;
+    private MySharedPreferences mySharedPreferences;
 
     public SearchFragment() {
         // Required empty public constructor
@@ -93,6 +96,7 @@ public class SearchFragment extends Fragment implements View.OnClickListener {
     }
 
     private void initView(View view) {
+        mySharedPreferences = new MySharedPreferences(getActivity());
         connectionDetector = new ConnectionDetector(activity);
         edtSearchCategory = view.findViewById(R.id.edtSearchCategory);
         imgClearSearch = view.findViewById(R.id.imgClearSearch);
@@ -133,6 +137,8 @@ public class SearchFragment extends Fragment implements View.OnClickListener {
                 hideKeyBoard();
 
                 isItemSelected = false;
+                llCategory.setVisibility(View.VISIBLE);
+                llNoDataFoundSearchCategory.setVisibility(View.GONE);
                 searchCategoryAdapter = new SearchCategoryAdapter(activity, customerPojoArrayList);
                 rvSearchCategory.setAdapter(searchCategoryAdapter);
                 searchCategoryAdapter.notifyDataSetChanged();
@@ -144,6 +150,8 @@ public class SearchFragment extends Fragment implements View.OnClickListener {
             public void onClick(View v) {
                 hideKeyBoard();
                 isItemSelected = true;
+                llCategory.setVisibility(View.VISIBLE);
+                llNoDataFoundSearchCategory.setVisibility(View.GONE);
                 searchCategoryAdapter = new SearchCategoryAdapter(activity, ItemPojoArrayList);
                 rvSearchCategory.setAdapter(searchCategoryAdapter);
                 searchCategoryAdapter.notifyDataSetChanged();
@@ -222,12 +230,11 @@ public class SearchFragment extends Fragment implements View.OnClickListener {
             llCategory.setVisibility(View.GONE);
             llSearchCategoryProgressbar.setVisibility(View.VISIBLE);
             llNoDataFoundSearchCategory.setVisibility(View.GONE);
-            ApiImplementer.getSearchCategoryApiImplementer("1", "1", "1", "0", ApiUrls.TESTING_KEY, "1", new Callback<SearchCategoryPojo>() {
+            ApiImplementer.getSearchCategoryApiImplementer(mySharedPreferences.getVersionCode(), mySharedPreferences.getAndroidID(), mySharedPreferences.getDeviceID(), CommonUtil.USER_ID, ApiUrls.TESTING_KEY, CommonUtil.COMP_ID, new Callback<SearchCategoryPojo>() {
                 @Override
                 public void onResponse(Call<SearchCategoryPojo> call, Response<SearchCategoryPojo> response) {
-                    if (response.isSuccessful() && response.body() != null &&
-                            ((response.body().getRECORDS().getItemJson() != null && response.body().getRECORDS().getItemJson().size() > 0) ||
-                                    (response.body().getRECORDS().getCustJson() != null && response.body().getRECORDS().getCustJson().size() > 0))) {
+                    if (response.isSuccessful() && response.body() != null
+                    ) {
                         llMain.setVisibility(View.VISIBLE);
                         llSearchCategoryProgressbar.setVisibility(View.GONE);
                         llCategory.setVisibility(View.VISIBLE);
@@ -236,19 +243,29 @@ public class SearchFragment extends Fragment implements View.OnClickListener {
 
                         ItemPojoArrayList = new ArrayList<>();
                         customerPojoArrayList = new ArrayList<>();
+
                         if (searchCategoryPojo != null && searchCategoryPojo.getRECORDS().getCustJson().size() > 0) {
+
+
                             for (int i = 0; i < searchCategoryPojo.getRECORDS().getCustJson().size(); i++) {
 
                                 customerPojoArrayList.add(new TestPojo(searchCategoryPojo.getRECORDS().getCustJson().get(i).getCusName(), searchCategoryPojo.getRECORDS().getCustJson().get(i).getAddress()));
 
                             }
 
-                            for (int j = 0; j < searchCategoryPojo.getRECORDS().getItemJson().size(); j++) {
-                                ItemPojoArrayList.add(new TestPojo(searchCategoryPojo.getRECORDS().getItemJson().get(j).getItmName(), searchCategoryPojo.getRECORDS().getItemJson().get(j).getMrp()));
-                            }
 
                             searchCategoryAdapter = new SearchCategoryAdapter(activity, customerPojoArrayList);
                             rvSearchCategory.setAdapter(searchCategoryAdapter);
+
+                        } else {
+
+                            llCategory.setVisibility(View.GONE);
+                            llNoDataFoundSearchCategory.setVisibility(View.VISIBLE);
+                        }
+                        if (searchCategoryPojo != null && searchCategoryPojo.getRECORDS().getItemJson().size() > 0) {
+                            for (int j = 0; j < searchCategoryPojo.getRECORDS().getItemJson().size(); j++) {
+                                ItemPojoArrayList.add(new TestPojo(searchCategoryPojo.getRECORDS().getItemJson().get(j).getItmName(), searchCategoryPojo.getRECORDS().getItemJson().get(j).getMrp()));
+                            }
 
                         }
 

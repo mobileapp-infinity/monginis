@@ -8,10 +8,12 @@ import android.content.Intent;
 import android.provider.Settings;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.Button;
 
 import androidx.appcompat.app.AlertDialog;
 
 import com.infinity.monginis.R;
+import com.infinity.monginis.custom_class.TextViewMediumFont;
 import com.infinity.monginis.custom_class.TextViewRegularFont;
 
 public class DialogUtil {
@@ -115,6 +117,7 @@ public class DialogUtil {
             }
         });
     }
+
 
 
 

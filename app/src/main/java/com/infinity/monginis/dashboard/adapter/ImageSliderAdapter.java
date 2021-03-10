@@ -10,6 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.widget.AppCompatImageView;
 import androidx.viewpager.widget.PagerAdapter;
 
+import com.google.android.material.card.MaterialCardView;
 import com.infinity.monginis.R;
 
 import java.util.Objects;
@@ -47,6 +48,7 @@ public class ImageSliderAdapter extends PagerAdapter {
     public Object instantiateItem(@NonNull ViewGroup container, final int position) {
         // inflating the item.xml
         View itemView = mLayoutInflater.inflate(R.layout.layout_image_slider, container, false);
+       // View itemView = mLayoutInflater.inflate(R.layout.dashboard_banner_item_view, container, false);
 
         // referencing the image view from the item.xml file
         AppCompatImageView imageView = itemView.findViewById(R.id.imgCategorySlider);

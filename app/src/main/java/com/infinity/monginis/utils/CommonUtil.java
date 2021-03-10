@@ -28,6 +28,22 @@ import static android.content.Context.LOCATION_SERVICE;
 public class CommonUtil {
     public static final String FOLDER_NAME = "Monginis";
 
+
+    //local
+
+    public static final String COMP_ID = "5";
+    public static final String CUST_ID = "0";
+    public static final String USER_ID = "0";
+    public static final String SHOP_ID = "0";
+
+
+    //live
+
+    // public static final String COMP_ID = "1";
+    // public static final String CUST_ID = "0";
+    // public static final String USER_ID = "0";
+    // public static final String SHOP_ID = "0";
+
     public static String generateUniqueFileName(String fileName) {
         return UUID.randomUUID().toString() + "_" + fileName;
     }

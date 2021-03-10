@@ -12,6 +12,8 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.Priority;
+import com.bumptech.glide.request.RequestOptions;
 import com.infinity.monginis.R;
 import com.infinity.monginis.custom_class.TextViewRegularFont;
 import com.infinity.monginis.dashboard.pojo.GetItemsForDashboardPojo;
@@ -50,7 +52,21 @@ public class PopularItemsAdapter extends RecyclerView.Adapter<PopularItemsAdapte
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
 
-        Glide.with(context).load("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTL33bMETvSf7NgYOPcOm5y3ytXa7F5vVXL5w&usqp=CAU").into(holder.ivPopularItem);
+        RequestOptions options = new RequestOptions()
+
+                .placeholder(R.drawable.monginis_logo)
+                .error(R.drawable.monginis_logo)
+
+                .priority(Priority.HIGH);
+
+        try {
+            Glide.with(context).load(getItemsForDashboardPojo.getRECORDS().get(position).getItmUrl()).apply(options).into(holder.ivPopularItem);
+        } catch (Exception e) {
+
+            System.out.println("Item Image Setting Error:::::" + e.getMessage());
+        }
+
+
         if (position % 2 == 0) {
 
             holder.tvPopularCategory.setText("(Special)");

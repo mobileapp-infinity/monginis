@@ -14,6 +14,8 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.Priority;
+import com.bumptech.glide.request.RequestOptions;
 import com.infinity.monginis.R;
 import com.infinity.monginis.custom_class.TextViewRegularFont;
 
@@ -50,10 +52,25 @@ public class TopCategoriesAdapter extends RecyclerView.Adapter<TopCategoriesAdap
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
-        Glide.with(context)
-                .load("https://connectcourse.files.wordpress.com/2020/07/cake_3.jpg")
+
+        RequestOptions options = new RequestOptions()
+
                 .placeholder(R.drawable.monginis_logo)
-                .into(holder.ivTopCategories);
+                .error(R.drawable.monginis_logo)
+
+                .priority(Priority.HIGH);
+
+        try {
+            Glide.with(context)
+                    .load(getCategoryForDashboardPojo.getRECORDS().get(position).getImg_url())
+                    .placeholder(R.drawable.monginis_logo).apply(options)
+                    .into(holder.ivTopCategories);
+
+        } catch (Exception e) {
+
+            System.out.println("Glide image Error" + e.getMessage());
+        }
+
 
         if (!CommonUtil.checkIsEmptyOrNullCommon(getCategoryForDashboardPojo.getRECORDS().get(position).getCatName())) {
             holder.tvCategoryName.setText(getCategoryForDashboardPojo.getRECORDS().get(position).getCatName());

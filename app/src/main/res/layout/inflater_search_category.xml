@@ -24,7 +24,7 @@
             android:padding="6dp">
 
             <ImageView
-                android:id="@+id/ivPopularItem"
+                android:id="@+id/ivSearchItem"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:adjustViewBounds="true"

@@ -6,6 +6,8 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.LinearLayout;
 
 import androidx.annotation.NonNull;
@@ -70,6 +72,7 @@ public class CategoryDetailListAdapter extends RecyclerView.Adapter<CategoryDeta
             holder.llAddMoreItem.setVisibility(View.VISIBLE);
         }
 
+
         if (isFromTopCategories) {
 
             isFromSpecialOrderItem = false;
@@ -82,7 +85,7 @@ public class CategoryDetailListAdapter extends RecyclerView.Adapter<CategoryDeta
             holder.llAddMoreItem.setVisibility(View.GONE);
             holder.btnAddItemCount.setVisibility(View.VISIBLE);
         }
-        if (isFromRegularOrderItem){
+        if (isFromRegularOrderItem) {
             holder.llAddMoreItem.setVisibility(View.VISIBLE);
             holder.btnAddItemCount.setVisibility(View.GONE);
         }
@@ -181,6 +184,7 @@ public class CategoryDetailListAdapter extends RecyclerView.Adapter<CategoryDeta
             imgAdd = itemView.findViewById(R.id.imgAdd);
             imgMinus = itemView.findViewById(R.id.imgMinus);
             edItemCount = itemView.findViewById(R.id.edItemCount);
+
         }
     }
 

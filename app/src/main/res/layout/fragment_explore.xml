@@ -105,6 +105,40 @@
                   android:layout_width="match_parent"
                   android:layout_height="wrap_content">
 
+                  <net.seifhadjhassen.recyclerviewpager.RecyclerViewPager
+                      android:id="@+id/pager"
+                      android:layout_width="match_parent"
+                      android:layout_height="wrap_content"
+                      android:layout_marginTop="20dp"
+                      app:svp_timeMillis="1000"
+
+                      app:svp_runAuto="true">
+
+                  </net.seifhadjhassen.recyclerviewpager.RecyclerViewPager>
+                  <LinearLayout
+                      android:id="@+id/llRecyclerBannerProgressbar"
+                      android:layout_width="match_parent"
+                      android:layout_height="0dp"
+                      android:layout_weight="1"
+                      android:gravity="center"
+                      android:orientation="vertical"
+                      android:visibility="visible">
+
+                      <!--        <ProgressBar-->
+                      <!--            android:layout_width="wrap_content"-->
+                      <!--            android:layout_height="wrap_content"-->
+                      <!--            android:indeterminate="true"-->
+                      <!--            android:indeterminateTint="@color/colorPrimary" />-->
+
+                      <com.github.ybq.android.spinkit.SpinKitView xmlns:app="http://schemas.android.com/apk/res-auto"
+                          style="@style/SpinKitView.Large.Circle"
+                          android:layout_width="60dp"
+                          android:layout_height="60dp"
+                          android:layout_gravity="center"
+                          app:SpinKit_Color="@color/colorPrimary" />
+
+                  </LinearLayout>
+
                   <LinearLayout
                       android:id="@+id/llTopCategories"
                       android:layout_width="match_parent"

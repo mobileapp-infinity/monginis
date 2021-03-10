@@ -49,9 +49,18 @@ public class GetCategoryForDashboardPojo {
         @SerializedName("id")
         @Expose
         private Integer id;
-        @SerializedName("img_url")
+      /*  @SerializedName("img_url")
         @Expose
         private Object imgUrl;
+*/
+        @SerializedName("itm_url")
+        @Expose
+        private String itm_url;
+
+        @SerializedName("img_url")
+        @Expose
+        private String img_url;
+
 
         public String getCatName() {
             return catName;
@@ -69,15 +78,29 @@ public class GetCategoryForDashboardPojo {
             this.id = id;
         }
 
-        public Object getImgUrl() {
+      /*  public Object getImgUrl() {
             return imgUrl;
         }
 
         public void setImgUrl(Object imgUrl) {
             this.imgUrl = imgUrl;
+        }*/
+
+        public String getItm_url() {
+            return itm_url;
         }
 
+        public void setItm_url(String itm_url) {
+            this.itm_url = itm_url;
+        }
 
+        public String getImg_url() {
+            return img_url;
+        }
+
+        public void setImg_url(String img_url) {
+            this.img_url = img_url;
+        }
     }
 
 }

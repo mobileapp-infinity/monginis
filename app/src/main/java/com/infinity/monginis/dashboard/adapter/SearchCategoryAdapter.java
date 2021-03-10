@@ -6,11 +6,13 @@ import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.infinity.monginis.R;
 import com.infinity.monginis.custom_class.TextViewRegularFont;
 import com.infinity.monginis.dashboard.activity.EditUserDetailsActivity;
@@ -50,6 +52,8 @@ public class SearchCategoryAdapter extends RecyclerView.Adapter<SearchCategoryAd
         holder.tvPopularItemName.setText(testPojoArrayList.get(position).getShopName());
         holder.tvBy.setText(testPojoArrayList.get(position).getShopAddress());
 
+      //  Glide.with(context).f
+
 
         holder.llView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -82,12 +86,14 @@ public class SearchCategoryAdapter extends RecyclerView.Adapter<SearchCategoryAd
         LinearLayout llView;
         TextViewRegularFont tvPopularItemName;
         TextViewRegularFont tvBy;
+        ImageView ivSearchItem;
 
         public MyViewHolder(@NonNull View itemView) {
 
             super(itemView);
             llView = itemView.findViewById(R.id.llView);
             tvPopularItemName = itemView.findViewById(R.id.tvPopularItemName);
+            ivSearchItem = itemView.findViewById(R.id.ivSearchItem);
             tvBy = itemView.findViewById(R.id.tvBy);
         }
     }

@@ -23,7 +23,12 @@ import com.infinity.monginis.api.ApiUrls;
 import com.infinity.monginis.custom_class.TextViewRegularFont;
 import com.infinity.monginis.dashboard.adapter.TopCategoriesAdapter;
 import com.infinity.monginis.dashboard.pojo.GetCategoryForDashboardPojo;
+import com.infinity.monginis.dashboard.pojo.GetFlavoursPojo;
+import com.infinity.monginis.dashboard.pojo.GetItemWeightPojo;
+import com.infinity.monginis.dashboard.pojo.GetOccasionPojo;
+import com.infinity.monginis.utils.CommonUtil;
 import com.infinity.monginis.utils.ConnectionDetector;
+import com.infinity.monginis.utils.MySharedPreferences;
 import com.jaiselrahman.filepicker.config.Configurations;
 import com.jaiselrahman.filepicker.model.MediaFile;
 import com.toptoche.searchablespinnerlibrary.SearchableSpinner;
@@ -58,6 +63,7 @@ public class BottomSheetDialogForSpecialOrder extends BottomSheetDialogFragment 
     TextViewRegularFont tvDeliveryDate, tvPhotoUpload;
     ConnectionDetector connectionDetector;
     public MultipartBody.Part specialOrderPhotoUpload = null;
+    private MySharedPreferences mySharedPreferences;
 
     public BottomSheetDialogForSpecialOrder(ItemDetailsActivity activity) {
         this.activity = activity;
@@ -76,17 +82,17 @@ public class BottomSheetDialogForSpecialOrder extends BottomSheetDialogFragment 
                 container, false);
         initView(view);
 
-        setMenu();
+        getOccassion();
         setCakeShape();
-        setFlavours();
-        setWeight();
+
+        //  setWeight();
         setQty();
         return view;
     }
 
 
     private void initView(View view) {
-
+        mySharedPreferences = new MySharedPreferences(activity);
         spFlavour = view.findViewById(R.id.spFlavour);
         connectionDetector = new ConnectionDetector(activity);
         spMenu = view.findViewById(R.id.spMenu);
@@ -116,68 +122,70 @@ public class BottomSheetDialogForSpecialOrder extends BottomSheetDialogFragment 
 
     private void setMenu() {
 
-        menuList = new ArrayList<>();
-        menuList.add("Menu");
+
         menuList.add("Test 1");
         menuList.add("Test 2");
         menuList.add("Test 3");
         menuList.add("Test 4");
-
-        ArrayAdapter<String> menuAdapter = new ArrayAdapter<String>(activity, R.layout.spinner_common_layout, menuList);
-        menuAdapter.setDropDownViewResource(R.layout.spinner_common_layout);
-        spMenu.setTitle("Select Menu");
-
-        spMenu.setAdapter(menuAdapter);
 
 
     }
 
     private void setFlavours() {
 
-        flavourList = new ArrayList<>();
-        flavourList.add("Flavour");
+
         flavourList.add("Test 1");
         flavourList.add("Test 2");
         flavourList.add("Test 3");
         flavourList.add("Test 4");
 
-        ArrayAdapter<String> flavoursAdapter = new ArrayAdapter<String>(activity, R.layout.spinner_common_layout, flavourList);
-        flavoursAdapter.setDropDownViewResource(R.layout.spinner_common_layout);
-        spFlavour.setTitle("Select Flavours");
-        spFlavour.setAdapter(flavoursAdapter);
-
 
     }
 
-   /* private void getFlavours() {
+    private void getFlavours() {
         if (connectionDetector.isConnectingToInternet()) {
 
 
-            ApiImplementer.getFlavoursImplementer("1", "1", "1", "0", ApiUrls.TESTING_KEY, "1", new Callback<GetCategoryForDashboardPojo>() {
+            ApiImplementer.getFlavoursImplementer(mySharedPreferences.getVersionCode(), mySharedPreferences.getAndroidID(), mySharedPreferences.getDeviceID(), CommonUtil.USER_ID, ApiUrls.TESTING_KEY, CommonUtil.COMP_ID, new Callback<GetFlavoursPojo>() {
                 @Override
-                public void onResponse(Call<GetCategoryForDashboardPojo> call, Response<GetCategoryForDashboardPojo> response) {
-
+                public void onResponse(Call<GetFlavoursPojo> call, Response<GetFlavoursPojo> response) {
 
 
                     try {
+
+                        GetItemWeight("495");
                         if (response.isSuccessful() && response.body() != null
                         ) {
+                            GetFlavoursPojo getFlavoursPojo = response.body();
+
+                            if (getFlavoursPojo != null && getFlavoursPojo.getRECORDS().size() > 0) {
+
+                                flavourList = new ArrayList<>();
+                                flavourList.add("Flavour");
+                                for (int i = 0; i < getFlavoursPojo.getRECORDS().size(); i++) {
+                                    //  flavourList.add(getFlavoursPojo.getRECORDS().get(i).)
+                                }
+
+                            } else {
+                                flavourList = new ArrayList<>();
+                                flavourList.add("Flavour");
+                                ArrayAdapter<String> flavoursAdapter = new ArrayAdapter<String>(activity, R.layout.spinner_common_layout, flavourList);
+                                flavoursAdapter.setDropDownViewResource(R.layout.spinner_common_layout);
+                                spFlavour.setTitle("Select Flavours");
+                                spFlavour.setAdapter(flavoursAdapter);
 
 
-
-
-
+                            }
 
 
                         } else {
 
+                            Toast.makeText(activity, "Error in response", Toast.LENGTH_SHORT).show();
 
-                            llCategoryProgressbar.setVisibility(View.GONE);
-                            rvTopCategories.setVisibility(View.VISIBLE);
                         }
 
                     } catch (Exception e) {
-                        llCategoryProgressbar.setVisibility(View.GONE);
+
                         Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_SHORT).show();
 
                     }
@@ -185,18 +193,78 @@ public class BottomSheetDialogForSpecialOrder extends BottomSheetDialogFragment 
                 }
 
                 @Override
-                public void onFailure(Call<GetCategoryForDashboardPojo> call, Throwable t) {
+                public void onFailure(Call<GetFlavoursPojo> call, Throwable t) {
 
                     Toast.makeText(activity, "Error in response" + t.getMessage(), Toast.LENGTH_SHORT).show();
 
-                    llCategoryProgressbar.setVisibility(View.GONE);
-                    rvTopCategories.setVisibility(View.VISIBLE);
+
                 }
             });
         } else {
             Toast.makeText(activity, "No internet connection,Please try again later.", Toast.LENGTH_SHORT).show();
         }
-    }*/
+    }
+
+
+    private void getOccassion() {
+        if (connectionDetector.isConnectingToInternet()) {
+
+
+            ApiImplementer.getOccasionImplementer(mySharedPreferences.getVersionCode(), mySharedPreferences.getAndroidID(), mySharedPreferences.getDeviceID(), CommonUtil.USER_ID, ApiUrls.TESTING_KEY, CommonUtil.COMP_ID, new Callback<GetOccasionPojo>() {
+                @Override
+                public void onResponse(Call<GetOccasionPojo> call, Response<GetOccasionPojo> response) {
+
+
+                    getFlavours();
+                    try {
+                        GetOccasionPojo getOccasionPojo = response.body();
+                        menuList = new ArrayList<>();
+                        menuList.add("Menu");
+
+                        if (getOccasionPojo != null && getOccasionPojo.getRECORDS().size() > 0) {
+
+                            for (int i = 0; i < getOccasionPojo.getRECORDS().size(); i++) {
+                                menuList.add(getOccasionPojo.getRECORDS().get(i).getComOccasionName());
+                            }
+
+                            ArrayAdapter<String> menuAdapter = new ArrayAdapter<String>(activity, R.layout.spinner_common_layout, menuList);
+                            menuAdapter.setDropDownViewResource(R.layout.spinner_common_layout);
+                            spMenu.setTitle("Select Menu");
+
+                            spMenu.setAdapter(menuAdapter);
+
+                        } else {
+                            menuList = new ArrayList<>();
+                            menuList.add("Menu");
+                            ArrayAdapter<String> menuAdapter = new ArrayAdapter<String>(activity, R.layout.spinner_common_layout, menuList);
+                            menuAdapter.setDropDownViewResource(R.layout.spinner_common_layout);
+                            spMenu.setTitle("Select Menu");
+
+                            spMenu.setAdapter(menuAdapter);
+
+                        }
+
+                    } catch (Exception e) {
+
+                        Toast.makeText(activity, "Error in response" + e.getMessage(), Toast.LENGTH_SHORT).show();
+
+                    }
+
+                }
+
+                @Override
+                public void onFailure(Call<GetOccasionPojo> call, Throwable t) {
+
+                    Toast.makeText(activity, "Request Failed" + t.getMessage(), Toast.LENGTH_SHORT).show();
+
+
+                }
+            });
+        } else {
+            Toast.makeText(activity, "No internet connection,Please try again later.", Toast.LENGTH_SHORT).show();
+        }
+
+    }
 
     private void setCakeShape() {
         cakeShapeList = new ArrayList<>();
@@ -216,17 +284,11 @@ public class BottomSheetDialogForSpecialOrder extends BottomSheetDialogFragment 
     }
 
     private void setWeight() {
-        weightList = new ArrayList<>();
-        weightList.add("Weight");
+
         weightList.add("Weight 1");
         weightList.add("Weight 2");
         weightList.add("Weight 3");
         weightList.add("Weight 4");
-
-        ArrayAdapter<String> cakeShapeAdapter = new ArrayAdapter<String>(activity, R.layout.spinner_common_layout, weightList);
-        cakeShapeAdapter.setDropDownViewResource(R.layout.spinner_common_layout);
-        spWeight.setTitle("Select Weight");
-        spWeight.setAdapter(cakeShapeAdapter);
 
 
     }
@@ -246,6 +308,68 @@ public class BottomSheetDialogForSpecialOrder extends BottomSheetDialogFragment 
         spQty.setTitle("Select Qty");
         spQty.setAdapter(cakeShapeAdapter);
 
+
+    }
+
+
+    private void GetItemWeight(String item_id) {
+
+        if (connectionDetector.isConnectingToInternet()) {
+
+            ApiImplementer.GetItemWeightImplementer(mySharedPreferences.getVersionCode(), mySharedPreferences.getAndroidID(), mySharedPreferences.getDeviceID(), CommonUtil.USER_ID, ApiUrls.TESTING_KEY, CommonUtil.COMP_ID, item_id, new Callback<GetItemWeightPojo>() {
+                @Override
+                public void onResponse(Call<GetItemWeightPojo> call, Response<GetItemWeightPojo> response) {
+
+                    try {
+                        if (response.isSuccessful() && response.body() != null) {
+
+                            weightList = new ArrayList<>();
+                            weightList.add("Weight");
+
+
+                            GetItemWeightPojo getItemWeightPojo = response.body();
+
+                            if (getItemWeightPojo != null && getItemWeightPojo.getRECORDS().size() > 0) {
+
+
+                                for (int i = 0; i < getItemWeightPojo.getRECORDS().size(); i++) {
+                                    weightList.add(getItemWeightPojo.getRECORDS().get(i).getQtyValue());
+
+                                }
+
+                                ArrayAdapter<String> weightAdapter = new ArrayAdapter<String>(activity, R.layout.spinner_common_layout, weightList);
+                                weightAdapter.setDropDownViewResource(R.layout.spinner_common_layout);
+                                spWeight.setTitle("Select Weight");
+                                spWeight.setAdapter(weightAdapter);
+
+
+                            } else {
+
+
+                                Toast.makeText(getActivity(), getItemWeightPojo.getMESSAGE(), Toast.LENGTH_SHORT).show();
+                            }
+
+                        } else {
+                            Toast.makeText(activity, "Error in response", Toast.LENGTH_SHORT).show();
+                        }
+
+                    } catch (Exception e) {
+                        Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+
+                }
+
+                @Override
+                public void onFailure(Call<GetItemWeightPojo> call, Throwable t) {
+                    Toast.makeText(getActivity(), "Request Failed::::" + t.getMessage(), Toast.LENGTH_SHORT).show();
+                }
+            });
+
+        } else {
+
+            Toast.makeText(activity, "No internet connection,Please try again later.", Toast.LENGTH_SHORT).show();
+
+        }
 
     }
 
@@ -289,12 +413,12 @@ public class BottomSheetDialogForSpecialOrder extends BottomSheetDialogFragment 
         if (view.getId() == R.id.tvDeliveryDate) {
             deliveryDateDialog();
         } else if (view.getId() == R.id.btnProceed) {
-           // if (isValidated()) {
-                System.out.println("Done=============");
+            // if (isValidated()) {
+            System.out.println("Done=============");
 
-                Intent customizeScreenIntent = new Intent(activity, CustomizeScreenActivity.class);
-                startActivity(customizeScreenIntent);
-          //  }
+            Intent customizeScreenIntent = new Intent(activity, CustomizeScreenActivity.class);
+            startActivity(customizeScreenIntent);
+            //  }
         } else if (view.getId() == R.id.tvPhotoUpload) {
             Intent intent = new Intent(activity, com.jaiselrahman.filepicker.activity.FilePickerActivity.class);
 

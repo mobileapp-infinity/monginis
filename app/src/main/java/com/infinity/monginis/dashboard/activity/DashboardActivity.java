@@ -20,6 +20,7 @@ import com.infinity.monginis.dashboard.fragments.CartFragment;
 import com.infinity.monginis.dashboard.fragments.ExploreFragment;
 import com.infinity.monginis.dashboard.fragments.ProfileFragment;
 import com.infinity.monginis.dashboard.fragments.SearchFragment;
+import com.infinity.monginis.utils.CommonUtil;
 import com.infinity.monginis.utils.IntentConstants;
 
 public class DashboardActivity extends AppCompatActivity {
@@ -45,22 +46,27 @@ public class DashboardActivity extends AppCompatActivity {
                 switch (item.getItemId()) {
                     case R.id.explore:
                         vpDashboard.setCurrentItem(0);
+
+
                         InputMethodManager exploreInputManager = (InputMethodManager) DashboardActivity.this.getSystemService(Context.INPUT_METHOD_SERVICE);
                         exploreInputManager.hideSoftInputFromWindow(bottomNavigationView.getWindowToken(), 0);
                         break;
                     case R.id.search:
                         vpDashboard.setCurrentItem(1);
+
                         InputMethodManager searchInputManger = (InputMethodManager) DashboardActivity.this.getSystemService(Context.INPUT_METHOD_SERVICE);
                         searchInputManger.hideSoftInputFromWindow(bottomNavigationView.getWindowToken(), 0);
                         break;
                     case R.id.cart:
                         vpDashboard.setCurrentItem(2);
+
                         InputMethodManager cartInputManager = (InputMethodManager) DashboardActivity.this.getSystemService(Context.INPUT_METHOD_SERVICE);
                         cartInputManager.hideSoftInputFromWindow(bottomNavigationView.getWindowToken(), 0);
 
                         break;
                     case R.id.profile:
                         vpDashboard.setCurrentItem(3);
+
                         InputMethodManager profileInputManager = (InputMethodManager) DashboardActivity.this.getSystemService(Context.INPUT_METHOD_SERVICE);
                         profileInputManager.hideSoftInputFromWindow(bottomNavigationView.getWindowToken(), 0);
                         break;

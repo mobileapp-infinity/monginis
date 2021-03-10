@@ -5,39 +5,78 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatImageView;
 import androidx.core.app.ActivityCompat;
+import androidx.core.content.FileProvider;
 
 import android.Manifest;
+import android.app.Dialog;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.content.pm.ResolveInfo;
 import android.location.Address;
+import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
+import android.provider.Settings;
 import android.text.Html;
 import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.Toast;
 
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.material.button.MaterialButton;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.iid.InstanceIdResult;
+import com.infinity.monginis.BuildConfig;
 import com.infinity.monginis.R;
+import com.infinity.monginis.api.ApiImplementer;
+import com.infinity.monginis.api.ApiUrls;
+import com.infinity.monginis.custom_class.TextViewMediumFont;
 import com.infinity.monginis.custom_class.TextViewRegularFont;
 import com.infinity.monginis.dashboard.activity.DashboardActivity;
+import com.infinity.monginis.dashboard.pojo.GetVersionInfoPojo;
 import com.infinity.monginis.utils.CommonUtil;
 import com.infinity.monginis.utils.DialogUtil;
 import com.infinity.monginis.utils.IntentConstants;
 import com.infinity.monginis.utils.MySharedPreferences;
+import com.toptoche.searchablespinnerlibrary.SearchableSpinner;
+
+import java.io.BufferedInputStream;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.net.URL;
+import java.net.URLConnection;
+import java.util.ArrayList;
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class SplashActivity extends AppCompatActivity {
 
     MySharedPreferences mySharedPreferences;
     AppCompatImageView ivSplashLogo;
+    private Dialog updateDialog;
+    private ProgressDialog pDialog;
+    private PackageInfo pInfo = null;
+    String android_id, versionname;
+    int versioncode;
 
     private final String[] RunTimePerMissions = {
             Manifest.permission.WRITE_EXTERNAL_STORAGE,
@@ -93,6 +132,27 @@ public class SplashActivity extends AppCompatActivity {
     private void initView() {
         mySharedPreferences = new MySharedPreferences(SplashActivity.this);
         ivSplashLogo = findViewById(R.id.ivSplashLogo);
+        try {
+            android_id = Settings.Secure.getString(getContentResolver(), Settings.Secure.ANDROID_ID);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+
+
+        try {
+            pInfo = getPackageManager().getPackageInfo(getPackageName(), 0);
+            versionname = pInfo.versionName;
+            versioncode = pInfo.versionCode;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        mySharedPreferences.setAndroidId(android_id);
+        mySharedPreferences.setDeviceId("0");
+        mySharedPreferences.setVersionCode(versioncode + "");
+        mySharedPreferences.setVersionName(versionname + "");
+
+
     }
 
     private void loadSplashScreenAnimationAndAskForPermission() {
@@ -212,6 +272,49 @@ public class SplashActivity extends AppCompatActivity {
     }
 
     private void checkVersionInfoApiCall() {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                DialogUtil.showProgressDialogCancelable(SplashActivity.this, "");
+            }
+        });
+
+        ApiImplementer.getVersionInfoApiImplementer(mySharedPreferences.getAndroidID(), mySharedPreferences.getVersionName(), mySharedPreferences.getVersionCode(), "0", ApiUrls.TESTING_KEY, new Callback<GetVersionInfoPojo>() {
+            @Override
+            public void onResponse(Call<GetVersionInfoPojo> call, Response<GetVersionInfoPojo> response) {
+
+                DialogUtil.hideProgressDialog();
+                try {
+                    if (response.isSuccessful() && response.body() != null) {
+
+                        GetVersionInfoPojo getVersionInfoPojo = response.body();
+
+                        if (getVersionInfoPojo != null && versioncode < getVersionInfoPojo.getRECORDS().get(0).getVersionCode() && !CommonUtil.checkIsEmptyOrNullCommon(getVersionInfoPojo.getRECORDS().get(0).getApkUrl())) {
+
+                            updateDialog(getVersionInfoPojo);
+                        } else {
+                            fetchLocation();
+                        }
+
+                    }
+
+                } catch (Exception e) {
+
+
+                    Toast.makeText(SplashActivity.this, "Error in response" + e.getMessage(), Toast.LENGTH_LONG).show();
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<GetVersionInfoPojo> call, Throwable t) {
+                DialogUtil.hideProgressDialog();
+                Toast.makeText(SplashActivity.this, "Request Failed" + t.getMessage(), Toast.LENGTH_LONG).show();
+            }
+        });
+    }
+
+    private void fetchLocation() {
         if (CommonUtil.checkIsGPSEnabled(SplashActivity.this)) {
             runOnUiThread(new Runnable() {
                 @Override
@@ -244,4 +347,176 @@ public class SplashActivity extends AppCompatActivity {
             DialogUtil.showGPSNotEnabledDialog(SplashActivity.this);
         }
     }
+
+    private void updateDialog(GetVersionInfoPojo getVersionInfoPojo) {
+        updateDialog = new Dialog(SplashActivity.this);
+        updateDialog.getWindow().setBackgroundDrawableResource(R.drawable.bg_shape_for_custom_dialog);//if need to change dialog radius in custom_layout_for_progress_dialog
+
+        updateDialog.setCancelable(false);
+        View customProgressDialog = LayoutInflater.from(SplashActivity.this).inflate(R.layout.custom_layout_for_update_app_dialog, null);
+        TextViewMediumFont tvNoThanks = customProgressDialog.findViewById(R.id.tvNoThanks);
+        Button btnUpdate = customProgressDialog.findViewById(R.id.btnUpdate);
+        if (getVersionInfoPojo.getRECORDS().get(0).getUpdateSeverity().equals("2")) {
+            tvNoThanks.setVisibility(View.GONE);
+        } else {
+            tvNoThanks.setVisibility(View.VISIBLE);
+        }
+        tvNoThanks.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+
+                updateDialog.dismiss();
+                fetchLocation();
+
+            }
+        });
+        btnUpdate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                updateDialog.dismiss();
+                UpdateApp atualizaApp = new UpdateApp();
+                atualizaApp.setContext(SplashActivity.this);
+                atualizaApp.execute(getVersionInfoPojo.getRECORDS().get(0).getApkUrl());
+            }
+        });
+
+
+        updateDialog.setContentView(customProgressDialog);
+        updateDialog.show();
+
+    }
+
+
+    private class UpdateApp extends AsyncTask<String, String, String> {
+        private Context context;
+
+        void setContext(Context contextf) {
+            this.context = contextf;
+        }
+
+        @Override
+        protected void onPreExecute() {
+
+            try {
+                pDialog = new ProgressDialog(context);
+                pDialog.setMessage("Downloading Update");
+                pDialog.setIndeterminate(false);
+                pDialog.setMax(100);
+                pDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
+                pDialog.setCancelable(false);
+                pDialog.show();
+            } catch (Exception ignored) {
+            }
+
+        }
+
+        protected void onProgressUpdate(String... progress) {
+            // setting progress percentage
+            try {
+                pDialog.setProgress(Integer.parseInt(progress[0]));
+            } catch (Exception ex) {
+            }
+
+        }
+
+        @Override
+        protected String doInBackground(String... arg0) {
+            int count;
+            try {
+                URL url = new URL(arg0[0]);
+                URLConnection conection = url.openConnection();
+                conection.connect();
+                // getting file length
+                int lenghtOfFile = conection.getContentLength();
+
+                // input stream to read file - with 8k buffer
+                InputStream input = new BufferedInputStream(url.openStream(), 64000);
+
+                // Output stream to write file
+
+                String root = Environment.getExternalStorageDirectory().toString();
+
+                File myDir = new File(root + "/infinity/Monginis/latest/app/");
+
+                myDir.mkdirs();
+
+
+                String filename = "Monginis.apk";
+                File file = new File(myDir, filename);
+
+                OutputStream output = new FileOutputStream(file);
+
+                byte data[] = new byte[1024];
+
+                long total = 0;
+
+                while ((count = input.read(data)) != -1) {
+                    total += count;
+                    // publishing the progress....
+                    // After this onProgressUpdate will be called
+                    publishProgress("" + (int) ((total * 100) / lenghtOfFile));
+
+                    // writing data to file
+                    output.write(data, 0, count);
+                }
+
+                // flushing output
+                output.flush();
+
+                // closing streams
+                output.close();
+                input.close();
+
+            } catch (Exception e) {
+                Toast.makeText(SplashActivity.this, getString(R.string.something_went_wrong), Toast.LENGTH_LONG).show();
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(String result) {
+            // TODO Auto-generated method stub
+            try {
+                pDialog.dismiss();
+            } catch (Exception ignored) {
+            }
+
+//            String filepath = Environment.getExternalStorageDirectory().toString() + "/infinity/etrack/latest/app/etrack.apk";
+//            String filepath = Environment.getExternalStorageDirectory().toString() + "/infinity/davat/latest/app/etrack.apk";
+            String filepath = Environment.getExternalStorageDirectory().toString() + "/infinity/Monginis/latest/app/Monginis.apk";
+
+            File toInstall = new File(filepath);
+
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                try {
+                    Uri apkUri = FileProvider.getUriForFile(context, BuildConfig.APPLICATION_ID + ".provider", toInstall);
+                    Intent intent = new Intent(Intent.ACTION_INSTALL_PACKAGE);
+                    intent.setData(apkUri);
+                    List<ResolveInfo> resInfoList = context.getPackageManager().queryIntentActivities(intent, PackageManager.MATCH_DEFAULT_ONLY);
+                    for (ResolveInfo resolveInfo : resInfoList) {
+                        String packageName = resolveInfo.activityInfo.packageName;
+                        context.grantUriPermission(packageName, apkUri, Intent.FLAG_GRANT_WRITE_URI_PERMISSION | Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                    }
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    context.startActivity(intent);
+                } catch (Exception ex) {
+                    //Log.e("error",ex.getMessage());
+                }
+            } else {
+                try {
+                    Uri apkUri = Uri.fromFile(toInstall);
+                    Intent intent = new Intent(Intent.ACTION_VIEW);
+                    intent.setDataAndType(apkUri, "application/vnd.android.package-archive");
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    context.startActivity(intent);
+                } catch (Exception ex) {
+                }
+            }
+        }
+    }
+
+
+
+
 }
