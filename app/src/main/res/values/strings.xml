@@ -8,7 +8,7 @@
 
 
     <string name="dashboard_top_categories">Top Categories</string>
-
+    <string name="internal_storage">Internal storage</string>
     <string name="dashboard_popular_items">Popular Items</string>
 
     <string name="dashboard_near_by_deals">Near By Deals</string>

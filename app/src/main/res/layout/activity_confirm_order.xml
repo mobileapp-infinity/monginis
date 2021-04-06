@@ -156,7 +156,7 @@ The Courier Delivers  Your Order At Selected Delivery Slot"
                         android:layout_weight="0.1"
                         android:layout_width="0dp"
                         android:layout_gravity="center_vertical"
-                        android:src="@drawable/ic_location"
+                        android:src="@drawable/ic_location_image"
                         android:layout_height="wrap_content"/>
 
                     <com.infinity.monginis.custom_class.TextViewRegularFont

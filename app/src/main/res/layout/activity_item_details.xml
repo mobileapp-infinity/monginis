@@ -15,6 +15,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
+
+
             <androidx.viewpager.widget.ViewPager
                 android:id="@+id/vpCategoryDetails"
                 android:layout_width="match_parent"
@@ -23,6 +25,21 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/ivBack"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_gravity="center"
+                android:layout_margin="10dp"
+
+                android:background="@drawable/bg_shape_for_back_button"
+                android:padding="10dp"
+                android:src="@drawable/ic_back"
+                app:layout_constraintBottom_toTopOf="@+id/tb_layout"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/vpCategoryDetails"
+                app:layout_constraintVertical_bias="0.13999999" />
 
             <com.google.android.material.tabs.TabLayout
                 android:id="@+id/tb_layout"
@@ -72,6 +89,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
                                 android:text="Monginis"
+                                android:id="@+id/tvSelectedShopName"
                                 android:textColor="@color/color_black"
                                 android:textSize="@dimen/text_16sp" />
 
@@ -87,6 +105,7 @@
                         <com.infinity.monginis.custom_class.TextViewRegularFont
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:id="@+id/tvSelectedShopAddress"
                             android:layout_marginTop="2dp"
                             android:text="Kalavad Road-Rajkot,Gujarat"
                             android:textSize="@dimen/text_12sp" />
@@ -172,22 +191,58 @@
             <LinearLayout
                 app:layout_constraintTop_toBottomOf="@+id/cvItemDetailsCart"
                 android:layout_width="match_parent"
+                android:orientation="vertical"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHeight_percent="1"
                 app:layout_constraintStart_toStartOf="parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="4dp"
-                android:orientation="vertical">
+                android:layout_height="wrap_content">
 
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/rvCategoryList"
-                    android:nestedScrollingEnabled="true"
+                <LinearLayout
+
+                    android:id="@+id/llShopItemList"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:scrollbars="none"
-                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
 
+                    android:visibility="visible"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="4dp"
+                    android:orientation="vertical">
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rvCategoryList"
+                        android:nestedScrollingEnabled="true"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:scrollbars="none"
+                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_marginTop="10dp"
+                    android:id="@+id/llNoDataFoundPosItem"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:visibility="gone"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:src="@drawable/ic_monginis_no_data_found" />
+
+                    <com.infinity.monginis.custom_class.TextViewMediumFont
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="6dp"
+                        android:text="No Data Found !"
+                        android:textColor="@color/colorAccent"
+                        android:textSize="16sp" />
+
+                </LinearLayout>
             </LinearLayout>
+
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

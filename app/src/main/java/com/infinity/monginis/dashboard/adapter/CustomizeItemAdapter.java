@@ -13,13 +13,22 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.infinity.monginis.R;
 import com.infinity.monginis.custom_class.TextViewRegularFont;
 import com.infinity.monginis.dashboard.activity.CartActivity;
+import com.infinity.monginis.dashboard.model.CartItemModel;
+import com.infinity.monginis.utils.CommonUtil;
+import com.infinity.monginis.utils.MySharedPreferences;
+
+import java.util.ArrayList;
 
 public class CustomizeItemAdapter extends RecyclerView.Adapter<CustomizeItemAdapter.MyViewHolder> {
 
     private Context context;
+    private ArrayList<CartItemModel> cartItemModelArrayList;
+    private MySharedPreferences mySharedPreferences;
 
-    public CustomizeItemAdapter(Context context) {
+    public CustomizeItemAdapter(Context context, ArrayList<CartItemModel> cartItemModelArrayList) {
         this.context = context;
+        mySharedPreferences = new MySharedPreferences(context);
+        this.cartItemModelArrayList = cartItemModelArrayList;
     }
 
     @NonNull
@@ -34,6 +43,9 @@ public class CustomizeItemAdapter extends RecyclerView.Adapter<CustomizeItemAdap
 
         // holder.tvCustomizeItemName.setText();
 
+        //  holder.tvCustomizeItemName.setText();
+        if (CommonUtil.checkIsEmptyOrNullCommon(cartItemModelArrayList.get(position).getItemName()))
+
 
         holder.llPlaceOrder.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -46,7 +58,7 @@ public class CustomizeItemAdapter extends RecyclerView.Adapter<CustomizeItemAdap
 
     @Override
     public int getItemCount() {
-        return 2;
+        return cartItemModelArrayList.size();
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {

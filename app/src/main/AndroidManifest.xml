@@ -40,22 +40,19 @@
         android:supportsRtl="true"
         android:theme="@style/App.Theme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".dashboard.activity.AddNewCardActivity"></activity>
-        <activity android:name=".dashboard.activity.TackOrderActivity">
-
-        </activity>
+        <activity android:name=".ShopForItemActiivty.ShopForItemActivity"></activity>
+        <activity android:name=".Map.MapActivity" />
+        <activity android:name=".CategoryItemsDetails.Activity.CategoryItemsDetailsActivity" />
+        <activity android:name=".dashboard.activity.SelectCityActivity" />
+        <activity android:name=".dashboard.activity.AddNewCardActivity" />
+        <activity android:name=".dashboard.activity.TackOrderActivity" />
         <activity android:name=".dashboard.activity.RateThisOrderActivity" />
-        <activity android:name=".dashboard.activity.MongininsWalletActivity"></activity>
-        <activity android:name=".dashboard.activity.ApplyCoupenCodeActivity">
-
-        </activity>
+        <activity android:name=".dashboard.activity.MongininsWalletActivity" />
+        <activity android:name=".dashboard.activity.ApplyCoupenCodeActivity" />
         <activity android:name=".dashboard.activity.MyOrdersScreenActivity" />
         <activity android:name=".dashboard.activity.AddressActivity" />
         <activity android:name=".dashboard.activity.MyOrdersActivity" />
-        <activity android:name=".dashboard.activity.DiscountCodeActivity">
-
-
-        </activity>
+        <activity android:name=".dashboard.activity.DiscountCodeActivity" />
         <activity android:name=".dashboard.activity.PaymentOptionsActivity" />
         <activity android:name=".dashboard.activity.ConfirmOrderActivity" />
         <activity android:name=".dashboard.activity.CartActivity" />
@@ -68,34 +65,19 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".login.LoginActivity"
-            android:screenOrientation="portrait">
-
-
-        </activity>
-
-
+            android:screenOrientation="portrait" />
         <activity
             android:name=".login.SplashActivity"
             android:screenOrientation="portrait">
-
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-
-
         </activity>
         <activity
             android:name=".dashboard.activity.DashboardActivity"
-            android:screenOrientation="portrait">
-
-
-
-
-
-
-        </activity>
+            android:screenOrientation="portrait" />
 
         <provider
             android:name="androidx.core.content.FileProvider"

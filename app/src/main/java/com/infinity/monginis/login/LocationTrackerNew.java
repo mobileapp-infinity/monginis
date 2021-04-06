@@ -75,7 +75,7 @@ public class LocationTrackerNew {
                             Geocoder geocoder = new Geocoder(activity, Locale.getDefault());
                             try {
                                 iGetUserCurrentLocation.fetchCurrentLocation(getCityNameFromLatLong(),
-                                        geocoder.getFromLocation(lastKnownLocation.getLatitude(), lastKnownLocation.getLongitude(), 1).get(0));
+                                        geocoder.getFromLocation(lastKnownLocation.getLatitude(), lastKnownLocation.getLongitude(), 1).get(0),lastKnownLocation);
                             } catch (IOException e) {
                                 e.printStackTrace();
                             }
@@ -131,7 +131,7 @@ public class LocationTrackerNew {
                     Geocoder geocoder = new Geocoder(activity, Locale.getDefault());
                     try {
                         iGetUserCurrentLocation.fetchCurrentLocation(getCityNameFromLatLong(),
-                                geocoder.getFromLocation(lastKnownLocation.getLatitude(), lastKnownLocation.getLongitude(), 1).get(0));
+                                geocoder.getFromLocation(lastKnownLocation.getLatitude(), lastKnownLocation.getLongitude(), 1).get(0),lastKnownLocation);
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
@@ -142,7 +142,7 @@ public class LocationTrackerNew {
 
 
     public interface IGetUserCurrentLocation {
-        void fetchCurrentLocation(String cityName, Address address);
+        void fetchCurrentLocation(String cityName, Address address,Location lastKnownLocation);
     }
 
 }

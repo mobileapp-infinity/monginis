@@ -47,7 +47,7 @@
                 android:orientation="horizontal">
 
                 <com.infinity.monginis.custom_class.TextViewRegularFont
-                    android:id="@+id/tvPopularItemName"
+                    android:id="@+id/tvPosItemName"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"

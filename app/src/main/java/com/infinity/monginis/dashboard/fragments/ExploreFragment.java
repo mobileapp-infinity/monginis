@@ -3,6 +3,7 @@ package com.infinity.monginis.dashboard.fragments;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -22,11 +23,13 @@ import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.google.android.material.button.MaterialButton;
+import com.infinity.monginis.CategoryItemsDetails.Activity.CategoryItemsDetailsActivity;
 import com.infinity.monginis.R;
 import com.infinity.monginis.api.ApiImplementer;
 import com.infinity.monginis.api.ApiUrls;
 import com.infinity.monginis.custom_class.TextViewMediumFont;
 import com.infinity.monginis.custom_class.TextViewRegularFont;
+import com.infinity.monginis.dashboard.activity.SelectCityActivity;
 import com.infinity.monginis.dashboard.adapter.ImageSliderAdapter;
 import com.infinity.monginis.dashboard.adapter.NearByDealsAdapter;
 import com.infinity.monginis.dashboard.adapter.PopularItemsAdapter;
@@ -74,6 +77,7 @@ public class ExploreFragment extends Fragment implements View.OnClickListener {
     private TextViewRegularFont tvViewAllNearByDeals;
     private MySharedPreferences mySharedPreferences;
 
+    public static final int SELECT_CITY_REQUEST_CODE = 1234;
     private LinearLayout llTopCategoryFilter;
     private TextViewMediumFont tvStreetName;
     private TextViewRegularFont tvUserAddress;
@@ -151,7 +155,11 @@ public class ExploreFragment extends Fragment implements View.OnClickListener {
         userCityName = activity.getIntent().getStringExtra(IntentConstants.USER_CURRENT_CITY_NAME);
 
         if (userCityName == null || userCityName.equals("")) {
-            getAllCityApiCall();
+
+            Intent selectCityIntent = new Intent(getActivity(), SelectCityActivity.class);
+
+            startActivityForResult(selectCityIntent, SELECT_CITY_REQUEST_CODE);
+
         }
 
 
@@ -199,7 +207,16 @@ public class ExploreFragment extends Fragment implements View.OnClickListener {
                             GetCategoryForDashboardPojo getCategoryForDashboardPojo = response.body();
                             if (getCategoryForDashboardPojo != null && getCategoryForDashboardPojo.getRECORDS().size() > 0) {
 
-                                TopCategoriesAdapter topCategoriesAdapter = new TopCategoriesAdapter(getActivity(), getCategoryForDashboardPojo);
+                                TopCategoriesAdapter topCategoriesAdapter = new TopCategoriesAdapter(getActivity(), getCategoryForDashboardPojo, new TopCategoriesAdapter.IOnCategoryClicked() {
+                                    @Override
+                                    public void getItemDetailsByCatgory(GetCategoryForDashboardPojo getCategoryForDashboardPojo1, int position) {
+                                        Intent itemDetailsIntent = new Intent(getActivity(), CategoryItemsDetailsActivity.class);
+                                        itemDetailsIntent.putExtra("catId", getCategoryForDashboardPojo1.getRECORDS().get(position).getId() + "");
+                                        itemDetailsIntent.putExtra("catName", getCategoryForDashboardPojo1.getRECORDS().get(position).getCatName() + "");
+                                        getActivity().startActivity(itemDetailsIntent);
+
+                                    }
+                                });
 
                                 rvTopCategories.setAdapter(topCategoriesAdapter);
                             }
@@ -243,10 +260,14 @@ public class ExploreFragment extends Fragment implements View.OnClickListener {
             ApiImplementer.GetItemsForDashboardImplementer(mySharedPreferences.getVersionCode(), mySharedPreferences.getAndroidID(), mySharedPreferences.getDeviceID(), CommonUtil.USER_ID, ApiUrls.TESTING_KEY, CommonUtil.SHOP_ID, userCityName, CommonUtil.COMP_ID, new Callback<GetItemsForDashboardPojo>() {
                 @Override
                 public void onResponse(Call<GetItemsForDashboardPojo> call, Response<GetItemsForDashboardPojo> response) {
+
+                    String url = response.raw().request().url() + "";
                     GetItemsPhotoForDashboardApp();
 
                     try {
                         if (response.isSuccessful() && response.body() != null
+
+
                         ) {
 
                             llPopularProgressbar.setVisibility(View.GONE);
@@ -420,7 +441,6 @@ public class ExploreFragment extends Fragment implements View.OnClickListener {
                             System.out.println(dashboardImagesList);
 
 
-
                             if (getItemsPhotoForDashboardAppPojo != null && getItemsPhotoForDashboardAppPojo.getRECORDS().size() > 0) {
                                 recyclerViewPagerStudentSideBanner.addItem(new PagerModel(R.drawable.dummy_img_1, "", activity));
                                 recyclerViewPagerStudentSideBanner.addItem(new PagerModel(R.drawable.dummy_img_2, "", activity));
@@ -459,5 +479,23 @@ public class ExploreFragment extends Fragment implements View.OnClickListener {
 
     }
 
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == SELECT_CITY_REQUEST_CODE) {
+            if (resultCode == Activity.RESULT_OK) {
 
+                try {
+                    userCityName = data.getStringExtra("selectedCityName");
+                    GetItemsForDashboard(userCityName);
+                } catch (Exception e) {
+
+                    Toast.makeText(getActivity(), "Error in getting city Name" + e.getMessage(), Toast.LENGTH_SHORT).show();
+                }
+
+
+            }
+
+        }
+    }
 }

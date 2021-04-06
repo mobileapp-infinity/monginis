@@ -13,6 +13,15 @@
         android:layout_margin="24dp"
         android:orientation="vertical">
 
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/imgCloseRegisterUserDialog"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_gravity="end"
+            android:background="?selectableItemBackground"
+            android:src="@drawable/ic_close"
+            android:tint="@color/color_black"/>
+
         <com.infinity.monginis.custom_class.TextViewRegularFont
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

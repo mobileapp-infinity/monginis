@@ -33,13 +33,15 @@ public class TopCategoriesAdapter extends RecyclerView.Adapter<TopCategoriesAdap
     private Context context;
     private LayoutInflater layoutInflater;
     private GetCategoryForDashboardPojo getCategoryForDashboardPojo;
+    private IOnCategoryClicked iOnCategoryClicked;
 
     public static boolean isFromTopCategories = false;
 
-    public TopCategoriesAdapter(Context context, GetCategoryForDashboardPojo getCategoryForDashboardPojo) {
+    public TopCategoriesAdapter(Context context, GetCategoryForDashboardPojo getCategoryForDashboardPojo, IOnCategoryClicked iOnCategoryClicked) {
         this.context = context;
         layoutInflater = LayoutInflater.from(context);
         this.getCategoryForDashboardPojo = getCategoryForDashboardPojo;
+        this.iOnCategoryClicked = iOnCategoryClicked;
 
     }
 
@@ -76,7 +78,10 @@ public class TopCategoriesAdapter extends RecyclerView.Adapter<TopCategoriesAdap
             holder.tvCategoryName.setText(getCategoryForDashboardPojo.getRECORDS().get(position).getCatName());
         }
 
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
+        holder.bindListener(getCategoryForDashboardPojo,position);
+
+        /**Old*/
+      /*  holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
@@ -84,7 +89,7 @@ public class TopCategoriesAdapter extends RecyclerView.Adapter<TopCategoriesAdap
                 vpDashboard.setCurrentItem(1);
 
             }
-        });
+        });*/
     }
 
     @Override
@@ -101,6 +106,23 @@ public class TopCategoriesAdapter extends RecyclerView.Adapter<TopCategoriesAdap
             ivTopCategories = itemView.findViewById(R.id.ivTopCategories);
             tvCategoryName = itemView.findViewById(R.id.tvCategoryName);
         }
+
+        private void bindListener(GetCategoryForDashboardPojo getCategoryForDashboardPojo,int position) {
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    iOnCategoryClicked.getItemDetailsByCatgory(getCategoryForDashboardPojo,position);
+                }
+            });
+
+        }
+    }
+
+
+    public interface IOnCategoryClicked {
+
+        void getItemDetailsByCatgory(GetCategoryForDashboardPojo getCategoryForDashboardPojo,int position);
     }
 
 

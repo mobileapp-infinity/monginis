@@ -19,9 +19,13 @@ public class BottomSheetDialogForCheckOut extends BottomSheetDialogFragment impl
     private TextViewRegularFont tvItemAndPrice;
     private Button btnCheckout;
     private ItemDetailsActivity activity;
+    private DashboardActivity dashboardActivity;
 
     public BottomSheetDialogForCheckOut(ItemDetailsActivity activity) {
         this.activity = activity;
+    }
+    public BottomSheetDialogForCheckOut(DashboardActivity activity) {
+        this.dashboardActivity = activity;
     }
 
     @Override
@@ -55,7 +59,7 @@ public class BottomSheetDialogForCheckOut extends BottomSheetDialogFragment impl
         if (view.getId() == R.id.btnCheckout) {
 
             this.dismiss();
-            Intent customizeScreenIntent = new Intent(activity, CustomizeScreenActivity.class);
+            Intent customizeScreenIntent = new Intent(dashboardActivity, CustomizeScreenActivity.class);
             startActivity(customizeScreenIntent);
 
         }

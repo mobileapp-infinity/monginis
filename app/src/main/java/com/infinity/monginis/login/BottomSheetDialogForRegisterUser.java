@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.AppCompatImageView;
 
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import com.google.android.material.card.MaterialCardView;
@@ -25,6 +26,7 @@ public class BottomSheetDialogForRegisterUser extends BottomSheetDialogFragment 
     private TextInputEditText edMobileNumber;
     private Activity activity;
     private TextInputLayout tilUserName;
+    private AppCompatImageView imgCloseRegisterUserDialog;
     private TextInputEditText edUserName;
 
     public BottomSheetDialogForRegisterUser(Activity activity) {
@@ -50,6 +52,8 @@ public class BottomSheetDialogForRegisterUser extends BottomSheetDialogFragment 
         cvRegister = view.findViewById(R.id.cvRegister);
         cvRegister.setOnClickListener(this);
         tilUserName = view.findViewById(R.id.tilUserName);
+        imgCloseRegisterUserDialog = view.findViewById(R.id.imgCloseRegisterUserDialog);
+        imgCloseRegisterUserDialog.setOnClickListener(this);
         edUserName = view.findViewById(R.id.edUserName);
         tilMobileNumber = view.findViewById(R.id.tilMobileNumber);
         edMobileNumber = view.findViewById(R.id.edMobileNumber);
@@ -124,6 +128,8 @@ public class BottomSheetDialogForRegisterUser extends BottomSheetDialogFragment 
 //                iRegisterUser.onRegisterButtonClick(edUserName.getText().toString(),
 //                        edMobileNumber.getText().toString());
             }
+        } else if (v.getId() == R.id.imgCloseRegisterUserDialog) {
+            this.dismiss();
         }
     }
 

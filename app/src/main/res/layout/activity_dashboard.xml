@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:background="#F3F3F3"
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".dashboard.activity.DashboardActivity">
@@ -32,7 +33,7 @@
 <!--                <androidx.appcompat.widget.AppCompatImageView-->
 <!--                    android:layout_width="wrap_content"-->
 <!--                    android:layout_height="wrap_content"-->
-<!--                    android:src="@drawable/ic_location"-->
+<!--                    android:src="@drawable/ic_location_image"-->
 <!--                    android:tint="@color/color_black" />-->
 
 <!--                <com.infinity.monginis.custom_class.TextViewMediumFont-->

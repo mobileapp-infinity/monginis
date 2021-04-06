@@ -8,6 +8,16 @@ public class IntentConstants {
     public static final String USER_CURRENT_STREET_NAME = "UserCurrentStreetName";
     public static final String USER_CURRENT_ADDRESS = "UserCurrentAddress";
     public static final String USER_CURRENT_CITY_NAME = "UserCurrentCityName";
+    public static final String USER_CURRENT_LATITUDE = "UserCurrentLatitude";
+    public static final String USER_CURRENT_LONGITUDE = "UserCurrentLongitude";
+    public static final String SELECTED_ITEM_ID = "selectedItemId";
+    public static final String SELECTED_ITEM_NAME = "selectedItemName";
+    public static final String SELECTED_ITEM_MRP = "selectedItemFlavour";
+    public static final String SELECTED_SHOP_ID = "selectedShopId";
+    public static final String SELECTED_SHOP_NAME = "selectedShopName";
+    public static final String SELECTED_SHOP_ADDRESS = "selectedShopAddress";
+  //  public static final String REQUEST = "selectedItemFlavour";
+
 
 
 

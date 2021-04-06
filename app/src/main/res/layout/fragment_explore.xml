@@ -31,7 +31,7 @@
                 <androidx.appcompat.widget.AppCompatImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/ic_location"
+                    android:src="@drawable/ic_location_image"
                     android:tint="@color/color_black" />
 
                 <com.infinity.monginis.custom_class.TextViewMediumFont
@@ -107,10 +107,12 @@
 
                   <net.seifhadjhassen.recyclerviewpager.RecyclerViewPager
                       android:id="@+id/pager"
+                      android:layout_marginTop="12dp"
+                      android:layout_marginBottom="12dp"
                       android:layout_width="match_parent"
                       android:layout_height="wrap_content"
-                      android:layout_marginTop="20dp"
-                      app:svp_timeMillis="1000"
+
+                      app:svp_timeMillis="3000"
 
                       app:svp_runAuto="true">
 
@@ -139,6 +141,57 @@
 
                   </LinearLayout>
 
+                  <xyz.peridy.shimmerlayout.ShimmerLayout
+                      android:id="@+id/shimmer_layout"
+                      android:visibility="gone"
+                      android:background="@drawable/shimmer_drawable"
+                      android:layout_width="match_parent"
+                      android:layout_height="wrap_content">
+                      <LinearLayout
+                          android:layout_width="match_parent"
+                          android:layout_height="wrap_content"
+                          android:layout_marginLeft="10dp"
+
+                          android:layout_marginTop="10dp"
+
+                          android:layout_marginRight="10dp"
+                          android:gravity="center_vertical"
+                          android:orientation="horizontal">
+
+                          <com.infinity.monginis.custom_class.TextViewMediumFont
+                              android:layout_width="0dp"
+                              android:layout_height="wrap_content"
+                              android:layout_weight="1"
+                              android:background="@drawable/shimmer_drawable"
+                              android:text="@string/dashboard_top_categories"
+                              android:textColor="@android:color/black"
+                              android:textSize="@dimen/text_14sp" />
+
+                          <LinearLayout
+                              android:id="@+id/llTopCategoryFilter"
+                              android:layout_width="wrap_content"
+                              android:layout_height="wrap_content"
+                              android:background="?selectableItemBackground"
+                              android:orientation="horizontal">
+
+                              <ImageView
+                                  android:layout_width="24dp"
+                                  android:layout_height="24dp"
+                                  android:src="@drawable/ic_filter" />
+
+                              <com.infinity.monginis.custom_class.TextViewRegularFont
+                                  android:layout_width="wrap_content"
+                                  android:layout_height="wrap_content"
+                                  android:padding="6dp"
+                                  android:text="Filter"
+                                  android:textColor="@android:color/darker_gray"
+                                  android:textSize="@dimen/text_14sp" />
+
+                          </LinearLayout>
+
+                      </LinearLayout>
+
+                  </xyz.peridy.shimmerlayout.ShimmerLayout>
                   <LinearLayout
                       android:id="@+id/llTopCategories"
                       android:layout_width="match_parent"
@@ -163,6 +216,7 @@
                               android:textSize="@dimen/text_14sp" />
 
                           <LinearLayout
+                              android:visibility="gone"
                               android:id="@+id/llTopCategoryFilter"
                               android:layout_width="wrap_content"
                               android:layout_height="wrap_content"
@@ -299,6 +353,7 @@
                   </LinearLayout>
 
                   <LinearLayout
+                      android:visibility="gone"
                       android:id="@+id/llNearByDeals"
                       android:layout_width="match_parent"
                       android:layout_height="wrap_content"

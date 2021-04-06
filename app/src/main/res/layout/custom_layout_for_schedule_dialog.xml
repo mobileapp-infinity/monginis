@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    app:cardCornerRadius="8dp"
+    app:cardElevation="8dp"
+    app:contentPaddingLeft="12dp"
+    app:contentPaddingRight="12dp"
+    app:contentPaddingTop="16dp"
+    app:contentPaddingBottom="12dp">
+
+   <LinearLayout
+       android:orientation="vertical"
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content">
+
+
+       <LinearLayout
+           android:layout_width="match_parent"
+           android:orientation="horizontal"
+           android:layout_weight="1"
+           android:layout_height="wrap_content">
+
+           <com.infinity.monginis.custom_class.TextViewMediumFont
+               android:layout_width="0dp"
+               android:layout_weight="0.9"
+               android:text="Schedule"
+               android:layout_gravity="center"
+               android:textColor="@android:color/black"
+               android:textAlignment="center"
+               android:textSize="@dimen/text_16sp"
+               android:layout_height="wrap_content"/>
+           <androidx.appcompat.widget.AppCompatImageView
+               android:id="@+id/imgCloseSchedule"
+               android:layout_width="wrap_content"
+               android:layout_height="32dp"
+               android:layout_weight="0.1"
+               android:layout_gravity="end"
+               android:background="?selectableItemBackground"
+               android:src="@drawable/ic_close"
+               android:tint="@color/color_black"/>
+
+       </LinearLayout>
+
+
+       <LinearLayout
+           android:layout_marginTop="10dp"
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:orientation="vertical">
+
+           <com.toptoche.searchablespinnerlibrary.SearchableSpinner
+               android:id="@+id/spSchedule"
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:padding="10dp" />
+
+           <View
+               android:layout_width="match_parent"
+               android:layout_height="0.6dp"
+               android:layout_margin="8dp"
+               android:background="@color/gray" />
+
+
+
+
+
+       </LinearLayout>
+   </LinearLayout>
+
+
+</com.google.android.material.card.MaterialCardView>

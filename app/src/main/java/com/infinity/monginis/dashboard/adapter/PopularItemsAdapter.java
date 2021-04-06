@@ -2,11 +2,13 @@ package com.infinity.monginis.dashboard.adapter;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -14,15 +16,20 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.Priority;
 import com.bumptech.glide.request.RequestOptions;
+import com.google.android.material.card.MaterialCardView;
+import com.infinity.monginis.CategoryItemsDetails.Activity.CategoryItemsDetailsActivity;
 import com.infinity.monginis.R;
 import com.infinity.monginis.custom_class.TextViewRegularFont;
+import com.infinity.monginis.dashboard.activity.BottomSheetDialogForSpecialOrder;
+import com.infinity.monginis.dashboard.activity.DashboardActivity;
+import com.infinity.monginis.dashboard.activity.ItemDetailsActivity;
 import com.infinity.monginis.dashboard.pojo.GetItemsForDashboardPojo;
 import com.infinity.monginis.utils.CommonUtil;
 
 import static com.infinity.monginis.dashboard.activity.DashboardActivity.vpDashboard;
 import static com.infinity.monginis.dashboard.adapter.TopCategoriesAdapter.isFromTopCategories;
 
-public class PopularItemsAdapter extends RecyclerView.Adapter<PopularItemsAdapter.MyViewHolder> {
+public class PopularItemsAdapter extends RecyclerView.Adapter<PopularItemsAdapter.MyViewHolder> implements View.OnClickListener {
 
     private Context context;
     private GetItemsForDashboardPojo getItemsForDashboardPojo;
@@ -54,8 +61,8 @@ public class PopularItemsAdapter extends RecyclerView.Adapter<PopularItemsAdapte
 
         RequestOptions options = new RequestOptions()
 
-                .placeholder(R.drawable.monginis_logo)
-                .error(R.drawable.monginis_logo)
+                .placeholder(R.drawable.dummy_img_5)
+                .error(R.drawable.dummy_img_5)
 
                 .priority(Priority.HIGH);
 
@@ -67,11 +74,32 @@ public class PopularItemsAdapter extends RecyclerView.Adapter<PopularItemsAdapte
         }
 
 
-        if (position % 2 == 0) {
+      /*  if (position % 2 == 0) {
 
             holder.tvPopularCategory.setText("(Special)");
         } else {
             holder.tvPopularCategory.setText("(Regular)");
+        }*/
+
+        if (getItemsForDashboardPojo.getRECORDS().get(position).getIs_special_flag() != 1) {
+
+            holder.cvItemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                  //  vpDashboard.setCurrentItem(1);
+
+                    Intent itemDetailsIntent = new Intent(context, CategoryItemsDetailsActivity.class);
+                    itemDetailsIntent.putExtra("itemId", getItemsForDashboardPojo.getRECORDS().get(position).getId() + "");
+                    itemDetailsIntent.putExtra("itemName", getItemsForDashboardPojo.getRECORDS().get(position).getItmName() + "");
+                    itemDetailsIntent.putExtra("isFromPopular", true);
+                    context.startActivity(itemDetailsIntent);
+
+                    Toast.makeText(context, "Done", Toast.LENGTH_SHORT).show();
+                }
+            });
+
+        } else {
+            holder.cvItemView.setOnClickListener(null);
         }
 
         if (!CommonUtil.checkIsEmptyOrNullCommon(getItemsForDashboardPojo.getRECORDS().get(position).getItmName())) {
@@ -88,9 +116,21 @@ public class PopularItemsAdapter extends RecyclerView.Adapter<PopularItemsAdapte
             ;
         }
 
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
+        if (!CommonUtil.checkIsEmptyOrNullCommon(getItemsForDashboardPojo.getRECORDS().get(position).getIs_special_flag())) {
+            if (getItemsForDashboardPojo.getRECORDS().get(position).getIs_special_flag() == 1) {
+                holder.tvCustomize.setVisibility(View.VISIBLE);
+
+            } else {
+                holder.tvCustomize.setVisibility(View.GONE);
+            }
+
+        }
+
+       /* holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+
                 if (position % 2 == 0) {
 
                     isFromSpecialOrderItem = true;
@@ -106,6 +146,14 @@ public class PopularItemsAdapter extends RecyclerView.Adapter<PopularItemsAdapte
                 }
 
             }
+        });*/
+
+        holder.tvCustomize.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                BottomSheetDialogForSpecialOrder bottomSheetForSpecialOrder = new BottomSheetDialogForSpecialOrder((DashboardActivity) context, getItemsForDashboardPojo, position);
+                bottomSheetForSpecialOrder.show(((DashboardActivity) context).getSupportFragmentManager(), "");
+            }
         });
 
     }
@@ -115,10 +163,21 @@ public class PopularItemsAdapter extends RecyclerView.Adapter<PopularItemsAdapte
         return getItemsForDashboardPojo.getRECORDS().size();
     }
 
+    @Override
+    public void onClick(View v) {
+
+        if (v.getId() == R.id.cvItemView) {
+
+
+        }
+
+    }
+
     public class MyViewHolder extends RecyclerView.ViewHolder {
 
         ImageView ivPopularItem;
-        TextViewRegularFont tvPopularItemName, tvFlavourAndShape, tvPrice, tvPopularCategory;
+        TextViewRegularFont tvPopularItemName, tvFlavourAndShape, tvPrice, tvPopularCategory, tvCustomize;
+        MaterialCardView cvItemView;
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -127,6 +186,9 @@ public class PopularItemsAdapter extends RecyclerView.Adapter<PopularItemsAdapte
             tvFlavourAndShape = itemView.findViewById(R.id.tvFlavourAndShape);
             tvPrice = itemView.findViewById(R.id.tvNewPrice);
             tvPopularCategory = itemView.findViewById(R.id.tvPopularCategory);
+            tvCustomize = itemView.findViewById(R.id.tvCustomize);
+            cvItemView = itemView.findViewById(R.id.cvItemView);
+
         }
     }
 }

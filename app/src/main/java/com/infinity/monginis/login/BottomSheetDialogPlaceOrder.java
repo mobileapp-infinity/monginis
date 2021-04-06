@@ -47,6 +47,7 @@ public class BottomSheetDialogPlaceOrder extends BottomSheetDialogFragment imple
     }
 
     private void initView(View view) {
+
         llRepeatLast = view.findViewById(R.id.llRepeatLast);
         llRepeatLast.setOnClickListener(this);
         llIWillChoose = view.findViewById(R.id.llIWillChoose);
@@ -68,4 +69,9 @@ public class BottomSheetDialogPlaceOrder extends BottomSheetDialogFragment imple
 
         }
     }
+
+
+
+
+
 }

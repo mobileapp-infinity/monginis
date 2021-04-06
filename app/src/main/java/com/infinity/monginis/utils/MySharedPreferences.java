@@ -3,6 +3,12 @@ package com.infinity.monginis.utils;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+import com.google.gson.Gson;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+
 import static android.content.Context.MODE_PRIVATE;
 
 public class MySharedPreferences {
@@ -62,6 +68,48 @@ public class MySharedPreferences {
     public void setVersionName(String versionName) {
         editor.putString(PreferencesConstants.VERSION_NAME, versionName);
         editor.apply();
+    }
+
+    public void setUserMobileNo(String mobileNo) {
+        editor.putString(PreferencesConstants.MOBILE_NO, mobileNo);
+        editor.apply();
+    }
+
+    public String getUserMobileNo() {
+        return sharedPreferences.getString(PreferencesConstants.MOBILE_NO, "");
+    }
+
+
+    public void setFavouriteItems(HashMap<String, ArrayList<String>> testHashMap) {
+
+        //  ArrayList arrayList = new ArrayList();
+        //  testHashMap = new HashMap<String, ArrayList<String>>();
+        // testHashMap.put("key1", arrayList);
+        // testHashMap.put("key2", "value2");
+
+        //convert to string using gson
+        Gson gson = new Gson();
+        String hashMapString = gson.toJson(testHashMap);
+        editor.putString(PreferencesConstants.SELECTED_FAVOURITE_ITEMS, hashMapString);
+        editor.apply();
+
+    }
+
+    public String getFavouriteItems() {
+        return sharedPreferences.getString(PreferencesConstants.SELECTED_FAVOURITE_ITEMS, "");
+    }
+
+
+    public void setUserWiseCartItems(HashMap<String, ArrayList<String>> cartHashMap) {
+
+        Gson gson = new Gson();
+        String hashMapString = gson.toJson(cartHashMap);
+        editor.putString(PreferencesConstants.SELECTED_CART_ITEMS, hashMapString);
+        editor.apply();
+    }
+
+    public String getUserWiseCartItems() {
+        return sharedPreferences.getString(PreferencesConstants.SELECTED_CART_ITEMS, "");
     }
 
 

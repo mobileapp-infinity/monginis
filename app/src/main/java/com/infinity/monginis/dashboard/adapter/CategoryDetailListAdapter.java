@@ -23,9 +23,11 @@ import com.infinity.monginis.dashboard.activity.BottomSheetDialogForSpecialOrder
 import com.infinity.monginis.dashboard.activity.CartActivity;
 import com.infinity.monginis.dashboard.activity.ItemDetailsActivity;
 import com.infinity.monginis.dashboard.pojo.CategoryDetailsPojo;
+import com.infinity.monginis.dashboard.pojo.GetItmePosStockPojo;
 import com.infinity.monginis.login.BottomSheetDialogForLoginUser;
 import com.infinity.monginis.login.BottomSheetDialogPlaceOrder;
 import com.infinity.monginis.login.LoginActivity;
+import com.infinity.monginis.utils.CommonUtil;
 
 import java.util.ArrayList;
 
@@ -40,15 +42,17 @@ public class CategoryDetailListAdapter extends RecyclerView.Adapter<CategoryDeta
     private static int MAX_ORDER_QUANTITY = 10;
     private boolean isFromSpecialOrderItem;
     ItemDetailsActivity activity;
+    GetItmePosStockPojo getItmePosStockPojo;
 
 
-    public CategoryDetailListAdapter(Context context, ArrayList<CategoryDetailsPojo> categoryDetailsPojoArrayList, boolean isFromSpecialOrderItem) {
+    public CategoryDetailListAdapter(Context context, ArrayList<CategoryDetailsPojo> categoryDetailsPojoArrayList, boolean isFromSpecialOrderItem, GetItmePosStockPojo getItmePosStockPojo) {
         this.context = context;
         this.categoryDetailsPojoArrayList = categoryDetailsPojoArrayList;
         layoutInflater = LayoutInflater.from(context);
         this.isFromSpecialOrderItem = isFromSpecialOrderItem;
         activity = (ItemDetailsActivity) context;
         bottomSheetDialogForLoginUser = new BottomSheetDialogForLoginUser(activity);
+        this.getItmePosStockPojo = getItmePosStockPojo;
     }
 
     @NonNull
@@ -64,16 +68,16 @@ public class CategoryDetailListAdapter extends RecyclerView.Adapter<CategoryDeta
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
 
-        if (!categoryDetailsPojoArrayList.get(position).isAdded()) {
+       /* if (!categoryDetailsPojoArrayList.get(position).isAdded()) {
             holder.btnAddItemCount.setVisibility(View.VISIBLE);
             holder.llAddMoreItem.setVisibility(View.GONE);
         } else {
             holder.btnAddItemCount.setVisibility(View.GONE);
             holder.llAddMoreItem.setVisibility(View.VISIBLE);
         }
+*/
 
-
-        if (isFromTopCategories) {
+       /* if (isFromTopCategories) {
 
             isFromSpecialOrderItem = false;
             isFromRegularOrderItem = false;
@@ -88,7 +92,16 @@ public class CategoryDetailListAdapter extends RecyclerView.Adapter<CategoryDeta
         if (isFromRegularOrderItem) {
             holder.llAddMoreItem.setVisibility(View.VISIBLE);
             holder.btnAddItemCount.setVisibility(View.GONE);
+        }*/
+        if (!CommonUtil.checkIsEmptyOrNullCommon(getItmePosStockPojo.getRecords().get(position).getItemName())) {
+            holder.tvPosItemName.setText(getItmePosStockPojo.getRecords().get(position).getItemName());
         }
+
+        if (!CommonUtil.checkIsEmptyOrNullCommon(getItmePosStockPojo.getRecords().get(position).getItemName())) {
+
+            holder.tvNewPrice.setText(getItmePosStockPojo.getRecords().get(position).getMrp() + "");
+        }
+
 
         holder.btnAddItemCount.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -99,17 +112,17 @@ public class CategoryDetailListAdapter extends RecyclerView.Adapter<CategoryDeta
 //                holder.btnAddItemCount.setVisibility(View.VISIBLE);
 //                categoryDetailsPojoArrayList.get(position).setAdded(true);
 //                notifyItemChanged(position);
-
+/*
                 if (!bottomSheetDialogForLoginUser.isAdded()) {
                     bottomSheetDialogForLoginUser.show(activity.getSupportFragmentManager(), "test");
-                }
+                }*/
                 // BottomSheetDialogForCheckOut bottomSheetDialogForCheckOut = new BottomSheetDialogForCheckOut((ItemDetailsActivity) context);
                 // bottomSheetDialogForCheckOut.show(((ItemDetailsActivity) context).getSupportFragmentManager(), "place_order_fragment");
             }
         });
 
 
-        holder.imgAdd.setOnClickListener(new View.OnClickListener() {
+     /*   holder.imgAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 try {
@@ -126,9 +139,9 @@ public class CategoryDetailListAdapter extends RecyclerView.Adapter<CategoryDeta
                     ex.printStackTrace();
                 }
             }
-        });
+        });*/
 
-        holder.imgMinus.setOnClickListener(new View.OnClickListener() {
+        /*holder.imgMinus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 try {
@@ -139,7 +152,7 @@ public class CategoryDetailListAdapter extends RecyclerView.Adapter<CategoryDeta
                     ex.printStackTrace();
                 }
             }
-        });
+        });*/
     }
 
     void addQuantity(int addBy, AppCompatEditText etQty) {
@@ -167,12 +180,12 @@ public class CategoryDetailListAdapter extends RecyclerView.Adapter<CategoryDeta
 
     @Override
     public int getItemCount() {
-        return categoryDetailsPojoArrayList.size();
+        return getItmePosStockPojo.getRecords().size();
     }
 
     class MyViewHolder extends RecyclerView.ViewHolder {
 
-        TextViewRegularFont btnAddItemCount;
+        TextViewRegularFont btnAddItemCount, tvPosItemName, tvNewPrice;
         LinearLayout llAddMoreItem;
         AppCompatImageView imgAdd, imgMinus;
         AppCompatEditText edItemCount;
@@ -180,6 +193,8 @@ public class CategoryDetailListAdapter extends RecyclerView.Adapter<CategoryDeta
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
             btnAddItemCount = itemView.findViewById(R.id.btnAddItemCount);
+            tvPosItemName = itemView.findViewById(R.id.tvPosItemName);
+            tvNewPrice = itemView.findViewById(R.id.tvNewPrice);
             llAddMoreItem = itemView.findViewById(R.id.llAddMoreItem);
             imgAdd = itemView.findViewById(R.id.imgAdd);
             imgMinus = itemView.findViewById(R.id.imgMinus);

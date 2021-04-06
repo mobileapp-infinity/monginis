@@ -17,6 +17,7 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.location.Address;
+import android.location.Location;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
@@ -41,6 +42,7 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.iid.InstanceIdResult;
 import com.infinity.monginis.BuildConfig;
+import com.infinity.monginis.Map.MapActivity;
 import com.infinity.monginis.R;
 import com.infinity.monginis.api.ApiImplementer;
 import com.infinity.monginis.api.ApiUrls;
@@ -108,6 +110,17 @@ public class SplashActivity extends AppCompatActivity {
         intent.putExtra(IntentConstants.USER_CURRENT_STREET_NAME, userCurrentStreetName);
         intent.putExtra(IntentConstants.USER_CURRENT_ADDRESS, userCurrentAddress);
         intent.putExtra(IntentConstants.USER_CURRENT_CITY_NAME, userCurrentCityName);
+        startActivity(intent);
+        finish();
+    }
+
+    private void redirectToMap(Location latlng) {
+        Intent intent = new Intent(SplashActivity.this, MapActivity.class);
+        intent.putExtra(IntentConstants.USER_CURRENT_STREET_NAME, userCurrentStreetName);
+        intent.putExtra(IntentConstants.USER_CURRENT_ADDRESS, userCurrentAddress);
+        intent.putExtra(IntentConstants.USER_CURRENT_CITY_NAME, userCurrentCityName);
+        intent.putExtra(IntentConstants.USER_CURRENT_LATITUDE, latlng.getLatitude());
+        intent.putExtra(IntentConstants.USER_CURRENT_LONGITUDE, latlng.getLongitude());
         startActivity(intent);
         finish();
     }
@@ -323,10 +336,11 @@ public class SplashActivity extends AppCompatActivity {
 
                     locationTrackerNew = new LocationTrackerNew(SplashActivity.this, new LocationTrackerNew.IGetUserCurrentLocation() {
                         @Override
-                        public void fetchCurrentLocation(String cityName, Address address) {
+                        public void fetchCurrentLocation(String cityName, Address address, Location lastKnowLocation) {
                             DialogUtil.hideProgressDialog();
                             if (!CommonUtil.checkIsEmptyOrNullCommon(cityName)) {
                                 userCurrentCityName = cityName;
+
                                 if (!CommonUtil.checkIsEmptyOrNullCommon(address.getAddressLine(0))) {
                                     userCurrentAddress = address.getAddressLine(0);
                                 }
@@ -335,7 +349,9 @@ public class SplashActivity extends AppCompatActivity {
                                 } else if (!CommonUtil.checkIsEmptyOrNullCommon(address.getSubThoroughfare())) {
                                     userCurrentStreetName = address.getSubThoroughfare();
                                 }
-                                redirectToDashboard();
+
+                                redirectToMap(lastKnowLocation);
+                               // redirectToDashboard();
                             } else {
                                 DialogUtil.showCityNotFoundDialog(SplashActivity.this);
                             }
@@ -515,8 +531,6 @@ public class SplashActivity extends AppCompatActivity {
             }
         }
     }
-
-
 
 
 }

@@ -40,6 +40,7 @@ public class GetItemsForDashboardPojo {
     public void setRECORDS(List<RECORD> rECORDS) {
         this.rECORDS = rECORDS;
     }
+
     public class RECORD {
 
         @SerializedName("itm_name")
@@ -61,6 +62,9 @@ public class GetItemsForDashboardPojo {
         @Expose
         private String itmShape;
 
+        @SerializedName("is_special_flag")
+        @Expose
+        private int is_special_flag;
 
 
         public String getItmName() {
@@ -109,6 +113,14 @@ public class GetItemsForDashboardPojo {
 
         public void setItmShape(String itmShape) {
             this.itmShape = itmShape;
+        }
+
+        public int getIs_special_flag() {
+            return is_special_flag;
+        }
+
+        public void setIs_special_flag(int is_special_flag) {
+            this.is_special_flag = is_special_flag;
         }
     }
 

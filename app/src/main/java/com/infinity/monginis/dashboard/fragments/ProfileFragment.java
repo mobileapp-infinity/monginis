@@ -17,6 +17,8 @@ import com.infinity.monginis.dashboard.activity.AddressActivity;
 import com.infinity.monginis.dashboard.activity.MyOrdersActivity;
 import com.infinity.monginis.dashboard.activity.MyOrdersScreenActivity;
 import com.infinity.monginis.dashboard.activity.PaymentOptionsActivity;
+import com.infinity.monginis.utils.CommonUtil;
+import com.infinity.monginis.utils.MySharedPreferences;
 
 public class ProfileFragment extends Fragment implements View.OnClickListener {
 
@@ -28,6 +30,8 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
     LinearLayout llFavourites;
     LinearLayout llHelp;
     LinearLayout llLogout;
+    private MySharedPreferences mySharedPreferences;
+    private TextViewMediumFont tvCustomerName;
 
     TextViewRegularFont tvEdit;
 
@@ -60,7 +64,16 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
         llHelp = view.findViewById(R.id.llHelp);
         llLogout = view.findViewById(R.id.llLogout);
         tvEdit = view.findViewById(R.id.tvEdit);
+        mySharedPreferences = new MySharedPreferences(getActivity());
 
+        tvCustomerName = view.findViewById(R.id.tvCustomerName);
+        String loggedInUserName = mySharedPreferences.getUserMobileNo();
+        if (loggedInUserName != null && !CommonUtil.checkIsEmptyOrNullCommon(loggedInUserName)) {
+            llLogout.setVisibility(View.VISIBLE);
+            tvCustomerName.setText(mySharedPreferences.getUserMobileNo());
+        }else{
+            llLogout.setVisibility(View.GONE);
+        }
 
         llMyOrders.setOnClickListener(this);
         llManageAddress.setOnClickListener(this);
@@ -98,6 +111,8 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
 
         } else if (view.getId() == R.id.llLogout) {
 
+            mySharedPreferences.setUserMobileNo("");
+            getActivity().finish();
 
 
         } else if (view.getId() == R.id.tvEdit) {

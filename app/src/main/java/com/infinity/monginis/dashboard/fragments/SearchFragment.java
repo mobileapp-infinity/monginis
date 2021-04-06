@@ -142,6 +142,7 @@ public class SearchFragment extends Fragment implements View.OnClickListener {
                 searchCategoryAdapter = new SearchCategoryAdapter(activity, customerPojoArrayList);
                 rvSearchCategory.setAdapter(searchCategoryAdapter);
                 searchCategoryAdapter.notifyDataSetChanged();
+                edtSearchCategory.setText("");
             }
         });
 
@@ -155,6 +156,7 @@ public class SearchFragment extends Fragment implements View.OnClickListener {
                 searchCategoryAdapter = new SearchCategoryAdapter(activity, ItemPojoArrayList);
                 rvSearchCategory.setAdapter(searchCategoryAdapter);
                 searchCategoryAdapter.notifyDataSetChanged();
+                edtSearchCategory.setText("");
 
             }
         });

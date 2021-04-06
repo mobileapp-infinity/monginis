@@ -10,6 +10,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.infinity.monginis.R;
@@ -20,8 +21,10 @@ import com.infinity.monginis.dashboard.fragments.CartFragment;
 import com.infinity.monginis.dashboard.fragments.ExploreFragment;
 import com.infinity.monginis.dashboard.fragments.ProfileFragment;
 import com.infinity.monginis.dashboard.fragments.SearchFragment;
+import com.infinity.monginis.login.BottomSheetDialogForLoginUser;
 import com.infinity.monginis.utils.CommonUtil;
 import com.infinity.monginis.utils.IntentConstants;
+import com.infinity.monginis.utils.MySharedPreferences;
 
 public class DashboardActivity extends AppCompatActivity {
 
@@ -30,6 +33,7 @@ public class DashboardActivity extends AppCompatActivity {
     BottomNavigationView bottomNavigationView;
     public static ViewPager vpDashboard;
     MenuItem prevMenuItem;
+    private MySharedPreferences mySharedPreferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,17 +62,34 @@ public class DashboardActivity extends AppCompatActivity {
                         searchInputManger.hideSoftInputFromWindow(bottomNavigationView.getWindowToken(), 0);
                         break;
                     case R.id.cart:
-                        vpDashboard.setCurrentItem(2);
+                        //if (!CommonUtil.checkIsEmptyOrNullCommon(mySharedPreferences.getUserMobileNo())) {
+                            vpDashboard.setCurrentItem(2);
 
-                        InputMethodManager cartInputManager = (InputMethodManager) DashboardActivity.this.getSystemService(Context.INPUT_METHOD_SERVICE);
-                        cartInputManager.hideSoftInputFromWindow(bottomNavigationView.getWindowToken(), 0);
+                            InputMethodManager cartInputManager = (InputMethodManager) DashboardActivity.this.getSystemService(Context.INPUT_METHOD_SERVICE);
+                            cartInputManager.hideSoftInputFromWindow(bottomNavigationView.getWindowToken(), 0);
+                      /*  } else {
+                            BottomSheetDialogForLoginUser bottomSheetDialogForLoginUser = new BottomSheetDialogForLoginUser(DashboardActivity.this);
+                            if (!bottomSheetDialogForLoginUser.isAdded()) {
+                                bottomSheetDialogForLoginUser.show(getSupportFragmentManager(), "test");
+                            }
+                        }*/
+
 
                         break;
                     case R.id.profile:
-                        vpDashboard.setCurrentItem(3);
+                      //  if (!CommonUtil.checkIsEmptyOrNullCommon(mySharedPreferences.getUserMobileNo())) {
+                            vpDashboard.setCurrentItem(3);
 
-                        InputMethodManager profileInputManager = (InputMethodManager) DashboardActivity.this.getSystemService(Context.INPUT_METHOD_SERVICE);
-                        profileInputManager.hideSoftInputFromWindow(bottomNavigationView.getWindowToken(), 0);
+                            InputMethodManager profileInputManager = (InputMethodManager) DashboardActivity.this.getSystemService(Context.INPUT_METHOD_SERVICE);
+                            profileInputManager.hideSoftInputFromWindow(bottomNavigationView.getWindowToken(), 0);
+                       /* } else {
+                            BottomSheetDialogForLoginUser bottomSheetDialogForLoginUser = new BottomSheetDialogForLoginUser(DashboardActivity.this);
+                            if (!bottomSheetDialogForLoginUser.isAdded()) {
+                                bottomSheetDialogForLoginUser.show(getSupportFragmentManager(), "test");
+                            }
+                        }*/
+
+
                         break;
                 }
                 return false;
@@ -87,6 +108,7 @@ public class DashboardActivity extends AppCompatActivity {
 
     private void initView() {
         vpDashboard = findViewById(R.id.vpDashboard);
+        mySharedPreferences = new MySharedPreferences(this);
         bottomNavigationView = findViewById(R.id.bottomNavigationView);
 //        tvStreetName = findViewById(R.id.tvStreetName);
 //        tvUserAddress = findViewById(R.id.tvUserAddress);
