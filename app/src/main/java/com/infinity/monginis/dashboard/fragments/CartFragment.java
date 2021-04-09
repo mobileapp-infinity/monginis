@@ -90,8 +90,8 @@ public class CartFragment extends Fragment implements View.OnClickListener {
         tb_layout.setupWithViewPager(vpCustomizeScreen);
         Bundle bundle = intent.getExtras();
         ArrayList<CartItemModel> cartItemModel = (ArrayList<CartItemModel>) bundle.getSerializable("cartItemModel");
-        CustomizeItemAdapter customizeItemAdapter = new CustomizeItemAdapter(getActivity(),cartItemModel);
-        rvCustomizeItemList.setAdapter(customizeItemAdapter);
+      //  CustomizeItemAdapter customizeItemAdapter = new CustomizeItemAdapter(getActivity(),cartItemModel);
+       // rvCustomizeItemList.setAdapter(customizeItemAdapter);
     }
 
     @Override

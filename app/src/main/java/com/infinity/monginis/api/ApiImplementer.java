@@ -3,6 +3,7 @@ package com.infinity.monginis.api;
 import com.infinity.monginis.CategoryItemsDetails.Pojo.ItemDetailsByCategoryPojo;
 import com.infinity.monginis.ShopForItemActiivty.GetShopListForItemStockPojo;
 import com.infinity.monginis.dashboard.pojo.GetAllCityPojo;
+import com.infinity.monginis.dashboard.pojo.GetAllShopPojo;
 import com.infinity.monginis.dashboard.pojo.GetCategoryForDashboardPojo;
 import com.infinity.monginis.dashboard.pojo.GetFlavoursPojo;
 import com.infinity.monginis.dashboard.pojo.GetItemWeightPojo;
@@ -13,14 +14,18 @@ import com.infinity.monginis.dashboard.pojo.GetOccasionPojo;
 import com.infinity.monginis.dashboard.pojo.GetSchedulePojo;
 import com.infinity.monginis.dashboard.pojo.GetVersionInfoPojo;
 import com.infinity.monginis.dashboard.pojo.Get_Addons_Items_List_Pojo;
+import com.infinity.monginis.dashboard.pojo.SavePartialOrderPojo;
 import com.infinity.monginis.dashboard.pojo.SearchCategoryPojo;
 import com.infinity.monginis.login.Pojo.CheckLoginOTPPojo;
 import com.infinity.monginis.login.Pojo.CheckOTPVerifyPojo;
 
-import java.util.ArrayList;
-
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.Callback;
+import retrofit2.http.Multipart;
+import retrofit2.http.POST;
+import retrofit2.http.Part;
 
 public class ApiImplementer {
 
@@ -152,13 +157,26 @@ public class ApiImplementer {
         call.enqueue(cb);
     }
 
-    public static void getAddonsItemsList(String app_version, String android_id,
-                                          String device_id, String user_id, String key, String comp_id, String cust_id,
-                                          Callback<Get_Addons_Items_List_Pojo> cb) {
+    public static void getAddonsItemsListImplementer(String app_version, String android_id,
+                                                     String device_id, String user_id, String key, String comp_id, String cust_id,
+                                                     Callback<Get_Addons_Items_List_Pojo> cb) {
         final IApiInterface apiService = ApiClient.getClient().create(IApiInterface.class);
         Call<Get_Addons_Items_List_Pojo> call = apiService.getAddonsItemsList(app_version, android_id, device_id, user_id, key, comp_id, cust_id);
         call.enqueue(cb);
     }
+
+
+    public static void getAllShopImplementer(String app_version, String android_id,
+                                  String device_id, String user_id, String key, String comp_id, Callback<GetAllShopPojo> cb) {
+
+        final IApiInterface apiService = ApiClient.getClient().create(IApiInterface.class);
+        Call<GetAllShopPojo> call = apiService.getAllShop(app_version, android_id, device_id, user_id, key, comp_id);
+        call.enqueue(cb);
+
+    }
+
+
+
 
 
 }

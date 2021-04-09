@@ -16,6 +16,7 @@ public class CartItemModel implements Serializable {
     private String itemName;
     private String itemMrp;
     private String menu;
+    private String menuId;
     private String flavour;
     private String shape;
     private RequestBody photo;
@@ -23,9 +24,11 @@ public class CartItemModel implements Serializable {
     private String yourMessage;
     private String yourInstruction;
     private String weight;
+    private String qty;
+    private String scheduleId;
 
 
-    public CartItemModel(String itemName, String itemMrp, String menu, String flavour, String shape, RequestBody photo, String deliverydate, String yourMessage, String yourInstruction, String weight) {
+    public CartItemModel(String itemName, String itemMrp, String menu, String flavour, String shape, RequestBody photo, String deliverydate, String yourMessage, String yourInstruction, String weight,String menuId,String qty,String scheduleId) {
         this.itemName = itemName;
         this.itemMrp = itemMrp;
 
@@ -38,6 +41,9 @@ public class CartItemModel implements Serializable {
         this.yourMessage = yourMessage;
         this.yourInstruction = yourInstruction;
         this.weight = weight;
+        this.menuId = menuId;
+        this.qty =qty;
+        this.scheduleId =scheduleId;
     }
 
     public String getShopName() {
@@ -144,5 +150,29 @@ public class CartItemModel implements Serializable {
         this.weight = weight;
     }
 
+    public String getMenuId() {
+        return menuId;
+    }
 
+    public void setMenuId(String menuId) {
+        this.menuId = menuId;
+
+
+    }
+
+    public String getQty() {
+        return qty;
+    }
+
+    public void setQty(String qty) {
+        this.qty = qty;
+    }
+
+    public String getScheduleId() {
+        return scheduleId;
+    }
+
+    public void setScheduleId(String scheduleId) {
+        this.scheduleId = scheduleId;
+    }
 }

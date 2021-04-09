@@ -275,7 +275,7 @@ public class ExploreFragment extends Fragment implements View.OnClickListener {
 
 
                             GetItemsForDashboardPojo getItemsForDashboardPojo = response.body();
-                            if (getItemsForDashboardPojo != null && getItemsForDashboardPojo.getRECORDS().size() > 0) {
+                            if (getItemsForDashboardPojo != null && getItemsForDashboardPojo.getRecords().size() > 0) {
 
                                 PopularItemsAdapter popularItemsAdapter = new PopularItemsAdapter(getActivity(), getItemsForDashboardPojo);
 

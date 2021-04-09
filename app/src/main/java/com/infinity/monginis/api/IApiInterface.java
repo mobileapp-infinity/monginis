@@ -5,6 +5,7 @@ import com.google.gson.annotations.SerializedName;
 import com.infinity.monginis.CategoryItemsDetails.Pojo.ItemDetailsByCategoryPojo;
 import com.infinity.monginis.ShopForItemActiivty.GetShopListForItemStockPojo;
 import com.infinity.monginis.dashboard.pojo.GetAllCityPojo;
+import com.infinity.monginis.dashboard.pojo.GetAllShopPojo;
 import com.infinity.monginis.dashboard.pojo.GetCategoryForDashboardPojo;
 import com.infinity.monginis.dashboard.pojo.GetFlavoursPojo;
 import com.infinity.monginis.dashboard.pojo.GetItemWeightPojo;
@@ -16,6 +17,7 @@ import com.infinity.monginis.dashboard.pojo.GetSchedulePojo;
 import com.infinity.monginis.dashboard.pojo.GetVersionInfoPojo;
 import com.infinity.monginis.dashboard.pojo.Get_Addons_Items_List_Pojo;
 import com.infinity.monginis.dashboard.pojo.SavePartialOrderDetailPojo;
+import com.infinity.monginis.dashboard.pojo.SavePartialOrderPojo;
 import com.infinity.monginis.dashboard.pojo.SearchCategoryPojo;
 import com.infinity.monginis.login.Pojo.CheckLoginOTPPojo;
 import com.infinity.monginis.login.Pojo.CheckOTPVerifyPojo;
@@ -162,24 +164,23 @@ public interface IApiInterface {
                                       @Query("itm_id") String itm_id);
 
 
-
     @Multipart
     @POST("save_special_order_partial")
-    Call<SavePartialOrderDetailPojo>saveSpecialOrderPartial(@Part("app_version") RequestBody app_version, @Part("android_id") RequestBody android_id, @Part("device_id") RequestBody device_id, @Part("user_id") RequestBody user_id, @Part("key") RequestBody key, @Part("comp_id") RequestBody comp_id, @Part("cust_id")RequestBody cust_id, @Part("occasion_id")RequestBody occasion_id,
-                                                            @Part("message")RequestBody message,
-                                                            @Part("delv_date")RequestBody delv_date,
-                                                            @Part("spe_intr")RequestBody spe_intr,
-                                                            @Part("occasion_name")RequestBody occasion_name,
-                                                            @Part("price")RequestBody price,
-                                                            @Part("weight")RequestBody weight,
-                                                            @Part("qty")RequestBody qty,
-                                                            @Part("cgst_per")RequestBody cgst_per,
-                                                            @Part("sgst_per")RequestBody sgst_per,
-                                                            @Part("total_addons_price")RequestBody total_addons_price,
-                                                            @Part("schedule_id")RequestBody schedule_id,
-                                                            @Part MultipartBody.Part file,
-                                                            @Part("json_item_detail")RequestBody json_item_detail,
-                                                            @Part("json_addonse_item_details")RequestBody json_addonse_item_details);
+    Call<SavePartialOrderPojo> saveSpecialOrderPartial(@Part("app_version") RequestBody app_version, @Part("android_id") RequestBody android_id, @Part("device_id") RequestBody device_id, @Part("user_id") RequestBody user_id, @Part("key") RequestBody key, @Part("comp_id") RequestBody comp_id, @Part("cust_id") RequestBody cust_id, @Part("occasion_id") RequestBody occasion_id,
+                                                             @Part("message") RequestBody message,
+                                                             @Part("delv_date") RequestBody delv_date,
+                                                             @Part("spe_intr") RequestBody spe_intr,
+                                                             @Part("occasion_name") RequestBody occasion_name,
+                                                             @Part("price") RequestBody price,
+                                                             @Part("weight") RequestBody weight,
+                                                             @Part("qty") RequestBody qty,
+                                                             @Part("cgst_per") RequestBody cgst_per,
+                                                             @Part("sgst_per") RequestBody sgst_per,
+                                                             @Part("total_addons_price") RequestBody total_addons_price,
+                                                             @Part("schedule_id") RequestBody schedule_id,
+                                                             @Part MultipartBody.Part file,
+                                                             @Part("json_item_detail") RequestBody json_item_detail,
+                                                             @Part("json_addonse_item_details") RequestBody json_addonse_item_details);
 
 
     @GET("Get_Pos_Items_Stock")
@@ -202,6 +203,17 @@ public interface IApiInterface {
                                                         @Query("comp_id") String comp_id,
                                                         @Query("cust_id") String cust_id
     );
+
+    @GET("Get_All_Shop")
+    Call<GetAllShopPojo> getAllShop(@Query("app_version") String app_version,
+                                    @Query("android_id") String android_id,
+                                    @Query("device_id") String device_id,
+                                    @Query("user_id") String user_id,
+                                    @Query("key") String key,
+                                    @Query("comp_id") String comp_id
+
+    );
+
 
 
 }

@@ -13,9 +13,11 @@ public class AddsOnItemModel {
     private String cat_id;
     private String item_name;
     private String itm_url;
+    private String total_price;
+    private String total_amount;
 
 
-    public AddsOnItemModel(String itm_id, String sh_price, String price, String uom_id, String uom_name, String hsn_code, String qty, String mrp, String cat_id, String item_name, String itm_url) {
+    public AddsOnItemModel(String itm_id, String sh_price, String price, String uom_id, String uom_name, String hsn_code, String qty, String mrp, String cat_id, String item_name, String itm_url,String total_price,String  total_amount) {
         this.itm_id = itm_id;
         this.sh_price = sh_price;
         this.price = price;
@@ -27,6 +29,8 @@ public class AddsOnItemModel {
         this.cat_id = cat_id;
         this.item_name = item_name;
         this.itm_url = itm_url;
+        this.total_price = total_price;
+        this.total_amount = total_amount;
     }
 
 
@@ -116,5 +120,21 @@ public class AddsOnItemModel {
 
     public void setItm_url(String itm_url) {
         this.itm_url = itm_url;
+    }
+
+    public String getTotal_price() {
+        return total_price;
+    }
+
+    public void setTotal_price(String total_price) {
+        this.total_price = total_price;
+    }
+
+    public String getTotal_amount() {
+        return total_amount;
+    }
+
+    public void setTotal_amount(String total_amount) {
+        this.total_amount = total_amount;
     }
 }

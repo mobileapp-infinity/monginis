@@ -67,7 +67,7 @@ public class PopularItemsAdapter extends RecyclerView.Adapter<PopularItemsAdapte
                 .priority(Priority.HIGH);
 
         try {
-            Glide.with(context).load(getItemsForDashboardPojo.getRECORDS().get(position).getItmUrl()).apply(options).into(holder.ivPopularItem);
+            Glide.with(context).load(getItemsForDashboardPojo.getRecords().get(position).getItmUrl()).apply(options).into(holder.ivPopularItem);
         } catch (Exception e) {
 
             System.out.println("Item Image Setting Error:::::" + e.getMessage());
@@ -81,16 +81,16 @@ public class PopularItemsAdapter extends RecyclerView.Adapter<PopularItemsAdapte
             holder.tvPopularCategory.setText("(Regular)");
         }*/
 
-        if (getItemsForDashboardPojo.getRECORDS().get(position).getIs_special_flag() != 1) {
+        if (getItemsForDashboardPojo.getRecords().get(position).getIsSpecialFlag() != 1) {
 
             holder.cvItemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                  //  vpDashboard.setCurrentItem(1);
+                    //  vpDashboard.setCurrentItem(1);
 
                     Intent itemDetailsIntent = new Intent(context, CategoryItemsDetailsActivity.class);
-                    itemDetailsIntent.putExtra("itemId", getItemsForDashboardPojo.getRECORDS().get(position).getId() + "");
-                    itemDetailsIntent.putExtra("itemName", getItemsForDashboardPojo.getRECORDS().get(position).getItmName() + "");
+                    itemDetailsIntent.putExtra("itemId", getItemsForDashboardPojo.getRecords().get(position).getId() + "");
+                    itemDetailsIntent.putExtra("itemName", getItemsForDashboardPojo.getRecords().get(position).getItmName() + "");
                     itemDetailsIntent.putExtra("isFromPopular", true);
                     context.startActivity(itemDetailsIntent);
 
@@ -102,22 +102,22 @@ public class PopularItemsAdapter extends RecyclerView.Adapter<PopularItemsAdapte
             holder.cvItemView.setOnClickListener(null);
         }
 
-        if (!CommonUtil.checkIsEmptyOrNullCommon(getItemsForDashboardPojo.getRECORDS().get(position).getItmName())) {
-            holder.tvPopularItemName.setText(getItemsForDashboardPojo.getRECORDS().get(position).getItmName())
+        if (!CommonUtil.checkIsEmptyOrNullCommon(getItemsForDashboardPojo.getRecords().get(position).getItmName())) {
+            holder.tvPopularItemName.setText(getItemsForDashboardPojo.getRecords().get(position).getItmName())
             ;
         }
 
-        if (!CommonUtil.checkIsEmptyOrNullCommon(getItemsForDashboardPojo.getRECORDS().get(position).getPrice().toString())) {
-            holder.tvPrice.setText("Rs." + getItemsForDashboardPojo.getRECORDS().get(position).getPrice().toString())
+        if (!CommonUtil.checkIsEmptyOrNullCommon(getItemsForDashboardPojo.getRecords().get(position).getPrice().toString())) {
+            holder.tvPrice.setText("Rs." + getItemsForDashboardPojo.getRecords().get(position).getPrice().toString())
             ;
         }
-        if (!CommonUtil.checkIsEmptyOrNullCommon(getItemsForDashboardPojo.getRECORDS().get(position).getItmFlv()) && !CommonUtil.checkIsEmptyOrNullCommon(getItemsForDashboardPojo.getRECORDS().get(position).getItmShape())) {
-            holder.tvFlavourAndShape.setText(getItemsForDashboardPojo.getRECORDS().get(position).getItmFlv() + "(" + getItemsForDashboardPojo.getRECORDS().get(position).getItmShape() + ")");
+        if (!CommonUtil.checkIsEmptyOrNullCommon(getItemsForDashboardPojo.getRecords().get(position).getItmFlv()) && !CommonUtil.checkIsEmptyOrNullCommon(getItemsForDashboardPojo.getRecords().get(position).getItmShape())) {
+            holder.tvFlavourAndShape.setText(getItemsForDashboardPojo.getRecords().get(position).getItmFlv() + "(" + getItemsForDashboardPojo.getRecords().get(position).getItmShape() + ")");
             ;
         }
 
-        if (!CommonUtil.checkIsEmptyOrNullCommon(getItemsForDashboardPojo.getRECORDS().get(position).getIs_special_flag())) {
-            if (getItemsForDashboardPojo.getRECORDS().get(position).getIs_special_flag() == 1) {
+        if (!CommonUtil.checkIsEmptyOrNullCommon(getItemsForDashboardPojo.getRecords().get(position).getIsSpecialFlag())) {
+            if (getItemsForDashboardPojo.getRecords().get(position).getIsSpecialFlag() == 1) {
                 holder.tvCustomize.setVisibility(View.VISIBLE);
 
             } else {
@@ -160,7 +160,7 @@ public class PopularItemsAdapter extends RecyclerView.Adapter<PopularItemsAdapte
 
     @Override
     public int getItemCount() {
-        return getItemsForDashboardPojo.getRECORDS().size();
+        return getItemsForDashboardPojo.getRecords().size();
     }
 
     @Override

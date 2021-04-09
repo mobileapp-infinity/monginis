@@ -62,32 +62,32 @@ public class DashboardActivity extends AppCompatActivity {
                         searchInputManger.hideSoftInputFromWindow(bottomNavigationView.getWindowToken(), 0);
                         break;
                     case R.id.cart:
-                        //if (!CommonUtil.checkIsEmptyOrNullCommon(mySharedPreferences.getUserMobileNo())) {
+                        if (!CommonUtil.checkIsEmptyOrNullCommon(mySharedPreferences.getUserMobileNo())) {
                             vpDashboard.setCurrentItem(2);
 
                             InputMethodManager cartInputManager = (InputMethodManager) DashboardActivity.this.getSystemService(Context.INPUT_METHOD_SERVICE);
                             cartInputManager.hideSoftInputFromWindow(bottomNavigationView.getWindowToken(), 0);
-                      /*  } else {
+                        } else {
                             BottomSheetDialogForLoginUser bottomSheetDialogForLoginUser = new BottomSheetDialogForLoginUser(DashboardActivity.this);
                             if (!bottomSheetDialogForLoginUser.isAdded()) {
                                 bottomSheetDialogForLoginUser.show(getSupportFragmentManager(), "test");
                             }
-                        }*/
+                        }
 
 
                         break;
                     case R.id.profile:
-                      //  if (!CommonUtil.checkIsEmptyOrNullCommon(mySharedPreferences.getUserMobileNo())) {
+                        if (!CommonUtil.checkIsEmptyOrNullCommon(mySharedPreferences.getUserMobileNo())) {
                             vpDashboard.setCurrentItem(3);
 
                             InputMethodManager profileInputManager = (InputMethodManager) DashboardActivity.this.getSystemService(Context.INPUT_METHOD_SERVICE);
                             profileInputManager.hideSoftInputFromWindow(bottomNavigationView.getWindowToken(), 0);
-                       /* } else {
+                        } else {
                             BottomSheetDialogForLoginUser bottomSheetDialogForLoginUser = new BottomSheetDialogForLoginUser(DashboardActivity.this);
                             if (!bottomSheetDialogForLoginUser.isAdded()) {
                                 bottomSheetDialogForLoginUser.show(getSupportFragmentManager(), "test");
                             }
-                        }*/
+                        }
 
 
                         break;

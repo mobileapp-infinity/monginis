@@ -9,39 +9,39 @@ public class GetItemsForDashboardPojo {
 
     @SerializedName("TOTAL")
     @Expose
-    private Integer tOTAL;
+    private Integer total;
     @SerializedName("MESSAGE")
     @Expose
-    private String mESSAGE;
+    private String message;
     @SerializedName("RECORDS")
     @Expose
-    private List<RECORD> rECORDS = null;
+    private List<Record> records = null;
 
-    public Integer getTOTAL() {
-        return tOTAL;
+    public Integer getTotal() {
+        return total;
     }
 
-    public void setTOTAL(Integer tOTAL) {
-        this.tOTAL = tOTAL;
+    public void setTotal(Integer total) {
+        this.total = total;
     }
 
-    public String getMESSAGE() {
-        return mESSAGE;
+    public String getMessage() {
+        return message;
     }
 
-    public void setMESSAGE(String mESSAGE) {
-        this.mESSAGE = mESSAGE;
+    public void setMessage(String message) {
+        this.message = message;
     }
 
-    public List<RECORD> getRECORDS() {
-        return rECORDS;
+    public List<Record> getRecords() {
+        return records;
     }
 
-    public void setRECORDS(List<RECORD> rECORDS) {
-        this.rECORDS = rECORDS;
+    public void setRecords(List<Record> records) {
+        this.records = records;
     }
 
-    public class RECORD {
+    public class Record {
 
         @SerializedName("itm_name")
         @Expose
@@ -51,7 +51,7 @@ public class GetItemsForDashboardPojo {
         private Integer id;
         @SerializedName("itm_url")
         @Expose
-        private String itmUrl;
+        private Object itmUrl;
         @SerializedName("price")
         @Expose
         private Integer price;
@@ -61,11 +61,24 @@ public class GetItemsForDashboardPojo {
         @SerializedName("itm_shape")
         @Expose
         private String itmShape;
-
         @SerializedName("is_special_flag")
         @Expose
-        private int is_special_flag;
-
+        private Integer isSpecialFlag;
+        @SerializedName("cat_id")
+        @Expose
+        private Integer catId;
+        @SerializedName("hsn_code")
+        @Expose
+        private String hsnCode;
+        @SerializedName("itm_allow_trading")
+        @Expose
+        private Integer itmAllowTrading;
+        @SerializedName("itm_uom")
+        @Expose
+        private Integer itmUom;
+        @SerializedName("uom_name")
+        @Expose
+        private String uomName;
 
         public String getItmName() {
             return itmName;
@@ -83,11 +96,11 @@ public class GetItemsForDashboardPojo {
             this.id = id;
         }
 
-        public String getItmUrl() {
+        public Object getItmUrl() {
             return itmUrl;
         }
 
-        public void setItmUrl(String itmUrl) {
+        public void setItmUrl(Object itmUrl) {
             this.itmUrl = itmUrl;
         }
 
@@ -115,16 +128,59 @@ public class GetItemsForDashboardPojo {
             this.itmShape = itmShape;
         }
 
-        public int getIs_special_flag() {
-            return is_special_flag;
+        public Integer getIsSpecialFlag() {
+            return isSpecialFlag;
         }
 
-        public void setIs_special_flag(int is_special_flag) {
-            this.is_special_flag = is_special_flag;
+        public void setIsSpecialFlag(Integer isSpecialFlag) {
+            this.isSpecialFlag = isSpecialFlag;
         }
+
+        public Integer getCatId() {
+            return catId;
+        }
+
+        public void setCatId(Integer catId) {
+            this.catId = catId;
+        }
+
+        public String getHsnCode() {
+            return hsnCode;
+        }
+
+        public void setHsnCode(String hsnCode) {
+            this.hsnCode = hsnCode;
+        }
+
+        public Integer getItmAllowTrading() {
+            return itmAllowTrading;
+        }
+
+        public void setItmAllowTrading(Integer itmAllowTrading) {
+            this.itmAllowTrading = itmAllowTrading;
+        }
+
+        public Integer getItmUom() {
+            return itmUom;
+        }
+
+        public void setItmUom(Integer itmUom) {
+            this.itmUom = itmUom;
+        }
+
+        public String getUomName() {
+            return uomName;
+        }
+
+        public void setUomName(String uomName) {
+            this.uomName = uomName;
+        }
+
     }
-
 }
+
+
+
 
 
 

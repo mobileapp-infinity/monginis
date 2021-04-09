@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -27,23 +28,32 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import com.infinity.monginis.R;
 import com.infinity.monginis.api.ApiImplementer;
 import com.infinity.monginis.api.ApiUrls;
+import com.infinity.monginis.api.IApiInterface;
 import com.infinity.monginis.custom_class.TextViewRegularFont;
 import com.infinity.monginis.dashboard.adapter.AddsOnAdapter;
 import com.infinity.monginis.dashboard.model.AddsOnItemModel;
 import com.infinity.monginis.dashboard.model.CartItemModel;
+import com.infinity.monginis.dashboard.pojo.GetAllShopPojo;
 import com.infinity.monginis.dashboard.pojo.GetFlavoursPojo;
 import com.infinity.monginis.dashboard.pojo.GetItemWeightPojo;
 import com.infinity.monginis.dashboard.pojo.GetItemsForDashboardPojo;
 import com.infinity.monginis.dashboard.pojo.GetOccasionPojo;
 import com.infinity.monginis.dashboard.pojo.GetSchedulePojo;
 import com.infinity.monginis.dashboard.pojo.Get_Addons_Items_List_Pojo;
+import com.infinity.monginis.dashboard.pojo.SavePartialOrderPojo;
 import com.infinity.monginis.login.BottomSheetDialogForLoginUser;
+import com.infinity.monginis.login.SplashActivity;
 import com.infinity.monginis.utils.CommonUtil;
 import com.infinity.monginis.utils.ConnectionDetector;
+import com.infinity.monginis.utils.DialogUtil;
 import com.infinity.monginis.utils.FileUtils;
 import com.infinity.monginis.utils.IntentConstants;
 import com.infinity.monginis.utils.MySharedPreferences;
 import com.toptoche.searchablespinnerlibrary.SearchableSpinner;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
@@ -74,6 +84,7 @@ public class BottomSheetDialogForSpecialOrder extends BottomSheetDialogFragment 
     SearchableSpinner spQty;
     Button btnProceed;
     private EditText edtSpecialCakeMessage;
+    private IApiInterface apiInterface;
     TextViewRegularFont tvQty;
     private LinearLayout llSchedule;
     //  private ItemDetailsActivity activity;
@@ -92,6 +103,14 @@ public class BottomSheetDialogForSpecialOrder extends BottomSheetDialogFragment 
     private EditText edtInstructions;
     private AppCompatImageView imgCloseSpecialOrder;
     private GetItemsForDashboardPojo getItemsForDashboardPojo;
+    private String SELECTED_MENU_ID = "";
+    private String SELECTED_SCHEDULE_ID = "";
+    ArrayList<String> menuList;
+    ArrayList<String> flavourList;
+    ArrayList<String> weightList;
+    ArrayList<String> cakeShapeList;
+    ArrayList<String> qtyList;
+
 
     public BottomSheetDialogForSpecialOrder(ItemDetailsActivity activity) {
         this.activity = activity;
@@ -142,8 +161,8 @@ public class BottomSheetDialogForSpecialOrder extends BottomSheetDialogFragment 
         btnProceed = view.findViewById(R.id.btnProceed);
         tvSpecialItemName = view.findViewById(R.id.tvSpecialItemName);
         tvSpecialItemPrice = view.findViewById(R.id.tvSpecialItemPrice);
-        tvSpecialItemName.setText(getItemsForDashboardPojo.getRECORDS().get(position).getItmName());
-        tvSpecialItemPrice.setText(getItemsForDashboardPojo.getRECORDS().get(position).getPrice() + "(" + "per kg" + ")");
+        tvSpecialItemName.setText(getItemsForDashboardPojo.getRecords().get(position).getItmName());
+        tvSpecialItemPrice.setText(getItemsForDashboardPojo.getRecords().get(position).getPrice() + "(" + "per kg" + ")");
         sdf_full = new SimpleDateFormat("dd-MM-yyyy", Locale.ENGLISH);
         serverDateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH);
         llAlmostThere = view.findViewById(R.id.llAlmostThere);
@@ -172,36 +191,49 @@ public class BottomSheetDialogForSpecialOrder extends BottomSheetDialogFragment 
             }
         });
 
+        spMenu.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                if (position > 0) {
+                    SELECTED_MENU_ID = menuList.get(position);
+                }
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                SELECTED_MENU_ID = "";
+            }
+        });
+
+        spSchedule.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                if (position > 0) {
+                    SELECTED_SCHEDULE_ID = scheduleList.get(position);
+                }
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                SELECTED_SCHEDULE_ID = "";
+            }
+        });
+
     }
 
-
-    ArrayList<String> menuList;
-    ArrayList<String> flavourList;
-    ArrayList<String> weightList;
-    ArrayList<String> cakeShapeList;
-    ArrayList<String> qtyList;
-
-    private void setMenu() {
-
-
-        menuList.add("Test 1");
-        menuList.add("Test 2");
-        menuList.add("Test 3");
-        menuList.add("Test 4");
-
-
-    }
 
     private void setFlavours() {
 
 
-        if (!CommonUtil.checkIsEmptyOrNullCommon(getItemsForDashboardPojo.getRECORDS().get(position).getItmFlv())) {
+        if (!CommonUtil.checkIsEmptyOrNullCommon(getItemsForDashboardPojo.getRecords().get(position).getItmFlv())) {
 
 
             System.out.println("Flavour Available===");
             flavours_array = new String[1000];
 
-            flavours_array = getItemsForDashboardPojo.getRECORDS().get(position).getItmFlv().split(",");
+            flavours_array = getItemsForDashboardPojo.getRecords().get(position).getItmFlv().split(",");
             flavourList = new ArrayList<>(Arrays.asList(flavours_array));
             flavourList.add(0, "Flavours");
             System.out.println("FlavourList" + flavourList);
@@ -212,7 +244,7 @@ public class BottomSheetDialogForSpecialOrder extends BottomSheetDialogFragment 
             spFlavour.setTitle("Select Flavour");
             //  spSpecialCakeShop.setBackgroundDrawable(R.drawable.ic_baseline_expand_more_24);
             spFlavour.setAdapter(cakeFlavourAdapter);
-            GetItemWeight(getItemsForDashboardPojo.getRECORDS().get(position).getId() + "");
+            GetItemWeight(getItemsForDashboardPojo.getRecords().get(position).getId() + "");
         }
 
 
@@ -352,13 +384,13 @@ public class BottomSheetDialogForSpecialOrder extends BottomSheetDialogFragment 
     private void setCakeShape(GetItemsForDashboardPojo getItemsForDashboardPojo) {
         getAddonsItemsList();
         cakeShapeList = new ArrayList<>();
-        if (!CommonUtil.checkIsEmptyOrNullCommon(getItemsForDashboardPojo.getRECORDS().get(position).getItmShape())) {
+        if (!CommonUtil.checkIsEmptyOrNullCommon(getItemsForDashboardPojo.getRecords().get(position).getItmShape())) {
 
 
             System.out.println("Shape Available===");
             shape_array = new String[1000];
 
-            shape_array = getItemsForDashboardPojo.getRECORDS().get(position).getItmShape().split(",");
+            shape_array = getItemsForDashboardPojo.getRecords().get(position).getItmShape().split(",");
             cakeShapeList = new ArrayList<>(Arrays.asList(shape_array));
             cakeShapeList.add(0, "Shape");
             System.out.println("Shapelistsplit" + cakeShapeList);
@@ -502,6 +534,8 @@ public class BottomSheetDialogForSpecialOrder extends BottomSheetDialogFragment 
     }
 
     private HashMap<String, ArrayList<CartItemModel>> selectedCartItems = new HashMap<>();
+    private ArrayList<AddsOnItemModel> specialCategoryAddOnSelectedItemArrayList = new ArrayList<>();
+
 
     @Override
     public void onClick(View view) {
@@ -509,24 +543,78 @@ public class BottomSheetDialogForSpecialOrder extends BottomSheetDialogFragment 
         if (view.getId() == R.id.tvDeliveryDate) {
             deliveryDateDialog();
         } else if (view.getId() == R.id.btnProceed) {
-            // if (isValidated()) {
-            //  cartItemModel = new CartItemModel(spMenu.getSelectedItem() + "", spFlavour.getSelectedItem() + "", spShape.getSelectedItem() + "", "", tvDeliveryDate.getText().toString(), edtSpecialCakeMessage.getText().toString(), edtInstructions.getText().toString(), spWeight.getSelectedItem()+"","","");
+
+         /*   int total = 0;
+            for (String category : filteredHashMap.keySet()) {
+
+                ArrayList<AddsOnItemModel> specialCategoryModelArrayList = filteredHashMap.get(category);
 
 
-            System.out.println("Done=============");
+                for (int i = 0; i < specialCategoryModelArrayList.size(); i++) {
+                    total += Integer.parseInt(specialCategoryModelArrayList.get(i).getTotal_price());
+
+                }
+            }*/
+
+            /*for (String category : filteredHashMap.keySet()) {
+                ArrayList<AddsOnItemModel> specialCategoryModelArrayList = filteredHashMap.get(category);
+
+
+                for (int i = 0; i < specialCategoryModelArrayList.size(); i++) {
+                    if (!specialCategoryModelArrayList.get(i).getQty().equals("0")) {
+
+                        specialCategoryAddOnSelectedItemArrayList.add(specialCategoryModelArrayList.get(i));
+
+
+                    }
+
+
+                }
+            }
+
+            //specialItemArray = new JSONArray();
+            // specialItemDetailsAddsOnArray = new JSONArray();
+
+            JSONObject jsonObject = new JSONObject();*/
+
+
+        /*    try {
+
+                jsonObject.put("item_id", Integer.parseInt(getItemsForDashboardPojo.getRecords().get(position).getId() + ""));
+                jsonObject.put("item_name", getItemsForDashboardPojo.getRecords().get(position).getItmName() + "");
+                jsonObject.put("hsn_code", Integer.parseInt(getItemsForDashboardPojo.getRecords().get(position).getHsnCode() + ""));
+                jsonObject.put("uom_id", Integer.parseInt(getItemsForDashboardPojo.getRecords().get(position).getItmUom() + ""));
+                jsonObject.put("price", getItemsForDashboardPojo.getRecords().get(position).getPrice() + "");
+                jsonObject.put("weight", Double.parseDouble(spWeight.getSelectedItem() + ""));
+                //    jsonObject.put("cgst_per", cgst_per);
+                //  jsonObject.put("sgst_per", sgst_per);
+                // jsonObject.put("qty", Integer.parseInt(selected_qty));
+                //  jsonObject.put("mrp", Double.parseDouble(mrp));
+                //  jsonObject.put("flavour", selected_flavour);
+                //  jsonObject.put("shape", selected_shape);
+
+
+            } catch (JSONException e) {
+                e.printStackTrace();
+
+                System.out.println("error in json creation!!!!!");
+            }*/
+
             this.dismiss();
-          /*  if (mySharedPreferences.getUserMobileNo().equals("")) {
+            if (mySharedPreferences.getUserMobileNo().equals("")) {
                 BottomSheetDialogForLoginUser bottomSheetDialogForLoginUser = new BottomSheetDialogForLoginUser(dashboardActivity);
                 if (!bottomSheetDialogForLoginUser.isAdded()) {
                     bottomSheetDialogForLoginUser.show(dashboardActivity.getSupportFragmentManager(), "test");
-                }*/
+                }
+
+            }
             // } else {
 
 
-            ArrayList<CartItemModel> selectedCartItemArrayList = new ArrayList<>();
-          //  CartItemModel cartItemModel =
+          /*  ArrayList<CartItemModel> selectedCartItemArrayList = new ArrayList<>();
+            //  CartItemModel cartItemModel =
             // selectedCartItemArrayList.add();
-            selectedCartItemArrayList.add(new CartItemModel(getItemsForDashboardPojo.getRECORDS().get(position).getItmName(), getItemsForDashboardPojo.getRECORDS().get(position).getPrice() + "", spMenu.getSelectedItem() + "", spFlavour.getSelectedItem() + "", spShape.getSelectedItem() + "", mFile, tvDeliveryDate.getText().toString().trim(), edtSpecialCakeMessage.getText().toString().trim(), edtInstructions.getText().toString(), spWeight.getSelectedItem() + ""));
+            selectedCartItemArrayList.add(new CartItemModel(getItemsForDashboardPojo.getRecords().get(position).getItmName(), getItemsForDashboardPojo.getRecords().get(position).getPrice() + "", spMenu.getSelectedItem() + "", spFlavour.getSelectedItem() + "", spShape.getSelectedItem() + "", mFile, tvDeliveryDate.getText().toString().trim(), edtSpecialCakeMessage.getText().toString().trim(), edtInstructions.getText().toString(), spWeight.getSelectedItem() + "", SELECTED_MENU_ID, "1", SELECTED_SCHEDULE_ID));
             selectedCartItems.put(mySharedPreferences.getUserMobileNo(), selectedCartItemArrayList);
 
             Intent customizeScreenIntent = new Intent(dashboardActivity, CustomizeScreenActivity.class);
@@ -534,27 +622,12 @@ public class BottomSheetDialogForSpecialOrder extends BottomSheetDialogFragment 
             bundle.putSerializable("cartItemModel", selectedCartItemArrayList);
             customizeScreenIntent.putExtras(bundle);
             startActivity(customizeScreenIntent);
-
+*/
             // }
 
 
             //  }
         } else if (view.getId() == R.id.tvPhotoUpload) {
-           /* Intent intent = new Intent(dashboardActivity, com.jaiselrahman.filepicker.activity.FilePickerActivity.class);
-
-
-            intent.putExtra(com.jaiselrahman.filepicker.activity.FilePickerActivity.CONFIGS, new Configurations.Builder()
-                    .setCheckPermission(true)
-                    .setShowImages(true)
-                    .setShowAudios(false)
-                    .setShowVideos(false)
-
-                    .enableImageCapture(false)
-                    .setMaxSelection(1)
-
-                    .setSkipZeroSizeFiles(true)
-                    .build());
-            startActivityForResult(intent, SPECIAL_ORDER_UPLOAD_PHOTO_GALLERY_REQUEST);*/
 
             browseDocuments();
 
@@ -602,7 +675,7 @@ public class BottomSheetDialogForSpecialOrder extends BottomSheetDialogFragment 
 
                     selectedDeliveryDateString = serverDateFormat.format(deliveryDate);
                     tvDeliveryDate.setText(sdf_full.format(deliveryDate));
-                    getSchedule(selectedDeliveryDateString, getItemsForDashboardPojo.getRECORDS().get(position).getId() + "");
+                    getSchedule(selectedDeliveryDateString, getItemsForDashboardPojo.getRecords().get(position).getId() + "");
 
                 } catch (Exception ex) {
                     System.out.println(ex.getMessage());
@@ -757,7 +830,7 @@ public class BottomSheetDialogForSpecialOrder extends BottomSheetDialogFragment 
     }
 
     private void savePartialOrderDetail() {
-        //ApiImplementer.saveSpecialOrderPartial();
+        ;
 
     }
 
@@ -770,7 +843,7 @@ public class BottomSheetDialogForSpecialOrder extends BottomSheetDialogFragment 
     private ArrayList<AddsOnItemModel> addsOnItemModelArrayList;
 
     private void getAddonsItemsList() {
-        ApiImplementer.getAddonsItemsList(String.valueOf(mySharedPreferences.getVersionCode()), mySharedPreferences.getAndroidID(), mySharedPreferences.getDeviceID(), CommonUtil.USER_ID, ApiUrls.TESTING_KEY, CommonUtil.COMP_ID, CommonUtil.CUST_ID, new Callback<Get_Addons_Items_List_Pojo>() {
+        ApiImplementer.getAddonsItemsListImplementer(String.valueOf(mySharedPreferences.getVersionCode()), mySharedPreferences.getAndroidID(), mySharedPreferences.getDeviceID(), CommonUtil.USER_ID, ApiUrls.TESTING_KEY, CommonUtil.COMP_ID, CommonUtil.CUST_ID, new Callback<Get_Addons_Items_List_Pojo>() {
             @Override
             public void onResponse(Call<Get_Addons_Items_List_Pojo> call, Response<Get_Addons_Items_List_Pojo> response) {
 
@@ -801,7 +874,7 @@ public class BottomSheetDialogForSpecialOrder extends BottomSheetDialogFragment 
                                 for (int j = 0; j < get_addons_items_list_pojo.getRECORDS().getItems().size(); j++) {
 
                                     if (get_addons_items_list_pojo.getRECORDS().getItems().get(j).getCat_id() == get_addons_items_list_pojo.getRECORDS().getCategory().get(i).getId()) {
-                                        addsOnItemModelArrayList.add(new AddsOnItemModel(get_addons_items_list_pojo.getRECORDS().getItems().get(j).getItm_id() + "", get_addons_items_list_pojo.getRECORDS().getItems().get(j).getSh_price() + "", get_addons_items_list_pojo.getRECORDS().getItems().get(j).getPrice() + "", get_addons_items_list_pojo.getRECORDS().getItems().get(j).getUom_id() + "", get_addons_items_list_pojo.getRECORDS().getItems().get(j).getUom_name() + "", get_addons_items_list_pojo.getRECORDS().getItems().get(j).getHsn_code() + "", get_addons_items_list_pojo.getRECORDS().getItems().get(j).getQty() + "", get_addons_items_list_pojo.getRECORDS().getItems().get(j).getMrp() + "", get_addons_items_list_pojo.getRECORDS().getItems().get(j).getCat_id() + "", get_addons_items_list_pojo.getRECORDS().getItems().get(j).getItem_name() + "", get_addons_items_list_pojo.getRECORDS().getItems().get(j).getItm_url() + ""));
+                                        addsOnItemModelArrayList.add(new AddsOnItemModel(get_addons_items_list_pojo.getRECORDS().getItems().get(j).getItm_id() + "", get_addons_items_list_pojo.getRECORDS().getItems().get(j).getSh_price() + "", get_addons_items_list_pojo.getRECORDS().getItems().get(j).getPrice() + "", get_addons_items_list_pojo.getRECORDS().getItems().get(j).getUom_id() + "", get_addons_items_list_pojo.getRECORDS().getItems().get(j).getUom_name() + "", get_addons_items_list_pojo.getRECORDS().getItems().get(j).getHsn_code() + "", get_addons_items_list_pojo.getRECORDS().getItems().get(j).getQty() + "", get_addons_items_list_pojo.getRECORDS().getItems().get(j).getMrp() + "", get_addons_items_list_pojo.getRECORDS().getItems().get(j).getCat_id() + "", get_addons_items_list_pojo.getRECORDS().getItems().get(j).getItem_name() + "", get_addons_items_list_pojo.getRECORDS().getItems().get(j).getItm_url() + "", "0", "0"));
                                         filteredHashMap.put(get_addons_items_list_pojo.getRECORDS().getCategory().get(i).getCat_name() + "", addsOnItemModelArrayList);
                                     }
 
@@ -831,6 +904,38 @@ public class BottomSheetDialogForSpecialOrder extends BottomSheetDialogFragment 
                 Toast.makeText(dashboardActivity, "Request Failed" + t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+
+    private void getAllShop() {
+
+        ApiImplementer.getAllShopImplementer(String.valueOf(mySharedPreferences.getVersionCode()), mySharedPreferences.getAndroidID(), String.valueOf(mySharedPreferences.getDeviceID()), CommonUtil.USER_ID, ApiUrls.TESTING_KEY, CommonUtil.COMP_ID, new Callback<GetAllShopPojo>() {
+            @Override
+            public void onResponse(Call<GetAllShopPojo> call, Response<GetAllShopPojo> response) {
+                try {
+                    if (response.isSuccessful() && response.body() != null) {
+                        GetAllShopPojo getAllShopPojo = response.body();
+
+                        if (getAllShopPojo != null && getAllShopPojo.getRecords().size() > 0) {
+
+
+                        }
+
+                    }
+
+                } catch (Exception e) {
+
+                }
+
+
+            }
+
+            @Override
+            public void onFailure(Call<GetAllShopPojo> call, Throwable t) {
+
+            }
+        });
+
     }
 
 

@@ -24,11 +24,17 @@ public class CustomizeItemAdapter extends RecyclerView.Adapter<CustomizeItemAdap
     private Context context;
     private ArrayList<CartItemModel> cartItemModelArrayList;
     private MySharedPreferences mySharedPreferences;
+    private IOnOrderPlaced iOnOrderPlaced;
 
-    public CustomizeItemAdapter(Context context, ArrayList<CartItemModel> cartItemModelArrayList) {
+    public CustomizeItemAdapter(Context context, ArrayList<CartItemModel> cartItemModelArrayList, IOnOrderPlaced iOnOrderPlaced) {
         this.context = context;
         mySharedPreferences = new MySharedPreferences(context);
         this.cartItemModelArrayList = cartItemModelArrayList;
+        this.iOnOrderPlaced = iOnOrderPlaced;
+    }
+
+    public interface IOnOrderPlaced {
+        void onOrderPlaced(ArrayList<CartItemModel> cartItemModelArrayList, int position);
     }
 
     @NonNull
@@ -41,12 +47,17 @@ public class CustomizeItemAdapter extends RecyclerView.Adapter<CustomizeItemAdap
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
 
-        // holder.tvCustomizeItemName.setText();
 
         //  holder.tvCustomizeItemName.setText();
-        if (CommonUtil.checkIsEmptyOrNullCommon(cartItemModelArrayList.get(position).getItemName()))
+        if (!CommonUtil.checkIsEmptyOrNullCommon(cartItemModelArrayList.get(position).getItemName())) {
+            holder.tvCustomizeItemName.setText(cartItemModelArrayList.get(position).getItemName());
+        }
 
+        if (!CommonUtil.checkIsEmptyOrNullCommon(cartItemModelArrayList.get(position).getItemMrp())) {
+            holder.tvMrp.setText(cartItemModelArrayList.get(position).getItemMrp() + "");
+        }
 
+        holder.bindListener(cartItemModelArrayList, position);
         holder.llPlaceOrder.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -66,12 +77,28 @@ public class CustomizeItemAdapter extends RecyclerView.Adapter<CustomizeItemAdap
         LinearLayout llPlaceOrder;
         TextViewRegularFont tvCustomizeItemName;
         TextViewRegularFont tvBy;
+        TextViewRegularFont tvMrp;
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
             tvCustomizeItemName = itemView.findViewById(R.id.tvCustomizeItemName);
             llPlaceOrder = itemView.findViewById(R.id.llPlaceOrder);
             tvBy = itemView.findViewById(R.id.tvBy);
+            tvMrp = itemView.findViewById(R.id.tvMrp);
+
+
+        }
+
+        private void bindListener(ArrayList<CartItemModel> cartItemModelArrayLists, int position) {
+
+            llPlaceOrder.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    iOnOrderPlaced.onOrderPlaced(cartItemModelArrayList, position);
+                }
+            });
+
+
         }
     }
 }

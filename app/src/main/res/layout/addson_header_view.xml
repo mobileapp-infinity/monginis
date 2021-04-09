@@ -13,7 +13,7 @@
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:background="@drawable/border_cat_main"
+        android:background="@drawable/bg_shape_expendable_heder"
         app:layout_constraintStart_toStartOf="parent"
         android:backgroundTint="@color/colorPrimary"
         app:layout_constraintTop_toTopOf="parent">
