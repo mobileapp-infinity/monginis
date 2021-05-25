@@ -124,7 +124,7 @@ public class CategoryItemsDetailsActivity extends AppCompatActivity implements V
 
                             if (itemDetailsByCategoryPojo != null && itemDetailsByCategoryPojo.getRECORDS().size() > 0) {
                                 llItemDetailsByCategory.setVisibility(View.VISIBLE);
-                                ItemDetailsByCategoryAdapter itemDetailsByCategoryAdapter = new ItemDetailsByCategoryAdapter(CategoryItemsDetailsActivity.this, itemDetailsByCategoryPojo, saveFavouriteItemList);
+                                ItemDetailsByCategoryAdapter itemDetailsByCategoryAdapter = new ItemDetailsByCategoryAdapter(CategoryItemsDetailsActivity.this,CategoryItemsDetailsActivity.this, itemDetailsByCategoryPojo, saveFavouriteItemList);
                                 gvItemByCategory.setAdapter(itemDetailsByCategoryAdapter);
 
                             } else {

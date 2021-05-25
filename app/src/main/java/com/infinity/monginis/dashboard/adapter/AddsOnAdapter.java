@@ -13,32 +13,37 @@ import com.infinity.monginis.R;
 import com.infinity.monginis.custom_class.TextViewMediumFont;
 import com.infinity.monginis.custom_class.TextViewRegularFont;
 import com.infinity.monginis.dashboard.model.AddsOnItemModel;
+import com.infinity.monginis.dashboard.pojo.Get_Addons_Items_List_Pojo;
 import com.infinity.monginis.utils.CommonUtil;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 public class AddsOnAdapter extends BaseExpandableListAdapter {
 
     private Context context;
     private HashMap<String, ArrayList<AddsOnItemModel>> AddsOnItemHashMap;
     private ArrayList<String> categoryName;
+    private HashMap<String, List<Get_Addons_Items_List_Pojo.Item>>addsOnItemHashMap;
 
 
-    public AddsOnAdapter(Context context, HashMap<String, ArrayList<AddsOnItemModel>> AddsOnItemHashMap, ArrayList<String> categoryName) {
+
+    public AddsOnAdapter(Context context,HashMap<String, List<Get_Addons_Items_List_Pojo.Item>>addsOnItemHashMap, ArrayList<String> categoryName) {
         this.context = context;
-        this.AddsOnItemHashMap = AddsOnItemHashMap;
+ //       this.AddsOnItemHashMap = AddsOnItemHashMap;
+        this.addsOnItemHashMap  =addsOnItemHashMap;
         this.categoryName = categoryName;
     }
 
     @Override
     public int getGroupCount() {
-        return AddsOnItemHashMap.size();
+        return addsOnItemHashMap.size();
     }
 
     @Override
     public int getChildrenCount(int groupPosition) {
-        return this.AddsOnItemHashMap.get(this.categoryName.get(groupPosition))
+        return this.addsOnItemHashMap.get(this.categoryName.get(groupPosition))
                 .size();
     }
 
@@ -49,15 +54,21 @@ public class AddsOnAdapter extends BaseExpandableListAdapter {
 
     @Override
     public Object getChild(int groupPosition, int childPosition) {
-        return this.AddsOnItemHashMap.get(this.categoryName.get(groupPosition))
-                .get(childPosition).getItem_name();
+        return this.addsOnItemHashMap.get(this.categoryName.get(groupPosition))
+                .get(childPosition).getItemName();
     }
 
 
-    public Object getItemQty(int groupPosition, int childPosition) {
-        return this.AddsOnItemHashMap.get(this.categoryName.get(groupPosition))
+    public double getItemQty(int groupPosition, int childPosition) {
+        return this.addsOnItemHashMap.get(this.categoryName.get(groupPosition))
                 .get(childPosition).getQty();
     }
+
+    public Object getItemMrp(int groupPosition, int childPosition) {
+        return this.addsOnItemHashMap.get(this.categoryName.get(groupPosition))
+                .get(childPosition).getMrp();
+    }
+
 
     @Override
     public long getGroupId(int groupPosition) {
@@ -92,16 +103,19 @@ public class AddsOnAdapter extends BaseExpandableListAdapter {
         convertView = inflater.inflate(R.layout.addson_child_view, null);
         TextViewRegularFont tvAddOnItemName = convertView.findViewById(R.id.tvAddOnItemName);
         AppCompatEditText edItemCount = convertView.findViewById(R.id.edItemCount);
+        TextViewRegularFont tvAddsOnItemPrice = convertView.findViewById(R.id.tvAddsOnItemPrice);
 
         AppCompatImageView imgAdd = convertView.findViewById(R.id.imgAdd);
         AppCompatImageView imgMinus = convertView.findViewById(R.id.imgMinus);
 
         tvAddOnItemName.setText(getChild(groupPosition, childPosition) + "");
-        edItemCount.setText(getItemQty(groupPosition, childPosition) + "");
+        int value = (int)Math.round(getItemQty(groupPosition,childPosition));
+        edItemCount.setText(value+"");
+        tvAddsOnItemPrice.setText(getItemMrp(groupPosition, childPosition) + "");
         imgAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                addQuantity(1, edItemCount, groupPosition, childPosition, AddsOnItemHashMap, categoryName);
+                addQuantity(1, edItemCount, groupPosition, childPosition, addsOnItemHashMap, categoryName);
             }
         });
 
@@ -109,7 +123,7 @@ public class AddsOnAdapter extends BaseExpandableListAdapter {
         imgMinus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                minusQuantity(1,edItemCount,groupPosition,childPosition, AddsOnItemHashMap,categoryName);
+                minusQuantity(1,edItemCount,groupPosition,childPosition, addsOnItemHashMap,categoryName);
             }
         });
 
@@ -119,7 +133,7 @@ public class AddsOnAdapter extends BaseExpandableListAdapter {
     }
 
 
-    public void addQuantity(int addBy, AppCompatEditText edtQty, int groupPosition, int childPosition, HashMap<String, ArrayList<AddsOnItemModel>> categoryItemHashMap, ArrayList<String> categoryNameHeader) {
+    public void addQuantity(int addBy, AppCompatEditText edtQty, int groupPosition, int childPosition, HashMap<String,List<Get_Addons_Items_List_Pojo.Item>> categoryItemHashMap, ArrayList<String> categoryNameHeader) {
 
         int avlQty = 0;
 
@@ -131,40 +145,46 @@ public class AddsOnAdapter extends BaseExpandableListAdapter {
         avlQty = avlQty + addBy;
 
 
+
         edtQty.setText(String.valueOf(avlQty));
 
-
+        double todouble = avlQty;
         categoryItemHashMap.get(categoryName.get(groupPosition))
-                .get(childPosition).setQty(avlQty + "");
+                .get(childPosition).setQty(todouble);
 
 
-        int total = Integer.parseInt(categoryItemHashMap.get(categoryNameHeader.get(groupPosition)).get(childPosition).getQty()) * Integer.parseInt(categoryItemHashMap.get(categoryNameHeader.get(groupPosition)).get(childPosition).getMrp());
-
-        categoryItemHashMap.get(categoryNameHeader.get(groupPosition))
-                .get(childPosition).setTotal_price(total + "");
-
-
-        Double total_amt = Integer.parseInt(categoryItemHashMap.get(categoryNameHeader.get(groupPosition)).get(childPosition).getQty()) * Double.parseDouble(categoryItemHashMap.get(categoryNameHeader.get(groupPosition)).get(childPosition).getSh_price());
-
+        double total = categoryItemHashMap.get(categoryNameHeader.get(groupPosition)).get(childPosition).getQty() * 5.0;
 
         categoryItemHashMap.get(categoryNameHeader.get(groupPosition))
+                .get(childPosition).setTotalAmt(total);
+
+
+        Double total_amt = categoryItemHashMap.get(categoryNameHeader.get(groupPosition)).get(childPosition).getQty() *3.5;
+
+
+        categoryItemHashMap.get(categoryNameHeader.get(groupPosition))
+                .get(childPosition).setTotal_net_amt(total_amt);
+        System.out.println(categoryItemHashMap.get(categoryNameHeader.get(groupPosition))
+                .get(childPosition).getTotalAmt());
+
+        System.out.println(categoryItemHashMap.get(categoryNameHeader.get(groupPosition))
+                .get(childPosition).getTotal_net_amt());
+
+        /*categoryItemHashMap.get(categoryNameHeader.get(groupPosition))
                 .get(childPosition).setTotal_amount(total_amt + "");
+*/
 
-        categoryItemHashMap.get(categoryNameHeader.get(groupPosition))
-                .get(childPosition).setTotal_amount(total_amt + "");
-
-
-          totalAddsOnPrice(categoryItemHashMap,categoryNameHeader,groupPosition,childPosition);
+        //  totalAddsOnPrice(categoryItemHashMap,categoryNameHeader,groupPosition,childPosition);
 
     }
 
-    private void totalAddsOnPrice(HashMap<String, ArrayList<AddsOnItemModel>> categoryItemHashMap, ArrayList<String> categoryNameHeader, int groupPosition, int childPosition) {
+    private void totalAddsOnPrice(HashMap<String,Get_Addons_Items_List_Pojo.Item> categoryItemHashMap, ArrayList<String> categoryNameHeader, int groupPosition, int childPosition) {
 
 
-        int total = 0;
-        for (int i = 0; i < categoryItemHashMap.get(categoryNameHeader.get(groupPosition)).size(); i++) {
-            total += Integer.parseInt(categoryItemHashMap.get(categoryNameHeader.get(groupPosition)).get(childPosition).getTotal_price());
-        }
+       // int total = 0;
+       // for (int i = 0; i < categoryItemHashMap.get(categoryNameHeader.get(groupPosition)).size(); i++) {
+       //     total += Integer.parseInt(categoryItemHashMap.get(categoryNameHeader.get(groupPosition)).get(childPosition).getTotal_price());
+       // }
 
 
     }
@@ -174,34 +194,42 @@ public class AddsOnAdapter extends BaseExpandableListAdapter {
         return true;
     }
 
-    public void minusQuantity(int minusBy, AppCompatEditText tvQty, int groupPosition, int childPosition, HashMap<String, ArrayList<AddsOnItemModel>> categoryItemHashMap, ArrayList<String> categoryNameHeader) {
+    public void minusQuantity(int minusBy, AppCompatEditText tvQty, int groupPosition, int childPosition, HashMap<String,List<Get_Addons_Items_List_Pojo.Item>> categoryItemHashMap, ArrayList<String> categoryNameHeader) {
         int avlQty = Integer.valueOf(String.valueOf(tvQty.getText()));
 
         if (avlQty > 0) {
             avlQty = avlQty - minusBy;
             tvQty.setText(String.valueOf(avlQty));
+            double todouble = avlQty;
             categoryItemHashMap.get(categoryNameHeader.get(groupPosition))
-                    .get(childPosition).setQty(avlQty + "");
+                    .get(childPosition).setQty( todouble);
 
-            int total = Integer.parseInt(categoryItemHashMap.get(categoryNameHeader.get(groupPosition)).get(childPosition).getQty()) * Integer.parseInt(categoryItemHashMap.get(categoryNameHeader.get(groupPosition)).get(childPosition).getMrp());
-
-            categoryItemHashMap.get(categoryNameHeader.get(groupPosition))
-                    .get(childPosition).setTotal_price(total + "");
-
-
-            Double total_amt = Integer.parseInt(categoryItemHashMap.get(categoryNameHeader.get(groupPosition)).get(childPosition).getQty()) * Double.parseDouble(categoryItemHashMap.get(categoryNameHeader.get(groupPosition)).get(childPosition).getSh_price());
-
+          double total = categoryItemHashMap.get(categoryNameHeader.get(groupPosition)).get(childPosition).getQty() * 5.0;
 
             categoryItemHashMap.get(categoryNameHeader.get(groupPosition))
-                    .get(childPosition).setTotal_amount(total_amt + "");
+                    .get(childPosition).setTotalAmt(total);
+
+
+            Double total_amt = categoryItemHashMap.get(categoryNameHeader.get(groupPosition)).get(childPosition).getQty() * 3.5;
+
 
             categoryItemHashMap.get(categoryNameHeader.get(groupPosition))
-                    .get(childPosition).setTotal_amount(total_amt + "");
+                    .get(childPosition).setTotal_net_amt(total_amt );
+
+
+            System.out.println(categoryItemHashMap.get(categoryNameHeader.get(groupPosition))
+                    .get(childPosition).getTotalAmt());
+
+            System.out.println(categoryItemHashMap.get(categoryNameHeader.get(groupPosition))
+                    .get(childPosition).getTotal_net_amt());
+
+          /*  categoryItemHashMap.get(categoryNameHeader.get(groupPosition))
+                    .get(childPosition).setTotal_amount(total_amt + "");*/
 
 
         }
 
-          totalAddsOnPrice(categoryItemHashMap,categoryNameHeader,groupPosition,childPosition);
+         // totalAddsOnPrice(categoryItemHashMap,categoryNameHeader,groupPosition,childPosition);
 
     }
 }

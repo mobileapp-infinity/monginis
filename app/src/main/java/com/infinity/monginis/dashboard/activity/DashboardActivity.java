@@ -68,7 +68,7 @@ public class DashboardActivity extends AppCompatActivity {
                             InputMethodManager cartInputManager = (InputMethodManager) DashboardActivity.this.getSystemService(Context.INPUT_METHOD_SERVICE);
                             cartInputManager.hideSoftInputFromWindow(bottomNavigationView.getWindowToken(), 0);
                         } else {
-                            BottomSheetDialogForLoginUser bottomSheetDialogForLoginUser = new BottomSheetDialogForLoginUser(DashboardActivity.this);
+                            BottomSheetDialogForLoginUser bottomSheetDialogForLoginUser = new BottomSheetDialogForLoginUser(DashboardActivity.this,false,true,false);
                             if (!bottomSheetDialogForLoginUser.isAdded()) {
                                 bottomSheetDialogForLoginUser.show(getSupportFragmentManager(), "test");
                             }
@@ -83,7 +83,7 @@ public class DashboardActivity extends AppCompatActivity {
                             InputMethodManager profileInputManager = (InputMethodManager) DashboardActivity.this.getSystemService(Context.INPUT_METHOD_SERVICE);
                             profileInputManager.hideSoftInputFromWindow(bottomNavigationView.getWindowToken(), 0);
                         } else {
-                            BottomSheetDialogForLoginUser bottomSheetDialogForLoginUser = new BottomSheetDialogForLoginUser(DashboardActivity.this);
+                            BottomSheetDialogForLoginUser bottomSheetDialogForLoginUser = new BottomSheetDialogForLoginUser(DashboardActivity.this,true,false,false);
                             if (!bottomSheetDialogForLoginUser.isAdded()) {
                                 bottomSheetDialogForLoginUser.show(getSupportFragmentManager(), "test");
                             }

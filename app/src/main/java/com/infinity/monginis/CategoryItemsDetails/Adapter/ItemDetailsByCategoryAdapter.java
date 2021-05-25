@@ -18,11 +18,12 @@ import androidx.core.content.ContextCompat;
 import com.bumptech.glide.Glide;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.infinity.monginis.CategoryItemsDetails.Activity.CategoryItemsDetailsActivity;
 import com.infinity.monginis.CategoryItemsDetails.Pojo.ItemDetailsByCategoryPojo;
 import com.infinity.monginis.R;
 import com.infinity.monginis.custom_class.TextViewMediumFont;
 import com.infinity.monginis.custom_class.TextViewRegularFont;
-import com.infinity.monginis.dashboard.activity.ItemDetailsActivity;
+import com.infinity.monginis.login.BottomSheetDialogForLoginUser;
 import com.infinity.monginis.utils.CommonUtil;
 import com.infinity.monginis.utils.MySharedPreferences;
 
@@ -39,10 +40,12 @@ public class ItemDetailsByCategoryAdapter extends BaseAdapter {
     private ArrayList<String> saveFavouriteItemList;
     private ArrayList<String> selectedFavouriteItems;
     Gson gson;
+    private CategoryItemsDetailsActivity activity;
     private HashMap<String, ArrayList<String>> selectedFavouriteItemList;
 
 
-    public ItemDetailsByCategoryAdapter(Context context, ItemDetailsByCategoryPojo itemDetailsByCategoryPojo, ArrayList<String> saveFavouriteItemList) {
+    public ItemDetailsByCategoryAdapter(CategoryItemsDetailsActivity activity, Context context, ItemDetailsByCategoryPojo itemDetailsByCategoryPojo, ArrayList<String> saveFavouriteItemList) {
+        this.activity = activity;
         this.context = context;
         this.itemDetailsByCategoryPojo = itemDetailsByCategoryPojo;
         iOnItemClickListener = (IOnItemClickListener) context;
@@ -118,51 +121,63 @@ public class ItemDetailsByCategoryAdapter extends BaseAdapter {
             @RequiresApi(api = Build.VERSION_CODES.N)
             @Override
             public void onClick(View v) {
+                if (!CommonUtil.checkIsEmptyOrNullCommon(mySharedPreferences.getUserMobileNo())){
+
+                    if (!itemDetailsByCategoryPojo.getRECORDS().get(position).isLiked()) {
+                        itemDetailsByCategoryPojo.getRECORDS().get(position).setLiked(true);
 
 
-                if (!itemDetailsByCategoryPojo.getRECORDS().get(position).isLiked()) {
-                    itemDetailsByCategoryPojo.getRECORDS().get(position).setLiked(true);
-
-
-                    if (!saveFavouriteItemList.contains(itemDetailsByCategoryPojo.getRECORDS().get(position).getItmId() + "")) {
-                        saveFavouriteItemList.add(itemDetailsByCategoryPojo.getRECORDS().get(position).getItmId() + "");
-                    }
-
-                    imgLike.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_favorite_filled));
-
-                    selectedFavouriteItemList.put(mySharedPreferences.getUserMobileNo() + "", saveFavouriteItemList);
-                    if (!CommonUtil.checkIsEmptyOrNullCommon(mySharedPreferences.getUserMobileNo())) {
-                        mySharedPreferences.setFavouriteItems(selectedFavouriteItemList);
-                    }
-
-                    imgLike.startAnimation(AnimationUtils.loadAnimation(context, R.anim.favourite_icon_animation));
-                    new Handler().postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            imgLike.clearAnimation();
+                        if (!saveFavouriteItemList.contains(itemDetailsByCategoryPojo.getRECORDS().get(position).getItmId() + "")) {
+                            saveFavouriteItemList.add(itemDetailsByCategoryPojo.getRECORDS().get(position).getItmId() + "");
                         }
-                    }, 200);
-                } else {
-                    itemDetailsByCategoryPojo.getRECORDS().get(position).setLiked(false);
-                    imgLike.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_favorite_outline));
 
+                        imgLike.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_favorite_filled));
 
-                    if (saveFavouriteItemList.contains(itemDetailsByCategoryPojo.getRECORDS().get(position).getItmId() + "")) {
-                        saveFavouriteItemList.remove(itemDetailsByCategoryPojo.getRECORDS().get(position).getItmId() + "");
-                    }
-
-                    selectedFavouriteItemList.put(mySharedPreferences.getUserMobileNo() + "", saveFavouriteItemList);
-                    if (!CommonUtil.checkIsEmptyOrNullCommon(mySharedPreferences.getUserMobileNo())) {
-                        mySharedPreferences.setFavouriteItems(selectedFavouriteItemList);
-                    }
-                    imgLike.startAnimation(AnimationUtils.loadAnimation(context, R.anim.favourite_icon_animation));
-                    new Handler().postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            imgLike.clearAnimation();
+                        selectedFavouriteItemList.put(mySharedPreferences.getUserMobileNo() + "", saveFavouriteItemList);
+                        if (!CommonUtil.checkIsEmptyOrNullCommon(mySharedPreferences.getUserMobileNo())) {
+                            mySharedPreferences.setFavouriteItems(selectedFavouriteItemList);
                         }
-                    }, 200);
+
+                        imgLike.startAnimation(AnimationUtils.loadAnimation(context, R.anim.favourite_icon_animation));
+                        new Handler().postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                imgLike.clearAnimation();
+                            }
+                        }, 200);
+                    } else {
+                        itemDetailsByCategoryPojo.getRECORDS().get(position).setLiked(false);
+                        imgLike.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_favorite_outline));
+
+
+                        if (saveFavouriteItemList.contains(itemDetailsByCategoryPojo.getRECORDS().get(position).getItmId() + "")) {
+                            saveFavouriteItemList.remove(itemDetailsByCategoryPojo.getRECORDS().get(position).getItmId() + "");
+                        }
+
+                        selectedFavouriteItemList.put(mySharedPreferences.getUserMobileNo() + "", saveFavouriteItemList);
+                        if (!CommonUtil.checkIsEmptyOrNullCommon(mySharedPreferences.getUserMobileNo())) {
+                            mySharedPreferences.setFavouriteItems(selectedFavouriteItemList);
+                        }
+                        imgLike.startAnimation(AnimationUtils.loadAnimation(context, R.anim.favourite_icon_animation));
+                        new Handler().postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                imgLike.clearAnimation();
+                            }
+                        }, 200);
+                    }
+
+
+
+
+                }else{
+                    BottomSheetDialogForLoginUser bottomSheetDialogForLoginUser = new BottomSheetDialogForLoginUser(activity,true);
+                    if (!bottomSheetDialogForLoginUser.isAdded()) {
+                        bottomSheetDialogForLoginUser.show(activity.getSupportFragmentManager(), "test");
+                    }
                 }
+
+
 
 
             }

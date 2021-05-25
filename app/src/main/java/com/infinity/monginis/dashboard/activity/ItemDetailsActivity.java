@@ -27,6 +27,7 @@ import com.infinity.monginis.dashboard.adapter.CategoryDetailListAdapter;
 import com.infinity.monginis.dashboard.adapter.ImageSliderAdapter;
 import com.infinity.monginis.dashboard.pojo.CategoryDetailsPojo;
 import com.infinity.monginis.dashboard.pojo.GetItmePosStockPojo;
+import com.infinity.monginis.login.BottomSheetDialogForLoginUser;
 import com.infinity.monginis.utils.CommonUtil;
 import com.infinity.monginis.utils.IntentConstants;
 import com.infinity.monginis.utils.MySharedPreferences;
@@ -59,6 +60,7 @@ public class ItemDetailsActivity extends AppCompatActivity implements View.OnCli
     String shopId, shopName, shopAddress, CurrentDateTime;
     private LinearLayout llShopItemList;
     private LinearLayout llNoDataFoundPosItem;
+  // private MySharedPreferences mySharedPreferences;
     private TextViewMediumFont tvSelectedShopName ;
     private TextViewRegularFont tvSelectedShopAddress ;
 
@@ -111,32 +113,43 @@ public class ItemDetailsActivity extends AppCompatActivity implements View.OnCli
     @Override
     public void onClick(View v) {
         if (v.getId() == R.id.imgLike) {
-            isLiked = !isLiked;
-            if (isLiked) {
 
-                imgLike.setImageDrawable(ContextCompat.getDrawable(ItemDetailsActivity.this, R.drawable.ic_favorite_filled));
+            if (!CommonUtil.checkIsEmptyOrNullCommon(mySharedPreferences.getUserMobileNo())){
+                isLiked = !isLiked;
+                if (isLiked) {
 
-                imgLike.startAnimation(AnimationUtils.loadAnimation(ItemDetailsActivity.this, R.anim.favourite_icon_animation));
-                new Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        imgLike.clearAnimation();
-                    }
-                }, 200);
+                    imgLike.setImageDrawable(ContextCompat.getDrawable(ItemDetailsActivity.this, R.drawable.ic_favorite_filled));
 
-                // imgLike.
-                //  Animation fadeInAnimation = AnimationUtils.loadAnimation(this, R.anim.fad);
-                //  imageView.startAnimation(fadeInAnimation);
-            } else {
-                imgLike.setImageDrawable(ContextCompat.getDrawable(ItemDetailsActivity.this, R.drawable.ic_favorite_outline));
-                imgLike.startAnimation(AnimationUtils.loadAnimation(ItemDetailsActivity.this, R.anim.favourite_icon_animation));
-                new Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        imgLike.clearAnimation();
-                    }
-                }, 200);
+                    imgLike.startAnimation(AnimationUtils.loadAnimation(ItemDetailsActivity.this, R.anim.favourite_icon_animation));
+                    new Handler().postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            imgLike.clearAnimation();
+                        }
+                    }, 200);
+
+                    // imgLike.
+                    //  Animation fadeInAnimation = AnimationUtils.loadAnimation(this, R.anim.fad);
+                    //  imageView.startAnimation(fadeInAnimation);
+                } else {
+                    imgLike.setImageDrawable(ContextCompat.getDrawable(ItemDetailsActivity.this, R.drawable.ic_favorite_outline));
+                    imgLike.startAnimation(AnimationUtils.loadAnimation(ItemDetailsActivity.this, R.anim.favourite_icon_animation));
+                    new Handler().postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            imgLike.clearAnimation();
+                        }
+                    }, 200);
+                }
+            }else{
+
+                BottomSheetDialogForLoginUser bottomSheetDialogForLoginUser = new BottomSheetDialogForLoginUser(ItemDetailsActivity.this,true);
+                if (!bottomSheetDialogForLoginUser.isAdded()) {
+                    bottomSheetDialogForLoginUser.show(this.getSupportFragmentManager(), "test");
+                }
+
             }
+
         } else if (v.getId() == R.id.ivBack) {
             onBackPressed();
 

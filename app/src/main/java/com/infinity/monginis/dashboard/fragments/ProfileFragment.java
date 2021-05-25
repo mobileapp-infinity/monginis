@@ -1,5 +1,6 @@
 package com.infinity.monginis.dashboard.fragments;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -8,6 +9,7 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.LinearLayout;
 
 import com.infinity.monginis.R;
@@ -17,6 +19,7 @@ import com.infinity.monginis.dashboard.activity.AddressActivity;
 import com.infinity.monginis.dashboard.activity.MyOrdersActivity;
 import com.infinity.monginis.dashboard.activity.MyOrdersScreenActivity;
 import com.infinity.monginis.dashboard.activity.PaymentOptionsActivity;
+import com.infinity.monginis.login.SplashActivity;
 import com.infinity.monginis.utils.CommonUtil;
 import com.infinity.monginis.utils.MySharedPreferences;
 
@@ -30,6 +33,7 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
     LinearLayout llFavourites;
     LinearLayout llHelp;
     LinearLayout llLogout;
+    private Dialog dialog;
     private MySharedPreferences mySharedPreferences;
     private TextViewMediumFont tvCustomerName;
 
@@ -54,6 +58,11 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
         initView(view);
         return view;
 
+    }
+
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
     }
 
     private void initView(View view) {
@@ -111,12 +120,43 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
 
         } else if (view.getId() == R.id.llLogout) {
 
-            mySharedPreferences.setUserMobileNo("");
-            getActivity().finish();
+         exitDialog();
 
 
         } else if (view.getId() == R.id.tvEdit) {
 
         }
     }
+
+    private void exitDialog(){
+        dialog = new Dialog(getActivity());
+        dialog.getWindow().setBackgroundDrawableResource(R.drawable.bg_shape_for_custom_dialog);//if need to change dialog radius in custom_layout_for_progress_dialog
+
+        dialog.setCancelable(false);
+        View customProgressDialog = LayoutInflater.from(getActivity()).inflate(R.layout.exit_dialog, null);
+        TextViewMediumFont tvNo = customProgressDialog.findViewById(R.id.tvNoThanks);
+        Button btnExit = customProgressDialog.findViewById(R.id.btnExit);
+
+        btnExit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                dialog.dismiss();
+                mySharedPreferences.setUserMobileNo("");
+                getActivity().finish();
+            }
+        });
+
+        tvNo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+
+            }
+        });
+        dialog.setContentView(customProgressDialog);
+
+        dialog.show();
+    }
+
 }

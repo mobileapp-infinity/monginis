@@ -251,7 +251,7 @@ public class SearchFragment extends Fragment implements View.OnClickListener {
 
                             for (int i = 0; i < searchCategoryPojo.getRECORDS().getCustJson().size(); i++) {
 
-                                customerPojoArrayList.add(new TestPojo(searchCategoryPojo.getRECORDS().getCustJson().get(i).getCusName(), searchCategoryPojo.getRECORDS().getCustJson().get(i).getAddress()));
+                                customerPojoArrayList.add(new TestPojo(searchCategoryPojo.getRECORDS().getCustJson().get(i).getCusName(), searchCategoryPojo.getRECORDS().getCustJson().get(i).getAddress(),0));
 
                             }
 
@@ -266,7 +266,7 @@ public class SearchFragment extends Fragment implements View.OnClickListener {
                         }
                         if (searchCategoryPojo != null && searchCategoryPojo.getRECORDS().getItemJson().size() > 0) {
                             for (int j = 0; j < searchCategoryPojo.getRECORDS().getItemJson().size(); j++) {
-                                ItemPojoArrayList.add(new TestPojo(searchCategoryPojo.getRECORDS().getItemJson().get(j).getItmName(), searchCategoryPojo.getRECORDS().getItemJson().get(j).getMrp()));
+                                ItemPojoArrayList.add(new TestPojo(searchCategoryPojo.getRECORDS().getItemJson().get(j).getItmName(), searchCategoryPojo.getRECORDS().getItemJson().get(j).getMrp(),searchCategoryPojo.getRECORDS().getItemJson().get(j).getIs_special_flag()));
                             }
 
                         }

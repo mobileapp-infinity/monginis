@@ -9,9 +9,9 @@
     tools:context=".dashboard.activity.CustomizeScreenActivity">
 
     <ScrollView
+        android:id="@+id/scrollView2"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -65,22 +65,53 @@
                     app:tabIndicatorHeight="0dp" />
 
                 <androidx.recyclerview.widget.RecyclerView
-                    android:layout_width="match_parent"
-                    app:layout_constraintTop_toBottomOf="@+id/tb_layout"
-                    android:layout_height="wrap_content"
                     android:id="@+id/rvCustomizeItemList"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent">
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tb_layout">
 
                 </androidx.recyclerview.widget.RecyclerView>
 
-            </androidx.constraintlayout.widget.ConstraintLayout>
 
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
 
         </LinearLayout>
 
 
     </ScrollView>
+
+    <LinearLayout
+        android:id="@+id/llNoDataFoundCartItems"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.52"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.79">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+
+            android:src="@drawable/ic_monginis_no_data_found" />
+
+        <com.infinity.monginis.custom_class.TextViewMediumFont
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            android:text="No Data Found !"
+            android:textColor="@color/colorAccent"
+            android:textSize="16sp" />
+
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

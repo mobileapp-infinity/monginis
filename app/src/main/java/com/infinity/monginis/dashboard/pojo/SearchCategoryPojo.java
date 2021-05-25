@@ -83,6 +83,11 @@ public class SearchCategoryPojo {
         @Expose
         private String url;
 
+
+        @SerializedName("is_special_flag")
+        @Expose
+        private int is_special_flag;
+
         public Integer getId() {
             return id;
         }
@@ -115,6 +120,13 @@ public class SearchCategoryPojo {
             this.url = url;
         }
 
+        public int getIs_special_flag() {
+            return is_special_flag;
+        }
+
+        public void setIs_special_flag(int is_special_flag) {
+            this.is_special_flag = is_special_flag;
+        }
     }
 
     public class CustJson {

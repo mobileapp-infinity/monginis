@@ -107,6 +107,7 @@
                         android:layout_weight="1"
                         android:gravity="center_vertical"
                         android:maxLines="1"
+                        android:visibility="gone"
                         android:singleLine="true"
                         android:text="Total Items: 2"
                         android:textColor="@android:color/black"

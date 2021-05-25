@@ -33,6 +33,9 @@ public class CustomizeItemAdapter extends RecyclerView.Adapter<CustomizeItemAdap
         this.iOnOrderPlaced = iOnOrderPlaced;
     }
 
+
+
+
     public interface IOnOrderPlaced {
         void onOrderPlaced(ArrayList<CartItemModel> cartItemModelArrayList, int position);
     }
@@ -58,13 +61,7 @@ public class CustomizeItemAdapter extends RecyclerView.Adapter<CustomizeItemAdap
         }
 
         holder.bindListener(cartItemModelArrayList, position);
-        holder.llPlaceOrder.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent cartScreenIntent = new Intent(context, CartActivity.class);
-                context.startActivity(cartScreenIntent);
-            }
-        });
+
     }
 
     @Override

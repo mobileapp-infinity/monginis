@@ -9,6 +9,7 @@ public class PreferencesConstants {
     public static final String VERSION_NAME = "version_name";
     public static final String MOBILE_NO = "mobile_no";
     public static final String SELECTED_FAVOURITE_ITEMS = "selected_favourite_items";
+    public static final String SELECTED_CART_ITEMS_ID = "selected_cart_item_id";
     public static final String SELECTED_CART_ITEMS = "selected_cart_items";
 
 }

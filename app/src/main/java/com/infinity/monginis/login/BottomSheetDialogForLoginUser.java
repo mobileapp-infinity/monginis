@@ -18,6 +18,7 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import com.google.android.material.card.MaterialCardView;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
+import com.infinity.monginis.CategoryItemsDetails.Activity.CategoryItemsDetailsActivity;
 import com.infinity.monginis.R;
 import com.infinity.monginis.api.ApiImplementer;
 import com.infinity.monginis.api.ApiUrls;
@@ -41,15 +42,23 @@ public class BottomSheetDialogForLoginUser extends BottomSheetDialogFragment imp
     private TextInputLayout tilMobileNumber;
     private TextInputEditText edMobileNumber;
     private LoginActivity activity;
+    private Activity activityy;
     private DashboardActivity dashboardActivity;
     private CartActivity cartActivity;
     private ItemDetailsActivity itemDetailsActivity;
+    private CategoryItemsDetailsActivity categoryItemsDetailsActivity;
     private Context context;
     private MySharedPreferences mySharedPreferences;
     ConnectionDetector connectionDetector;
     private ILoginUserDialog iLoginUserDialog;
     private TextViewMediumFont tvSignUp;
+    private boolean isFromProfile = false;
+    private boolean isFromCart = false;
+    private boolean isFromSpecialOrder = false;
+    private boolean isFromFavrt = false;
+    private boolean isFromItemDetails = false;
 
+   // private
     private AppCompatImageView imgCloseLogin;
 
     public BottomSheetDialogForLoginUser(LoginActivity activity) {
@@ -62,13 +71,36 @@ public class BottomSheetDialogForLoginUser extends BottomSheetDialogFragment imp
 
     }
 
-    public BottomSheetDialogForLoginUser(DashboardActivity activity) {
+  //  public BottomSheetDialogForLoginUser(ItemDetailsActivity activity) {
+    //    this.itemDetailsActivity = activity;
+
+    //}
+
+  //  private Activity activity;
+
+    public BottomSheetDialogForLoginUser(DashboardActivity activity,boolean isFromProfile,boolean isFromCart,boolean isFromSpecialOrder) {
         this.dashboardActivity = activity;
+        this.isFromCart = isFromCart;
+        this.isFromProfile = isFromProfile;
+        this.isFromSpecialOrder = isFromSpecialOrder;
 
     }
 
-    public BottomSheetDialogForLoginUser(ItemDetailsActivity activity) {
+
+
+    public BottomSheetDialogForLoginUser(Activity activity) {
+        this.activityy = activity;
+
+    }
+
+    public BottomSheetDialogForLoginUser(ItemDetailsActivity activity,boolean isFromItemDetails) {
         this.itemDetailsActivity = activity;
+        this.isFromItemDetails = isFromItemDetails;
+
+    }
+    public BottomSheetDialogForLoginUser(CategoryItemsDetailsActivity activity,boolean isFromFavrt) {
+        this.categoryItemsDetailsActivity = activity;
+        this.isFromFavrt = isFromFavrt;
 
     }
 
@@ -94,8 +126,19 @@ public class BottomSheetDialogForLoginUser extends BottomSheetDialogFragment imp
     }
 
     private void initView(View view) {
-        mySharedPreferences = new MySharedPreferences(dashboardActivity);
-        connectionDetector = new ConnectionDetector(dashboardActivity);
+
+        if (isFromFavrt){
+            mySharedPreferences = new MySharedPreferences(categoryItemsDetailsActivity);
+            connectionDetector = new ConnectionDetector(categoryItemsDetailsActivity);
+        }else if (isFromItemDetails){
+            mySharedPreferences = new MySharedPreferences(itemDetailsActivity);
+            connectionDetector = new ConnectionDetector(itemDetailsActivity);
+        }else{
+            mySharedPreferences = new MySharedPreferences(dashboardActivity);
+            connectionDetector = new ConnectionDetector(dashboardActivity);
+        }
+
+
         cvLogin = view.findViewById(R.id.cvLogin);
         cvLogin.setOnClickListener(this);
         tvSignUp = view.findViewById(R.id.tvSignUp);
@@ -169,17 +212,24 @@ public class BottomSheetDialogForLoginUser extends BottomSheetDialogFragment imp
                     }
                 } else if (itemDetailsActivity != null) {
                     BottomSheetDialogForVerifyOTP bottomSheetDialogForVerifyOTP = new BottomSheetDialogForVerifyOTP(itemDetailsActivity,
-                            edMobileNumber.getText().toString());
+                            edMobileNumber.getText().toString(),true);
                     if (!bottomSheetDialogForVerifyOTP.isAdded()) {
                         bottomSheetDialogForVerifyOTP.setCancelable(false);
                         bottomSheetDialogForVerifyOTP.show(itemDetailsActivity.getSupportFragmentManager(), "verfy_otp");
                     }
                 } else if (dashboardActivity != null) {
                     BottomSheetDialogForVerifyOTP bottomSheetDialogForVerifyOTP = new BottomSheetDialogForVerifyOTP(dashboardActivity,
-                            edMobileNumber.getText().toString());
+                            edMobileNumber.getText().toString(),isFromProfile,isFromSpecialOrder,isFromCart);
                     if (!bottomSheetDialogForVerifyOTP.isAdded()) {
                         bottomSheetDialogForVerifyOTP.setCancelable(false);
                         bottomSheetDialogForVerifyOTP.show(dashboardActivity.getSupportFragmentManager(), "verfy_otp");
+                    }
+                }else if (categoryItemsDetailsActivity != null){
+                    BottomSheetDialogForVerifyOTP bottomSheetDialogForVerifyOTP = new BottomSheetDialogForVerifyOTP(categoryItemsDetailsActivity,
+                            edMobileNumber.getText().toString(),isFromFavrt);
+                    if (!bottomSheetDialogForVerifyOTP.isAdded()) {
+                        bottomSheetDialogForVerifyOTP.setCancelable(false);
+                        bottomSheetDialogForVerifyOTP.show(categoryItemsDetailsActivity.getSupportFragmentManager(), "verfy_otp");
                     }
                 }
 

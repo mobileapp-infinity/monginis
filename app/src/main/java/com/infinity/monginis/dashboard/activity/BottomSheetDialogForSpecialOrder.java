@@ -25,6 +25,8 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.widget.AppCompatImageView;
 
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.infinity.monginis.R;
 import com.infinity.monginis.api.ApiImplementer;
 import com.infinity.monginis.api.ApiUrls;
@@ -41,6 +43,7 @@ import com.infinity.monginis.dashboard.pojo.GetOccasionPojo;
 import com.infinity.monginis.dashboard.pojo.GetSchedulePojo;
 import com.infinity.monginis.dashboard.pojo.Get_Addons_Items_List_Pojo;
 import com.infinity.monginis.dashboard.pojo.SavePartialOrderPojo;
+import com.infinity.monginis.dashboard.pojo.TestPojo;
 import com.infinity.monginis.login.BottomSheetDialogForLoginUser;
 import com.infinity.monginis.login.SplashActivity;
 import com.infinity.monginis.utils.CommonUtil;
@@ -62,7 +65,10 @@ import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
@@ -72,6 +78,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 import static android.app.Activity.RESULT_OK;
+import static com.infinity.monginis.dashboard.activity.DashboardActivity.vpDashboard;
 import static com.infinity.monginis.utils.IntentConstants.SPECIAL_ORDER_UPLOAD_PHOTO_GALLERY_REQUEST;
 
 public class BottomSheetDialogForSpecialOrder extends BottomSheetDialogFragment implements View.OnClickListener {
@@ -105,12 +112,13 @@ public class BottomSheetDialogForSpecialOrder extends BottomSheetDialogFragment 
     private GetItemsForDashboardPojo getItemsForDashboardPojo;
     private String SELECTED_MENU_ID = "";
     private String SELECTED_SCHEDULE_ID = "";
-    ArrayList<String> menuList;
+    ArrayList<String> menuList, menuListId;
     ArrayList<String> flavourList;
     ArrayList<String> weightList;
     ArrayList<String> cakeShapeList;
     ArrayList<String> qtyList;
-
+    ArrayList<TestPojo> testPojoArrayList;
+    private boolean isFromSearch = false;
 
     public BottomSheetDialogForSpecialOrder(ItemDetailsActivity activity) {
         this.activity = activity;
@@ -122,6 +130,13 @@ public class BottomSheetDialogForSpecialOrder extends BottomSheetDialogFragment 
         this.position = position;
     }
 
+    public BottomSheetDialogForSpecialOrder(DashboardActivity d, ArrayList<TestPojo> testPojoArrayList, int position
+            , boolean isFromSearch) {
+        this.dashboardActivity = d;
+        this.testPojoArrayList = testPojoArrayList;
+        this.position = position;
+        this.isFromSearch = isFromSearch;
+    }
 
     @Override
     public int getTheme() {
@@ -134,6 +149,7 @@ public class BottomSheetDialogForSpecialOrder extends BottomSheetDialogFragment 
 
         View view = inflater.inflate(R.layout.layout_for_special_order_bottom_sheet_dialog,
                 container, false);
+
         initView(view);
 
         getOccassion();
@@ -161,8 +177,14 @@ public class BottomSheetDialogForSpecialOrder extends BottomSheetDialogFragment 
         btnProceed = view.findViewById(R.id.btnProceed);
         tvSpecialItemName = view.findViewById(R.id.tvSpecialItemName);
         tvSpecialItemPrice = view.findViewById(R.id.tvSpecialItemPrice);
-        tvSpecialItemName.setText(getItemsForDashboardPojo.getRecords().get(position).getItmName());
-        tvSpecialItemPrice.setText(getItemsForDashboardPojo.getRecords().get(position).getPrice() + "(" + "per kg" + ")");
+        if (isFromSearch) {
+            tvSpecialItemName.setText(testPojoArrayList.get(position).getShopName());
+            tvSpecialItemPrice.setText(testPojoArrayList.get(position).getShopAddress() + "(" + "per kg" + ")");
+        } else {
+            tvSpecialItemName.setText(getItemsForDashboardPojo.getRecords().get(position).getItmName());
+            tvSpecialItemPrice.setText(getItemsForDashboardPojo.getRecords().get(position).getPrice() + "(" + "per kg" + ")");
+        }
+
         sdf_full = new SimpleDateFormat("dd-MM-yyyy", Locale.ENGLISH);
         serverDateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH);
         llAlmostThere = view.findViewById(R.id.llAlmostThere);
@@ -195,7 +217,7 @@ public class BottomSheetDialogForSpecialOrder extends BottomSheetDialogFragment 
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 if (position > 0) {
-                    SELECTED_MENU_ID = menuList.get(position);
+                    SELECTED_MENU_ID = menuListId.get(position);
                 }
 
             }
@@ -210,7 +232,8 @@ public class BottomSheetDialogForSpecialOrder extends BottomSheetDialogFragment 
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 if (position > 0) {
-                    SELECTED_SCHEDULE_ID = scheduleList.get(position);
+                    SELECTED_SCHEDULE_ID = scheduleListId.get(position);
+                    System.out.println(SELECTED_SCHEDULE_ID);
                 }
 
             }
@@ -334,12 +357,15 @@ public class BottomSheetDialogForSpecialOrder extends BottomSheetDialogFragment 
                     try {
                         GetOccasionPojo getOccasionPojo = response.body();
                         menuList = new ArrayList<>();
+                        menuListId = new ArrayList<>();
                         menuList.add("Menu");
+                        menuListId.add("0");
 
                         if (getOccasionPojo != null && getOccasionPojo.getRECORDS().size() > 0) {
 
                             for (int i = 0; i < getOccasionPojo.getRECORDS().size(); i++) {
                                 menuList.add(getOccasionPojo.getRECORDS().get(i).getComOccasionName());
+                                menuListId.add(getOccasionPojo.getRECORDS().get(i).getId() + "");
                             }
 
                             ArrayAdapter<String> menuAdapter = new ArrayAdapter<String>(dashboardActivity, R.layout.spinner_common_layout, menuList);
@@ -516,14 +542,14 @@ public class BottomSheetDialogForSpecialOrder extends BottomSheetDialogFragment 
         } else if (spFlavour.getSelectedItemPosition() == 0) {
             Toast.makeText(dashboardActivity, "Please Select Flavour", Toast.LENGTH_LONG).show();
             flag = false;
-        } else if (tvPhotoUpload.getText().toString().contentEquals("Upload Photo")) {
+        } /*else if (tvPhotoUpload.getText().toString().contentEquals("Upload Photo")) {
             Toast.makeText(dashboardActivity, "Please Select Photo", Toast.LENGTH_LONG).show();
             flag = false;
 
-        } else if (spQty.getSelectedItemPosition() == 0) {
+        }*/ /*else if (spQty.getSelectedItemPosition() == 0) {
             Toast.makeText(dashboardActivity, "Please Select Quantity", Toast.LENGTH_LONG).show();
             flag = false;
-        } else if (tvDeliveryDate.getText().toString().contentEquals("Delivery Date")) {
+        }*/ else if (tvDeliveryDate.getText().toString().contentEquals("Delivery Date")) {
             Toast.makeText(dashboardActivity, "Please Enter Delivery Date", Toast.LENGTH_LONG).show();
             flag = false;
         }
@@ -534,8 +560,9 @@ public class BottomSheetDialogForSpecialOrder extends BottomSheetDialogFragment 
     }
 
     private HashMap<String, ArrayList<CartItemModel>> selectedCartItems = new HashMap<>();
-    private ArrayList<AddsOnItemModel> specialCategoryAddOnSelectedItemArrayList = new ArrayList<>();
-
+    private List<Get_Addons_Items_List_Pojo.Item> specialCategoryAddOnSelectedItemArrayList = new ArrayList<>();
+    private ArrayList<CartItemModel> cartItemModelArrayList = new ArrayList();
+    HashMap<String, ArrayList<CartItemModel>> cartItemHashMap = new HashMap<>();
 
     @Override
     public void onClick(View view) {
@@ -543,6 +570,138 @@ public class BottomSheetDialogForSpecialOrder extends BottomSheetDialogFragment 
         if (view.getId() == R.id.tvDeliveryDate) {
             deliveryDateDialog();
         } else if (view.getId() == R.id.btnProceed) {
+            // if (isValidated()) {
+            this.dismiss();
+
+            /***Addons array*/
+            JSONArray special_item_details_adds_on_array = new JSONArray();
+            double totalAddsOn = 0.0;
+            for (String category : filteredHashMap.keySet()) {
+                List<Get_Addons_Items_List_Pojo.Item> specialCategoryModelArrayList = filteredHashMap.get(category);
+
+
+                for (int i = 0; i < specialCategoryModelArrayList.size(); i++) {
+
+
+                    if (specialCategoryModelArrayList.get(i).getQty() != 0.0) {
+
+                        specialCategoryAddOnSelectedItemArrayList.add(specialCategoryModelArrayList.get(i));
+
+
+                    }
+
+
+                }
+
+
+            }
+            JSONObject special_item_adds_on_object = new JSONObject();
+            for (int i = 0; i < specialCategoryAddOnSelectedItemArrayList.size(); i++) {
+                totalAddsOn += specialCategoryAddOnSelectedItemArrayList.get(i).getTotalAmt();
+                special_item_adds_on_object = new JSONObject();
+
+                try {
+
+                    special_item_adds_on_object.put("itm_id", specialCategoryAddOnSelectedItemArrayList.get(i).getItmId());
+                    special_item_adds_on_object.put("itm_name", specialCategoryAddOnSelectedItemArrayList.get(i).getItemName());
+                    special_item_adds_on_object.put("itm_hsn_code", specialCategoryAddOnSelectedItemArrayList.get(i).getHsnCode());
+                    special_item_adds_on_object.put("itm_uom_id", specialCategoryAddOnSelectedItemArrayList.get(i).getUomId());
+                    special_item_adds_on_object.put("itm_is_addon", 1);
+                    special_item_adds_on_object.put("act_price", specialCategoryAddOnSelectedItemArrayList.get(i).getPrice());
+                    special_item_adds_on_object.put("itm_weight", specialCategoryAddOnSelectedItemArrayList.get(i).getQty());
+                    special_item_adds_on_object.put("cgst_per", 0);
+                    special_item_adds_on_object.put("sgst_per", 0);
+                    special_item_adds_on_object.put("cgst_tot", 0);
+                    special_item_adds_on_object.put("sgst_tot", 0);
+                    special_item_adds_on_object.put("itm_total_amt", specialCategoryAddOnSelectedItemArrayList.get(i).getTotalAmt());
+                    special_item_adds_on_object.put("itm_net_amt", specialCategoryAddOnSelectedItemArrayList.get(i).getTotal_net_amt());
+                    special_item_adds_on_object.put("mrp", specialCategoryAddOnSelectedItemArrayList.get(i).getMrp());
+
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+
+                    System.out.println("error in json creation!!!!!");
+                }
+
+
+                special_item_details_adds_on_array.put(special_item_adds_on_object);
+
+            }
+
+            /***Addons array*/
+            /**Json Item Array**/
+            JSONArray special_item_array = new JSONArray();
+            JSONObject selectedItemJson = new JSONObject();
+
+
+            try {
+
+                selectedItemJson.put("item_id", getItemsForDashboardPojo.getRecords().get(position).getId());
+                selectedItemJson.put("item_name", getItemsForDashboardPojo.getRecords().get(position).getItmName());
+                selectedItemJson.put("hsn_code", Integer.parseInt(getItemsForDashboardPojo.getRecords().get(position).getHsnCode()));
+                selectedItemJson.put("uom_id", getItemsForDashboardPojo.getRecords().get(position).getItmUom());
+                selectedItemJson.put("price", getItemsForDashboardPojo.getRecords().get(position).getPrice());
+                selectedItemJson.put("weight", Double.parseDouble(spWeight.getSelectedItem() + ""));
+                selectedItemJson.put("cgst_per", "0.0");
+                selectedItemJson.put("sgst_per", "0.0");
+                selectedItemJson.put("qty", Integer.parseInt("1"));
+                selectedItemJson.put("mrp", Double.parseDouble("100.0"));
+                selectedItemJson.put("flavour", spFlavour.getSelectedItem() + "");
+                selectedItemJson.put("shape", spShape.getSelectedItem() + "");
+
+
+            } catch (JSONException e) {
+                e.printStackTrace();
+
+                System.out.println("error in json creation!!!!!");
+            }
+            special_item_array.put(selectedItemJson);
+
+            /**Json Item Array**/
+
+
+            if (!CommonUtil.checkIsEmptyOrNullCommon(mySharedPreferences.getUserMobileNo())) {
+
+                if (!CommonUtil.checkIsEmptyOrNullCommon(mySharedPreferences.getUserWiseCartItems())) {
+                    Gson gson = new Gson();
+                    String stringFromsharedPref = mySharedPreferences.getUserWiseCartItems();
+                    java.lang.reflect.Type type = new TypeToken<HashMap<String, ArrayList<CartItemModel>>>() {
+                    }.getType();
+                    HashMap<String, ArrayList<CartItemModel>> testHashMap2 = gson.fromJson(stringFromsharedPref, type);
+                    cartItemModelArrayList = testHashMap2.get(mySharedPreferences.getUserMobileNo());
+                    cartItemModelArrayList.add(new CartItemModel(getItemsForDashboardPojo.getRecords().get(position).getId() + "", getItemsForDashboardPojo.getRecords().get(position).getItmName(), "25.0", spMenu.getSelectedItem() + ""
+                            , spWeight.getSelectedItem() + "", spFlavour.getSelectedItem() + "", spShape.getSelectedItem() + "", "1", tvDeliveryDate.getText().toString(), edtSpecialCakeMessage.getText().toString(), edtInstructions.getText().toString(), special_item_details_adds_on_array.toString(), special_item_array.toString(), SELECTED_MENU_ID, SELECTED_SCHEDULE_ID, totalAddsOn + "", null));
+                    cartItemHashMap.put(mySharedPreferences.getUserMobileNo(), cartItemModelArrayList);
+                    mySharedPreferences.setUserWiseCartItems(cartItemHashMap);
+                    vpDashboard.setCurrentItem(2);
+
+                } else {
+                    cartItemModelArrayList.add(new CartItemModel(getItemsForDashboardPojo.getRecords().get(position).getId() + "", getItemsForDashboardPojo.getRecords().get(position).getItmName(), "25.0", spMenu.getSelectedItem() + ""
+                            , spWeight.getSelectedItem() + "", spFlavour.getSelectedItem() + "", spShape.getSelectedItem() + "", "1", tvDeliveryDate.getText().toString(), edtSpecialCakeMessage.getText().toString(), edtInstructions.getText().toString(), special_item_details_adds_on_array.toString(), special_item_array.toString(), SELECTED_MENU_ID, SELECTED_SCHEDULE_ID, totalAddsOn + "", null));
+                    cartItemHashMap.put(mySharedPreferences.getUserMobileNo(), cartItemModelArrayList);
+                    mySharedPreferences.setUserWiseCartItems(cartItemHashMap);
+                    System.out.println(cartItemHashMap);
+                    vpDashboard.setCurrentItem(2);
+                }
+
+
+            } else {
+                this.dismiss();
+
+                BottomSheetDialogForLoginUser bottomSheetDialogForLoginUser = new BottomSheetDialogForLoginUser(dashboardActivity, false, false, true);
+                if (!bottomSheetDialogForLoginUser.isAdded()) {
+                    bottomSheetDialogForLoginUser.show(dashboardActivity.getSupportFragmentManager(), "test");
+                }
+
+                // }
+            }
+
+            //  }
+
+
+
+
 
          /*   int total = 0;
             for (String category : filteredHashMap.keySet()) {
@@ -600,14 +759,7 @@ public class BottomSheetDialogForSpecialOrder extends BottomSheetDialogFragment 
                 System.out.println("error in json creation!!!!!");
             }*/
 
-            this.dismiss();
-            if (mySharedPreferences.getUserMobileNo().equals("")) {
-                BottomSheetDialogForLoginUser bottomSheetDialogForLoginUser = new BottomSheetDialogForLoginUser(dashboardActivity);
-                if (!bottomSheetDialogForLoginUser.isAdded()) {
-                    bottomSheetDialogForLoginUser.show(dashboardActivity.getSupportFragmentManager(), "test");
-                }
 
-            }
             // } else {
 
 
@@ -728,6 +880,7 @@ public class BottomSheetDialogForSpecialOrder extends BottomSheetDialogFragment 
     }
 
     private ArrayList<String> scheduleList;
+    private ArrayList<String> scheduleListId;
     private CartItemModel cartItemModel;
 
     private void getSchedule(String delv_date, String itm_id) {
@@ -743,12 +896,16 @@ public class BottomSheetDialogForSpecialOrder extends BottomSheetDialogFragment 
 
                             GetSchedulePojo getSchedulePojo = response.body();
                             scheduleList = new ArrayList<>();
+                            scheduleList.add("Select Schedule");
+                            scheduleListId = new ArrayList<>();
+                            scheduleListId.add("0");
                             if (getSchedulePojo != null && getSchedulePojo.getRecords().size() > 0) {
 
                                 // scheduleDialog(getSchedulePojo);
 
                                 for (int i = 0; i < getSchedulePojo.getRecords().size(); i++) {
                                     scheduleList.add(getSchedulePojo.getRecords().get(i).getRsmDepTime());
+                                    scheduleListId.add(getSchedulePojo.getRecords().get(i).getScheduleId() + "");
                                 }
 
 
@@ -835,11 +992,12 @@ public class BottomSheetDialogForSpecialOrder extends BottomSheetDialogFragment 
     }
 
 
-    private ArrayList<Get_Addons_Items_List_Pojo.RECORDSBean.CategoryBean> categoryBeanArrayList;
+    // private ArrayList<Get_Addons_Items_List_Pojo.RECORDSBean.CategoryBean> categoryBeanArrayList;
     private ArrayList<String> categoryNameList;
 
-    private ArrayList<Get_Addons_Items_List_Pojo.RECORDSBean.ItemsBean> itemsBeanArrayList;
-    private HashMap<String, ArrayList<AddsOnItemModel>> filteredHashMap;
+    //private ArrayList<Get_Addons_Items_List_Pojo.RECORDSBean.ItemsBean> itemsBeanArrayList;
+    private HashMap<String, List<Get_Addons_Items_List_Pojo.Item>> filteredHashMap;
+
     private ArrayList<AddsOnItemModel> addsOnItemModelArrayList;
 
     private void getAddonsItemsList() {
@@ -849,52 +1007,30 @@ public class BottomSheetDialogForSpecialOrder extends BottomSheetDialogFragment 
 
                 try {
                     if (response.isSuccessful() && response.body() != null) {
-                        categoryBeanArrayList = new ArrayList<>();
-                        itemsBeanArrayList = new ArrayList<>();
-                        categoryNameList = new ArrayList<>();
-                        filteredHashMap = new HashMap<>();
-
                         Get_Addons_Items_List_Pojo get_addons_items_list_pojo = response.body();
+                        filteredHashMap = new HashMap<>();
+                        categoryNameList = new ArrayList<>();
+                        if (get_addons_items_list_pojo != null && get_addons_items_list_pojo.getRecords().size() > 0) {
 
-                        if (get_addons_items_list_pojo != null && get_addons_items_list_pojo.getRECORDS().getCategory().size() > 0) {
+                            for (int i = 0; i < get_addons_items_list_pojo.getRecords().size(); i++) {
 
-                            for (int i = 0; i < get_addons_items_list_pojo.getRECORDS().getCategory().size(); i++) {
-                                categoryBeanArrayList.add(get_addons_items_list_pojo.getRECORDS().getCategory().get(i));
-                                categoryNameList.add(get_addons_items_list_pojo.getRECORDS().getCategory().get(i).getCat_name() + "");
+
+                                categoryNameList.add(get_addons_items_list_pojo.getRecords().get(i).getCatName());
+                                filteredHashMap.put(get_addons_items_list_pojo.getRecords().get(i).getCatName(), get_addons_items_list_pojo.getRecords().get(i).getItems());
                             }
 
-                            for (int i = 0; i < get_addons_items_list_pojo.getRECORDS().getItems().size(); i++) {
-                                itemsBeanArrayList.add(get_addons_items_list_pojo.getRECORDS().getItems().get(i));
-                            }
 
-
-                            for (int i = 0; i < get_addons_items_list_pojo.getRECORDS().getCategory().size(); i++) {
-                                addsOnItemModelArrayList = new ArrayList<>();
-
-                                for (int j = 0; j < get_addons_items_list_pojo.getRECORDS().getItems().size(); j++) {
-
-                                    if (get_addons_items_list_pojo.getRECORDS().getItems().get(j).getCat_id() == get_addons_items_list_pojo.getRECORDS().getCategory().get(i).getId()) {
-                                        addsOnItemModelArrayList.add(new AddsOnItemModel(get_addons_items_list_pojo.getRECORDS().getItems().get(j).getItm_id() + "", get_addons_items_list_pojo.getRECORDS().getItems().get(j).getSh_price() + "", get_addons_items_list_pojo.getRECORDS().getItems().get(j).getPrice() + "", get_addons_items_list_pojo.getRECORDS().getItems().get(j).getUom_id() + "", get_addons_items_list_pojo.getRECORDS().getItems().get(j).getUom_name() + "", get_addons_items_list_pojo.getRECORDS().getItems().get(j).getHsn_code() + "", get_addons_items_list_pojo.getRECORDS().getItems().get(j).getQty() + "", get_addons_items_list_pojo.getRECORDS().getItems().get(j).getMrp() + "", get_addons_items_list_pojo.getRECORDS().getItems().get(j).getCat_id() + "", get_addons_items_list_pojo.getRECORDS().getItems().get(j).getItem_name() + "", get_addons_items_list_pojo.getRECORDS().getItems().get(j).getItm_url() + "", "0", "0"));
-                                        filteredHashMap.put(get_addons_items_list_pojo.getRECORDS().getCategory().get(i).getCat_name() + "", addsOnItemModelArrayList);
-                                    }
-
-
-                                }
-
-
-                            }
-
-                            AddsOnAdapter addsOnAdapter = new AddsOnAdapter(dashboardActivity, filteredHashMap, categoryNameList);
-                            exAddsOnn.setAdapter(addsOnAdapter);
-
-
+                        } else {
+                            Toast.makeText(dashboardActivity, get_addons_items_list_pojo.getMessage(), Toast.LENGTH_SHORT).show();
                         }
+                        AddsOnAdapter addsOnAdapter = new AddsOnAdapter(dashboardActivity, filteredHashMap, categoryNameList);
+                        exAddsOnn.setAdapter(addsOnAdapter);
 
 
                     }
 
                 } catch (Exception e) {
-                    Toast.makeText(dashboardActivity, "Error in response" + e.getMessage(), Toast.LENGTH_SHORT).show();
+
                 }
 
             }

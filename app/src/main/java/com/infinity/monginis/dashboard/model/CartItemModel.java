@@ -3,13 +3,17 @@ package com.infinity.monginis.dashboard.model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import org.json.JSONArray;
+
 import java.io.Serializable;
 
+import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 
 public class CartItemModel implements Serializable {
 
 
+    private String itemId;
     private String shopName;
     private String shopAddress;
     private String itemImage;
@@ -26,12 +30,37 @@ public class CartItemModel implements Serializable {
     private String weight;
     private String qty;
     private String scheduleId;
+    private String selectedAddsOnArray;
+    private String selectedItemArray;
+    private String totalAddsOnPrice;
+    private  MultipartBody.Part specialCakePhoto;
 
 
-    public CartItemModel(String itemName, String itemMrp, String menu, String flavour, String shape, RequestBody photo, String deliverydate, String yourMessage, String yourInstruction, String weight,String menuId,String qty,String scheduleId) {
+    public CartItemModel(String itemId,String itemName,String itemMrp,String menu,String weight,String flavours,String shape,String qty,String deliverydate,String yourMessage,String yourInstruction,String selectedAddsOnArray,String selectedItemArray,String menuID,String scheduleId,String totalAddsOnPrice,MultipartBody.Part specialCakePhoto){
+        this.itemId = itemId;
         this.itemName = itemName;
         this.itemMrp = itemMrp;
+        this.menu = menu;
+        this.weight = weight;
+        this.flavour =flavours;
+        this.shape  = shape;
+        this.qty = qty;
+        this.deliverydate = deliverydate;
+        this.yourMessage = yourMessage;
+        this.yourInstruction = yourInstruction;
+        this.selectedAddsOnArray = selectedAddsOnArray;
+        this.selectedItemArray = selectedItemArray;
+        this.menuId = menuID;
+        this.scheduleId = scheduleId;
+        this.totalAddsOnPrice = totalAddsOnPrice;
+        this.specialCakePhoto = specialCakePhoto;
+    }
 
+
+    public CartItemModel(String id,String itemName, String itemMrp, String menu, String flavour, String shape, RequestBody photo, String deliverydate, String yourMessage, String yourInstruction, String weight,String menuId,String qty,String scheduleId) {
+        this.itemName = itemName;
+        this.itemMrp = itemMrp;
+        this.itemId =id;
         this.menu = menu;
 
         this.flavour = flavour;
@@ -44,6 +73,7 @@ public class CartItemModel implements Serializable {
         this.menuId = menuId;
         this.qty =qty;
         this.scheduleId =scheduleId;
+
     }
 
     public String getShopName() {
@@ -174,5 +204,45 @@ public class CartItemModel implements Serializable {
 
     public void setScheduleId(String scheduleId) {
         this.scheduleId = scheduleId;
+    }
+
+    public String getSelectedAddsOnArray() {
+        return selectedAddsOnArray;
+    }
+
+    public void setSelectedAddsOnArray(String selectedAddsOnArray) {
+        this.selectedAddsOnArray = selectedAddsOnArray;
+    }
+
+    public String getSelectedItemArray() {
+        return selectedItemArray;
+    }
+
+    public void setSelectedItemArray(String selectedItemArray) {
+        this.selectedItemArray = selectedItemArray;
+    }
+
+    public String getTotalAddsOnPrice() {
+        return totalAddsOnPrice;
+    }
+
+    public void setTotalAddsOnPrice(String totalAddsOnPrice) {
+        this.totalAddsOnPrice = totalAddsOnPrice;
+    }
+
+    public MultipartBody.Part getSpecialCakePhoto() {
+        return specialCakePhoto;
+    }
+
+    public void setSpecialCakePhoto(MultipartBody.Part specialCakePhoto) {
+        this.specialCakePhoto = specialCakePhoto;
+    }
+
+    public String getItemId() {
+        return itemId;
+    }
+
+    public void setItemId(String itemId) {
+        this.itemId = itemId;
     }
 }

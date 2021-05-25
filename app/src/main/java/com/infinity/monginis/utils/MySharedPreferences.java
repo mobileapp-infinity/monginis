@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 
 import com.google.gson.Gson;
+import com.infinity.monginis.dashboard.model.CartItemModel;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -100,7 +101,7 @@ public class MySharedPreferences {
     }
 
 
-    public void setUserWiseCartItems(HashMap<String, ArrayList<String>> cartHashMap) {
+    public void setUserWiseCartItems(HashMap<String, ArrayList<CartItemModel>> cartHashMap) {
 
         Gson gson = new Gson();
         String hashMapString = gson.toJson(cartHashMap);
@@ -111,6 +112,9 @@ public class MySharedPreferences {
     public String getUserWiseCartItems() {
         return sharedPreferences.getString(PreferencesConstants.SELECTED_CART_ITEMS, "");
     }
+
+
+
 
 
 }

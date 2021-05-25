@@ -15,6 +15,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.infinity.monginis.R;
 import com.infinity.monginis.custom_class.TextViewRegularFont;
+import com.infinity.monginis.dashboard.activity.BottomSheetDialogForSpecialOrder;
+import com.infinity.monginis.dashboard.activity.DashboardActivity;
 import com.infinity.monginis.dashboard.activity.EditUserDetailsActivity;
 import com.infinity.monginis.dashboard.activity.ItemDetailsActivity;
 import com.infinity.monginis.dashboard.pojo.SearchCategoryPojo;
@@ -52,6 +54,8 @@ public class SearchCategoryAdapter extends RecyclerView.Adapter<SearchCategoryAd
         holder.tvPopularItemName.setText(testPojoArrayList.get(position).getShopName());
         holder.tvBy.setText(testPojoArrayList.get(position).getShopAddress());
 
+        //if (testPojoArrayList.get(position).getIs_special_flag() ==1){}
+
       //  Glide.with(context).f
 
 
@@ -59,9 +63,19 @@ public class SearchCategoryAdapter extends RecyclerView.Adapter<SearchCategoryAd
             @Override
             public void onClick(View view) {
 
-                Intent itemDetailsIntent = new Intent(context, ItemDetailsActivity.class);
+                if (testPojoArrayList.get(position).getIs_special_flag() ==1){
+                  //  BottomSheetDialogForSpecialOrder bottomSheetForSpecialOrder = new BottomSheetDialogForSpecialOrder((DashboardActivity) context),testPojoArrayList , position);
+                   // bottomSheetForSpecialOrder.show(((DashboardActivity) context).getSupportFragmentManager(), "");
 
-                context.startActivity(itemDetailsIntent);
+
+                    BottomSheetDialogForSpecialOrder bottomSheetForSpecialOrder = new BottomSheetDialogForSpecialOrder((DashboardActivity) context,testPojoArrayList,position,true);
+                    bottomSheetForSpecialOrder.show(((DashboardActivity) context).getSupportFragmentManager(), "");
+                }else{
+                    Intent itemDetailsIntent = new Intent(context, ItemDetailsActivity.class);
+
+                    context.startActivity(itemDetailsIntent);
+                }
+
 
             }
         });

@@ -17,6 +17,7 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import com.google.android.material.card.MaterialCardView;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
+import com.infinity.monginis.CategoryItemsDetails.Activity.CategoryItemsDetailsActivity;
 import com.infinity.monginis.R;
 import com.infinity.monginis.api.ApiImplementer;
 import com.infinity.monginis.api.ApiUrls;
@@ -27,6 +28,11 @@ import com.infinity.monginis.dashboard.activity.ConfirmOrderActivity;
 import com.infinity.monginis.dashboard.activity.CustomizeScreenActivity;
 import com.infinity.monginis.dashboard.activity.DashboardActivity;
 import com.infinity.monginis.dashboard.activity.ItemDetailsActivity;
+import com.infinity.monginis.dashboard.adapter.DashboardViewPagerAdapter;
+import com.infinity.monginis.dashboard.fragments.CartFragment;
+import com.infinity.monginis.dashboard.fragments.ExploreFragment;
+import com.infinity.monginis.dashboard.fragments.ProfileFragment;
+import com.infinity.monginis.dashboard.fragments.SearchFragment;
 import com.infinity.monginis.login.Pojo.CheckOTPVerifyPojo;
 import com.infinity.monginis.utils.CommonUtil;
 import com.infinity.monginis.utils.ConnectionDetector;
@@ -37,6 +43,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import static com.infinity.monginis.dashboard.activity.DashboardActivity.vpDashboard;
 import static com.infinity.monginis.dashboard.adapter.PopularItemsAdapter.isFromSpecialOrderItem;
 import static com.infinity.monginis.dashboard.adapter.TopCategoriesAdapter.isFromTopCategories;
 
@@ -46,6 +53,7 @@ public class BottomSheetDialogForVerifyOTP extends BottomSheetDialogFragment imp
     private CartActivity cartActivity;
     private ItemDetailsActivity itemDetailsActivity;
     private DashboardActivity dashboardActivity;
+    private CategoryItemsDetailsActivity categoryItemsDetailsActivity;
     private ConnectionDetector connectionDetector;
 
     private MaterialCardView cvVerifyOTP;
@@ -54,6 +62,11 @@ public class BottomSheetDialogForVerifyOTP extends BottomSheetDialogFragment imp
     private OtpView otpView;
     private MySharedPreferences mySharedPreferences;
     private TextViewRegularFont tvMobileNo;
+    private boolean isFromProfile = false;
+    private boolean isFromCart = false;
+    private boolean isFromSpecialOrder = false;
+    private boolean isFromFavrt = false;
+    private boolean isfromItemDetails = false;
 
     public BottomSheetDialogForVerifyOTP(Activity activity, String mobileNo) {
         this.activity = activity;
@@ -65,14 +78,26 @@ public class BottomSheetDialogForVerifyOTP extends BottomSheetDialogFragment imp
         this.mobileNo = mobileNo;
     }
 
-    public BottomSheetDialogForVerifyOTP(ItemDetailsActivity activity, String mobileNo) {
+    public BottomSheetDialogForVerifyOTP(ItemDetailsActivity activity, String mobileNo,boolean isfromItemDetails) {
         this.itemDetailsActivity = activity;
         this.mobileNo = mobileNo;
+        this.isfromItemDetails = isfromItemDetails;
     }
 
-    public BottomSheetDialogForVerifyOTP(DashboardActivity activity, String mobileNo) {
+
+    public BottomSheetDialogForVerifyOTP(CategoryItemsDetailsActivity activity, String mobileNo,boolean isFromFavrt) {
+        this.categoryItemsDetailsActivity = activity;
+        this.mobileNo = mobileNo;
+        this.isFromFavrt = isFromFavrt;
+    }
+
+    public BottomSheetDialogForVerifyOTP(DashboardActivity activity, String mobileNo,boolean isFromProfile,boolean isFromSpecialOrder,boolean isFromCart) {
         this.dashboardActivity = activity;
         this.mobileNo = mobileNo;
+       this.isFromProfile = isFromProfile;
+       this.isFromSpecialOrder = isFromSpecialOrder;
+       this.isFromCart = isFromCart;
+      // this.isFromFavrt = isFromFavrt;
     }
 
 
@@ -92,8 +117,17 @@ public class BottomSheetDialogForVerifyOTP extends BottomSheetDialogFragment imp
     }
 
     private void initView(View view) {
-        mySharedPreferences = new MySharedPreferences(dashboardActivity);
-        connectionDetector = new ConnectionDetector(dashboardActivity);
+        if (isFromFavrt){
+            mySharedPreferences = new MySharedPreferences(categoryItemsDetailsActivity);
+            connectionDetector = new ConnectionDetector(categoryItemsDetailsActivity);
+        }else if (isfromItemDetails){
+            mySharedPreferences = new MySharedPreferences(itemDetailsActivity);
+            connectionDetector = new ConnectionDetector(itemDetailsActivity);
+        }else {
+            mySharedPreferences = new MySharedPreferences(dashboardActivity);
+            connectionDetector = new ConnectionDetector(dashboardActivity);
+        }
+
         cvVerifyOTP = view.findViewById(R.id.cvVerifyOTP);
         otpView = view.findViewById(R.id.otp_view);
 
@@ -155,11 +189,26 @@ public class BottomSheetDialogForVerifyOTP extends BottomSheetDialogFragment imp
                             if (checkOTPVerifyPojo != null && checkOTPVerifyPojo.getRecords().size() > 0) {
 
                                 if (checkOTPVerifyPojo.getRecords().get(0).getFlag() == 1) {
-                                    Toast.makeText(dashboardActivity, checkOTPVerifyPojo.getRecords().get(0).getMsg(), Toast.LENGTH_SHORT).show();
-                                    dismiss();
                                     mySharedPreferences.setUserMobileNo(mobileNo);
-                                    Intent customizeScreenIntent = new Intent(dashboardActivity, CustomizeScreenActivity.class);
-                                    startActivity(customizeScreenIntent);
+                                    //Toast.makeText(dashboardActivity, checkOTPVerifyPojo.getRecords().get(0).getMsg(), Toast.LENGTH_SHORT).show();
+                                    dismiss();
+                                    if (isFromProfile){
+                                        //setUpViewPager();
+                                        vpDashboard.setCurrentItem(3);
+                                      //  ProfileFragment.getProfileFragment();
+                                        //vpDashboard.
+
+                                    }else if(isFromCart){
+                                        vpDashboard.setCurrentItem(2);
+                                    }else if(isFromSpecialOrder){
+
+                                    }else if (isFromFavrt){
+
+                                        //startActivity(getIn);
+                                    }
+
+                                   // Intent customizeScreenIntent = new Intent(dashboardActivity, CustomizeScreenActivity.class);
+                                   // startActivity(customizeScreenIntent);
                                 } else {
                                     Toast.makeText(dashboardActivity, checkOTPVerifyPojo.getRecords().get(0).getMsg(), Toast.LENGTH_SHORT).show();
                                 }
@@ -189,5 +238,7 @@ public class BottomSheetDialogForVerifyOTP extends BottomSheetDialogFragment imp
         }
 
     }
+
+
 
 }
