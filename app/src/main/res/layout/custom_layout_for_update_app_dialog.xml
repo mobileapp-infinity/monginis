@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    app:cardCornerRadius="8dp"
+    app:cardElevation="8dp"
+    app:contentPaddingLeft="12dp"
+    app:contentPaddingRight="12dp"
+    app:contentPaddingTop="16dp"
+    app:contentPaddingBottom="12dp">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <com.infinity.monginis.custom_class.TextViewMediumFont
+            android:layout_width="match_parent"
+            android:text="Update Monginis ?"
+            android:textSize="@dimen/text_16sp"
+            android:textColor="#000000"
+            android:layout_height="wrap_content"/>
+
+        <com.infinity.monginis.custom_class.TextViewRegularFont
+            android:layout_width="match_parent"
+            android:layout_marginTop="10dp"
+            android:text="We added lots of new features and fix some bugs to make your experience as sooth as possible."
+            android:textSize="@dimen/text_14sp"
+            android:textColor="#000000"
+            android:layout_height="wrap_content"/>
+
+        <LinearLayout
+            android:layout_marginTop="16dp"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="52dp">
+
+            <com.infinity.monginis.custom_class.TextViewMediumFont
+                android:layout_weight="1"
+                android:id="@+id/tvNoThanks"
+                android:layout_width="0dp"
+                android:textSize="@dimen/text_16sp"
+                android:textColor="@color/colorPrimary"
+                android:text="No thanks"
+                android:gravity="center"
+                android:background="?selectableItemBackground"
+                android:layout_height="match_parent"/>
+
+            <com.google.android.material.button.MaterialButton
+                android:layout_width="0dp"
+                android:text="Update"
+                android:fontFamily="@font/poppins_medium"
+                android:id="@+id/btnUpdate"
+                android:layout_weight="1"
+                android:textSize="@dimen/text_14sp"
+                android:layout_height="match_parent"/>
+
+        </LinearLayout>
+
+        <View
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="16dp"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/gray" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:src="@drawable/play_store_icon"
+            android:layout_height="40dp"
+            android:adjustViewBounds="true"/>
+
+         <com.infinity.monginis.custom_class.TextViewMediumFont
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:layout_marginStart="12dp"
+             android:text="Google Play"
+             android:textSize="20sp"/>
+
+
+        </LinearLayout>
+
+    </LinearLayout>
+</com.google.android.material.card.MaterialCardView>
