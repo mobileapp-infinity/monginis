@@ -3,9 +3,11 @@ package com.infinity.monginis.dashboard.activity;
 import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -33,8 +35,11 @@ import com.infinity.monginis.api.ApiUrls;
 import com.infinity.monginis.api.IApiInterface;
 import com.infinity.monginis.custom_class.TextViewRegularFont;
 import com.infinity.monginis.dashboard.adapter.AddsOnAdapter;
+import com.infinity.monginis.dashboard.dao.SaveOrderDatabase;
+
 import com.infinity.monginis.dashboard.model.AddsOnItemModel;
 import com.infinity.monginis.dashboard.model.CartItemModel;
+import com.infinity.monginis.dashboard.model.SaveOrder;
 import com.infinity.monginis.dashboard.pojo.GetAllShopPojo;
 import com.infinity.monginis.dashboard.pojo.GetFlavoursPojo;
 import com.infinity.monginis.dashboard.pojo.GetItemWeightPojo;
@@ -42,13 +47,10 @@ import com.infinity.monginis.dashboard.pojo.GetItemsForDashboardPojo;
 import com.infinity.monginis.dashboard.pojo.GetOccasionPojo;
 import com.infinity.monginis.dashboard.pojo.GetSchedulePojo;
 import com.infinity.monginis.dashboard.pojo.Get_Addons_Items_List_Pojo;
-import com.infinity.monginis.dashboard.pojo.SavePartialOrderPojo;
 import com.infinity.monginis.dashboard.pojo.TestPojo;
 import com.infinity.monginis.login.BottomSheetDialogForLoginUser;
-import com.infinity.monginis.login.SplashActivity;
 import com.infinity.monginis.utils.CommonUtil;
 import com.infinity.monginis.utils.ConnectionDetector;
-import com.infinity.monginis.utils.DialogUtil;
 import com.infinity.monginis.utils.FileUtils;
 import com.infinity.monginis.utils.IntentConstants;
 import com.infinity.monginis.utils.MySharedPreferences;
@@ -59,16 +61,15 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.File;
+import java.lang.ref.WeakReference;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
-import java.util.Map;
 
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
@@ -163,9 +164,12 @@ public class BottomSheetDialogForSpecialOrder extends BottomSheetDialogFragment 
 
 
     private void initView(View view) {
+        saveOrderDatabase = SaveOrderDatabase.getInstance(dashboardActivity);
         mySharedPreferences = new MySharedPreferences(dashboardActivity);
         spFlavour = view.findViewById(R.id.spFlavour);
+
         connectionDetector = new ConnectionDetector(dashboardActivity);
+        saveOrderDatabase = SaveOrderDatabase.getInstance(dashboardActivity);
         spMenu = view.findViewById(R.id.spMenu);
         spShape = view.findViewById(R.id.spShape);
         spWeight = view.findViewById(R.id.spWeight);
@@ -564,6 +568,14 @@ public class BottomSheetDialogForSpecialOrder extends BottomSheetDialogFragment 
     private ArrayList<CartItemModel> cartItemModelArrayList = new ArrayList();
     HashMap<String, ArrayList<CartItemModel>> cartItemHashMap = new HashMap<>();
 
+
+    //****//
+
+    private SaveOrderDatabase saveOrderDatabase;
+
+    private SaveOrder saveOrder;
+    //****//
+
     @Override
     public void onClick(View view) {
 
@@ -572,6 +584,11 @@ public class BottomSheetDialogForSpecialOrder extends BottomSheetDialogFragment 
         } else if (view.getId() == R.id.btnProceed) {
             // if (isValidated()) {
             this.dismiss();
+
+            saveOrder = new SaveOrder(getItemsForDashboardPojo.getRecords().get(position).getItmName() + "",getItemsForDashboardPojo.getRecords().get(position).getHsnCode() + "",getItemsForDashboardPojo.getRecords().get(position).getItmUom() + "","test","test","test","test","test","test","test","test","test");
+
+            // create worker thread to insert data into database
+            new SaveOrderTask(dashboardActivity,saveOrder).execute();
 
             /***Addons array*/
             JSONArray special_item_details_adds_on_array = new JSONArray();
@@ -1073,6 +1090,39 @@ public class BottomSheetDialogForSpecialOrder extends BottomSheetDialogFragment 
         });
 
     }
+
+
+    public  class SaveOrderTask extends AsyncTask<Void,Void,Boolean> {
+
+        private WeakReference<Context> activityReference;
+        private SaveOrder saveOrder;
+
+        // only retain a weak reference to the activity
+        SaveOrderTask(Context context, SaveOrder saveOrder) {
+            activityReference = new WeakReference<>(context);
+            this.saveOrder = saveOrder;
+        }
+
+        // doInBackground methods runs on a worker thread
+        @Override
+        protected Boolean doInBackground(Void... objs) {
+            saveOrderDatabase.getNoteDao().insert(saveOrder);
+            return true;
+        }
+
+        // onPostExecute runs on main thread
+        @Override
+        protected void onPostExecute(Boolean bool) {
+
+            //Toast.makeText(activityReference,"Added Saved",Toast.LENGTH_SHORT).show();
+           /* if (bool){
+                activityReference.get().setResult(note,1);
+            }*/
+        }
+
+    }
+
+
 
 
 }
