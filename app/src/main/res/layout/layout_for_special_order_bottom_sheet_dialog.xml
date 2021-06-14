@@ -328,6 +328,7 @@
                 <com.infinity.monginis.custom_class.TextViewMediumFont
                     android:layout_width="match_parent"
                     android:textAlignment="center"
+                    android:id="@+id/btnAddsOn"
                     android:layout_height="wrap_content"
                     android:text="Adds Onn"
 
@@ -337,6 +338,7 @@
 
 
                     <ExpandableListView
+                        android:visibility="gone"
                         android:layout_width="match_parent"
                         android:id="@+id/exAddsOnn"
 

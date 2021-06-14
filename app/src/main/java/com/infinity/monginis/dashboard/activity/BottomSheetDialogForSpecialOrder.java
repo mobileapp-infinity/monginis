@@ -33,6 +33,7 @@ import com.infinity.monginis.R;
 import com.infinity.monginis.api.ApiImplementer;
 import com.infinity.monginis.api.ApiUrls;
 import com.infinity.monginis.api.IApiInterface;
+import com.infinity.monginis.custom_class.TextViewMediumFont;
 import com.infinity.monginis.custom_class.TextViewRegularFont;
 import com.infinity.monginis.dashboard.adapter.AddsOnAdapter;
 import com.infinity.monginis.dashboard.dao.SaveOrderDatabase;
@@ -119,6 +120,7 @@ public class BottomSheetDialogForSpecialOrder extends BottomSheetDialogFragment 
     ArrayList<String> cakeShapeList;
     ArrayList<String> qtyList;
     ArrayList<TestPojo> testPojoArrayList;
+    private TextViewMediumFont btnAddsOn;
     private boolean isFromSearch = false;
 
     public BottomSheetDialogForSpecialOrder(ItemDetailsActivity activity) {
@@ -167,7 +169,15 @@ public class BottomSheetDialogForSpecialOrder extends BottomSheetDialogFragment 
         saveOrderDatabase = SaveOrderDatabase.getInstance(dashboardActivity);
         mySharedPreferences = new MySharedPreferences(dashboardActivity);
         spFlavour = view.findViewById(R.id.spFlavour);
+        btnAddsOn = view.findViewById(R.id.btnAddsOn);
+        btnAddsOn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(dashboardActivity,AddsOnActivity.class);
+                startActivity(intent);
 
+            }
+        });
         connectionDetector = new ConnectionDetector(dashboardActivity);
         saveOrderDatabase = SaveOrderDatabase.getInstance(dashboardActivity);
         spMenu = view.findViewById(R.id.spMenu);
@@ -1040,8 +1050,8 @@ public class BottomSheetDialogForSpecialOrder extends BottomSheetDialogFragment 
                         } else {
                             Toast.makeText(dashboardActivity, get_addons_items_list_pojo.getMessage(), Toast.LENGTH_SHORT).show();
                         }
-                        AddsOnAdapter addsOnAdapter = new AddsOnAdapter(dashboardActivity, filteredHashMap, categoryNameList);
-                        exAddsOnn.setAdapter(addsOnAdapter);
+                        //AddsOnAdapter addsOnAdapter = new AddsOnAdapter(dashboardActivity, filteredHashMap, categoryNameList);
+                        //exAddsOnn.setAdapter(addsOnAdapter);
 
 
                     }

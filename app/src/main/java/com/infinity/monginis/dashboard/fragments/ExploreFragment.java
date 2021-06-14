@@ -29,6 +29,7 @@ import com.infinity.monginis.api.ApiImplementer;
 import com.infinity.monginis.api.ApiUrls;
 import com.infinity.monginis.custom_class.TextViewMediumFont;
 import com.infinity.monginis.custom_class.TextViewRegularFont;
+import com.infinity.monginis.dashboard.activity.SectionsubCategoryActivity;
 import com.infinity.monginis.dashboard.activity.SelectCityActivity;
 import com.infinity.monginis.dashboard.adapter.ImageSliderAdapter;
 import com.infinity.monginis.dashboard.adapter.NearByDealsAdapter;
@@ -39,6 +40,7 @@ import com.infinity.monginis.dashboard.pojo.GetAllCityPojo;
 import com.infinity.monginis.dashboard.pojo.GetCategoryForDashboardPojo;
 import com.infinity.monginis.dashboard.pojo.GetItemsForDashboardPojo;
 import com.infinity.monginis.dashboard.pojo.GetItemsPhotoForDashboardAppPojo;
+import com.infinity.monginis.dashboard.pojo.GetSectionPojo;
 import com.infinity.monginis.dashboard.pojo.SearchCategoryPojo;
 import com.infinity.monginis.dashboard.pojo.TestPojo;
 import com.infinity.monginis.login.SplashActivity;
@@ -187,9 +189,9 @@ public class ExploreFragment extends Fragment implements View.OnClickListener {
             rvTopCategories.setVisibility(View.GONE);
             llCategoryProgressbar.setVisibility(View.VISIBLE);
 
-            ApiImplementer.GetCategoryForDashboardImplementer(mySharedPreferences.getVersionCode(), mySharedPreferences.getAndroidID(), mySharedPreferences.getDeviceID(), CommonUtil.USER_ID, ApiUrls.TESTING_KEY, CommonUtil.COMP_ID, new Callback<GetCategoryForDashboardPojo>() {
+            ApiImplementer.GetSections(mySharedPreferences.getVersionCode(), mySharedPreferences.getAndroidID(), mySharedPreferences.getDeviceID(), CommonUtil.USER_ID, ApiUrls.TESTING_KEY,userCityName, CommonUtil.COMP_ID, new Callback<GetSectionPojo>() {
                 @Override
-                public void onResponse(Call<GetCategoryForDashboardPojo> call, Response<GetCategoryForDashboardPojo> response) {
+                public void onResponse(Call<GetSectionPojo> call, Response<GetSectionPojo> response) {
 
                     if (userCityName != null && !userCityName.equals("")) {
                         GetItemsForDashboard(userCityName);
@@ -204,15 +206,17 @@ public class ExploreFragment extends Fragment implements View.OnClickListener {
                             rvTopCategories.setVisibility(View.VISIBLE);
 
 
-                            GetCategoryForDashboardPojo getCategoryForDashboardPojo = response.body();
-                            if (getCategoryForDashboardPojo != null && getCategoryForDashboardPojo.getRECORDS().size() > 0) {
+                            //GetCategoryForDashboardPojo getCategoryForDashboardPojo = response.body();
+                            GetSectionPojo getSectionPojo = response.body();
+                            if (getSectionPojo != null && getSectionPojo.getRecords().size() > 0) {
 
-                                TopCategoriesAdapter topCategoriesAdapter = new TopCategoriesAdapter(getActivity(), getCategoryForDashboardPojo, new TopCategoriesAdapter.IOnCategoryClicked() {
+                                TopCategoriesAdapter topCategoriesAdapter = new TopCategoriesAdapter(getActivity(),  getSectionPojo,new TopCategoriesAdapter.IOnCategoryClicked() {
                                     @Override
-                                    public void getItemDetailsByCatgory(GetCategoryForDashboardPojo getCategoryForDashboardPojo1, int position) {
-                                        Intent itemDetailsIntent = new Intent(getActivity(), CategoryItemsDetailsActivity.class);
-                                        itemDetailsIntent.putExtra("catId", getCategoryForDashboardPojo1.getRECORDS().get(position).getId() + "");
-                                        itemDetailsIntent.putExtra("catName", getCategoryForDashboardPojo1.getRECORDS().get(position).getCatName() + "");
+                                    public void getItemDetailsByCatgory(GetSectionPojo getSectionPojo1, int position) {
+                                        Intent itemDetailsIntent = new Intent(getActivity(), SectionsubCategoryActivity.class);
+                                        itemDetailsIntent.putExtra("sectionId", getSectionPojo.getRecords().get(position).getId() + "");
+                                        itemDetailsIntent.putExtra("sectionName", getSectionPojo.getRecords().get(position).getCsmSectionName() + "");
+                                       // itemDetailsIntent.putExtra("catName", getCategoryForDashboardPojo1.getRECORDS().get(position).getCatName() + "");
                                         getActivity().startActivity(itemDetailsIntent);
 
                                     }
@@ -238,7 +242,7 @@ public class ExploreFragment extends Fragment implements View.OnClickListener {
                 }
 
                 @Override
-                public void onFailure(Call<GetCategoryForDashboardPojo> call, Throwable t) {
+                public void onFailure(Call<GetSectionPojo> call, Throwable t) {
 
                     Toast.makeText(activity, "Error in response" + t.getMessage(), Toast.LENGTH_SHORT).show();
 
@@ -487,7 +491,8 @@ public class ExploreFragment extends Fragment implements View.OnClickListener {
 
                 try {
                     userCityName = data.getStringExtra("selectedCityName");
-                    GetItemsForDashboard(userCityName);
+                    GetCategoryForDashboardApiCall();
+                   // GetItemsForDashboard(userCityName);
                 } catch (Exception e) {
 
                     Toast.makeText(getActivity(), "Error in getting city Name" + e.getMessage(), Toast.LENGTH_SHORT).show();

@@ -5,13 +5,16 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
+import android.widget.ExpandableListView;
 
 import androidx.appcompat.widget.AppCompatEditText;
 import androidx.appcompat.widget.AppCompatImageView;
+import androidx.core.content.ContextCompat;
 
 import com.infinity.monginis.R;
 import com.infinity.monginis.custom_class.TextViewMediumFont;
 import com.infinity.monginis.custom_class.TextViewRegularFont;
+import com.infinity.monginis.dashboard.activity.AddsOnActivity;
 import com.infinity.monginis.dashboard.model.AddsOnItemModel;
 import com.infinity.monginis.dashboard.pojo.Get_Addons_Items_List_Pojo;
 import com.infinity.monginis.utils.CommonUtil;
@@ -26,14 +29,16 @@ public class AddsOnAdapter extends BaseExpandableListAdapter {
     private HashMap<String, ArrayList<AddsOnItemModel>> AddsOnItemHashMap;
     private ArrayList<String> categoryName;
     private HashMap<String, List<Get_Addons_Items_List_Pojo.Item>>addsOnItemHashMap;
+    private ExpandableListView expandableListView;
 
 
 
-    public AddsOnAdapter(Context context,HashMap<String, List<Get_Addons_Items_List_Pojo.Item>>addsOnItemHashMap, ArrayList<String> categoryName) {
+    public AddsOnAdapter(Context context,HashMap<String, List<Get_Addons_Items_List_Pojo.Item>>addsOnItemHashMap, ArrayList<String> categoryName,ExpandableListView expandableListView) {
         this.context = context;
  //       this.AddsOnItemHashMap = AddsOnItemHashMap;
         this.addsOnItemHashMap  =addsOnItemHashMap;
         this.categoryName = categoryName;
+        this.expandableListView = expandableListView;
     }
 
     @Override
@@ -85,12 +90,18 @@ public class AddsOnAdapter extends BaseExpandableListAdapter {
         return true;
     }
 
+    public static  TextViewMediumFont tvAddsOnCategoryName;
     @Override
     public View getGroupView(int groupPosition, boolean isExpanded, View convertView, ViewGroup parent) {
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         convertView = inflater.inflate(R.layout.addson_header_view, null);
-        TextViewMediumFont tvAddsOnCategoryName = convertView.findViewById(R.id.tvAddsOnCategoryName);
+        tvAddsOnCategoryName   = convertView.findViewById(R.id.tvAddsOnCategoryName);
         tvAddsOnCategoryName.setText(getGroup(groupPosition) + "");
+        /*if (isExpanded){
+            tvAddsOnCategoryName.setCompoundDrawables(null,null, ContextCompat.getDrawable(context,R.drawable.ic_baseline_expand_less_24),null);
+        }else{
+            tvAddsOnCategoryName.setCompoundDrawables(null,null, ContextCompat.getDrawable(context,R.drawable.ic_baseline_expand_more_24),null);
+        }*/
 
         convertView.setPadding(0, 0, 0, 20);
         return convertView;
@@ -127,8 +138,18 @@ public class AddsOnAdapter extends BaseExpandableListAdapter {
             }
         });
 
-        convertView.setPadding(0, 12, 0, 12);
 
+       /* ViewGroup.LayoutParams params = new ViewGroup.LayoutParams(
+                ViewGroup.LayoutParams.WRAP_CONTENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT
+        );
+        params.set(left, top, right, bottom);*/
+       // ViewGroup.LayoutParams params=(ViewGroup.LayoutParams) convertView.getLayoutParams();
+        //params.setPadding(0, 0, 0, 5);
+       // convertView.setLayoutParams(params);
+        convertView.setPadding(0, 40, 0, 40);
+
+        //expandableListView
         return convertView;
     }
 

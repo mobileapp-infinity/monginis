@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="#F3f3F3"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".dashboard.activity.AddsOnActivity">
+
+    <LinearLayout
+        android:id="@+id/linearLayout3"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="52dp"
+            android:background="@color/colorPrimary"
+            android:gravity="center_vertical"
+            android:padding="4dp">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/ivBackAddsOn"
+                android:layout_width="30dp"
+                android:layout_height="match_parent"
+                android:src="@drawable/ic_back"
+                android:tint="@color/color_white" />
+
+            <com.infinity.monginis.custom_class.TextViewRegularFont
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="Adds On"
+                android:textColor="@color/color_white"
+                android:textSize="@dimen/text_14sp" />
+
+        </LinearLayout>
+
+        <ExpandableListView
+            android:id="@+id/exAddsOnn"
+            android:layout_width="match_parent"
+
+            android:layout_height="match_parent"
+            android:layout_margin="10dp" />
+
+
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:visibility="visible"
+
+
+        android:orientation="vertical"
+        android:weightSum="2"
+
+
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+       >
+
+
+        <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+            android:id="@+id/add_fab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="16dp"
+
+            android:backgroundTint="@color/colorPrimaryDark"
+            android:text="Skip/Submit"
+
+            app:iconTint="@color/white"
+            android:textColor="@color/white"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <!--Floating action button for add alarm-->
+        <!--Make sure that you are constraining this
+            button to the parent button-->
+        <!--Make sure to add backgroundTint attribute to match
+             the entire application color-->
+        <!--because after changing the base application theme the color
+             of the FAB is set Blue as default-->
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+
+            android:layout_height="wrap_content">
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/skip_adds_on"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:tint="@android:color/white"
+                android:layout_marginBottom="24dp"
+                android:backgroundTint="@color/colorAccent"
+                app:fabSize="normal"
+                app:layout_constraintBottom_toTopOf="@+id/add_fab"
+                app:layout_constraintEnd_toEndOf="@+id/add_fab"
+
+                app:srcCompat="@drawable/skip" />
+
+            <!--Action name text for the add alarm button-->
+            <!--Make sure that you are constraining this
+                Text to the add Alarm FAB button-->
+            <com.infinity.monginis.custom_class.TextViewMediumFont
+                android:id="@+id/add_alarm_action_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+android:layout_gravity="center_vertical"
+
+                android:layout_marginLeft="18dp"
+                android:text="Skip"
+
+                android:textColor="@color/colorAccent"
+                android:textSize="22dp"
+                app:layout_constraintBottom_toBottomOf="@+id/add_alarm_fab"
+                app:layout_constraintEnd_toStartOf="@+id/add_alarm_fab"
+                app:layout_constraintTop_toTopOf="@+id/add_alarm_fab" />
+
+        </LinearLayout>
+
+
+        <!--Floating action button for add person-->
+        <!--Make sure that you are constraining this button
+            to the add Alarm FAB button-->
+        <!--Make sure to add backgroundTint attribute to match
+             the entire application color-->
+        <!--because after changing the base application theme
+             the color of the FAB is set Blue as default-->
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+
+            android:layout_height="wrap_content">
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/submit_adds_on"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:tint="@android:color/white"
+                android:layout_marginBottom="24dp"
+                android:backgroundTint="@color/colorAccent"
+                app:fabSize="normal"
+                app:layout_constraintBottom_toTopOf="@+id/add_fab"
+                app:layout_constraintEnd_toEndOf="@+id/add_fab"
+
+                app:srcCompat="@drawable/ic_baseline_send_24" />
+
+            <!--Action name text for the add alarm button-->
+            <!--Make sure that you are constraining this
+                Text to the add Alarm FAB button-->
+            <com.infinity.monginis.custom_class.TextViewMediumFont
+                android:id="@+id/add_submit_adds_on"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+
+                android:layout_marginLeft="18dp"
+                android:text="Submit"
+
+                android:textColor="@color/colorAccent"
+                android:textSize="22dp"
+                app:layout_constraintBottom_toBottomOf="@+id/add_alarm_fab"
+                app:layout_constraintEnd_toStartOf="@+id/add_alarm_fab"
+                app:layout_constraintTop_toTopOf="@+id/add_alarm_fab" />
+
+        </LinearLayout>
+    </LinearLayout>
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

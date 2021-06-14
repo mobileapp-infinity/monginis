@@ -20,6 +20,7 @@ import com.infinity.monginis.R;
 import com.infinity.monginis.custom_class.TextViewRegularFont;
 
 import com.infinity.monginis.dashboard.pojo.GetCategoryForDashboardPojo;
+import com.infinity.monginis.dashboard.pojo.GetSectionPojo;
 import com.infinity.monginis.utils.CommonUtil;
 
 import java.util.ArrayList;
@@ -33,14 +34,16 @@ public class TopCategoriesAdapter extends RecyclerView.Adapter<TopCategoriesAdap
     private Context context;
     private LayoutInflater layoutInflater;
     private GetCategoryForDashboardPojo getCategoryForDashboardPojo;
+    private GetSectionPojo  getSectionPojo;
     private IOnCategoryClicked iOnCategoryClicked;
 
     public static boolean isFromTopCategories = false;
 
-    public TopCategoriesAdapter(Context context, GetCategoryForDashboardPojo getCategoryForDashboardPojo, IOnCategoryClicked iOnCategoryClicked) {
+    public TopCategoriesAdapter(Context context,GetSectionPojo getSectionPojo, IOnCategoryClicked iOnCategoryClicked) {
         this.context = context;
         layoutInflater = LayoutInflater.from(context);
         this.getCategoryForDashboardPojo = getCategoryForDashboardPojo;
+        this.getSectionPojo = getSectionPojo;
         this.iOnCategoryClicked = iOnCategoryClicked;
 
     }
@@ -62,7 +65,7 @@ public class TopCategoriesAdapter extends RecyclerView.Adapter<TopCategoriesAdap
 
                 .priority(Priority.HIGH);
 
-        try {
+     /*   try {
             Glide.with(context)
                     .load(getCategoryForDashboardPojo.getRECORDS().get(position).getImg_url())
                     .placeholder(R.drawable.monginis_logo).apply(options)
@@ -72,13 +75,13 @@ public class TopCategoriesAdapter extends RecyclerView.Adapter<TopCategoriesAdap
 
             System.out.println("Glide image Error" + e.getMessage());
         }
+*/
 
-
-        if (!CommonUtil.checkIsEmptyOrNullCommon(getCategoryForDashboardPojo.getRECORDS().get(position).getCatName())) {
-            holder.tvCategoryName.setText(getCategoryForDashboardPojo.getRECORDS().get(position).getCatName());
+        if (!CommonUtil.checkIsEmptyOrNullCommon(getSectionPojo.getRecords().get(position).getCsmSectionName())) {
+            holder.tvCategoryName.setText(getSectionPojo.getRecords().get(position).getCsmSectionName());
         }
 
-        holder.bindListener(getCategoryForDashboardPojo,position);
+        holder.bindListener(getSectionPojo,position);
 
         /**Old*/
       /*  holder.itemView.setOnClickListener(new View.OnClickListener() {
@@ -94,7 +97,7 @@ public class TopCategoriesAdapter extends RecyclerView.Adapter<TopCategoriesAdap
 
     @Override
     public int getItemCount() {
-        return getCategoryForDashboardPojo.getRECORDS().size();
+        return getSectionPojo.getRecords().size();
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
@@ -107,12 +110,12 @@ public class TopCategoriesAdapter extends RecyclerView.Adapter<TopCategoriesAdap
             tvCategoryName = itemView.findViewById(R.id.tvCategoryName);
         }
 
-        private void bindListener(GetCategoryForDashboardPojo getCategoryForDashboardPojo,int position) {
+        private void bindListener(GetSectionPojo getSectionPojo,int position) {
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    iOnCategoryClicked.getItemDetailsByCatgory(getCategoryForDashboardPojo,position);
+                    iOnCategoryClicked.getItemDetailsByCatgory(getSectionPojo,position);
                 }
             });
 
@@ -122,7 +125,7 @@ public class TopCategoriesAdapter extends RecyclerView.Adapter<TopCategoriesAdap
 
     public interface IOnCategoryClicked {
 
-        void getItemDetailsByCatgory(GetCategoryForDashboardPojo getCategoryForDashboardPojo,int position);
+        void getItemDetailsByCatgory(GetSectionPojo getSectionPojo,int position);
     }
 
 

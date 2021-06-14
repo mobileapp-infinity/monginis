@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:background="#F3F3F3"
+    android:layout_height="match_parent"
+    tools:context=".dashboard.activity.SectionsubCategoryActivity">
+
+    <LinearLayout
+        android:orientation="vertical"
+
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.499">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="52dp"
+            android:background="@color/colorPrimary"
+            android:gravity="center_vertical"
+            android:padding="4dp">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:layout_width="30dp"
+                android:id="@+id/ivBack"
+                android:layout_height="match_parent"
+                android:src="@drawable/ic_back"
+                android:tint="@color/color_white" />
+
+            <com.infinity.monginis.custom_class.TextViewRegularFont
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:id="@+id/tvSelectedCategory"
+                android:text="Item Details"
+                android:textColor="@color/color_white"
+                android:textSize="@dimen/text_14sp" />
+
+        </LinearLayout>
+
+        <GridView
+            android:layout_width="match_parent"
+            android:id="@+id/rvSubCategory"
+            android:visibility="gone"
+            android:numColumns="2"
+            android:verticalSpacing="20dp"
+            android:horizontalSpacing="20dp"
+            android:layout_margin="10dp"
+            android:layout_height="match_parent"/>
+
+        <LinearLayout
+            android:id="@+id/llNoDataFoundShopList"
+            android:layout_width="match_parent"
+            android:layout_margin="10dp"
+            android:layout_height="match_parent"
+
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:src="@drawable/ic_monginis_no_data_found" />
+
+            <com.infinity.monginis.custom_class.TextViewMediumFont
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:text="No Data Found !"
+                android:textColor="@color/colorAccent"
+                android:textSize="16sp" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

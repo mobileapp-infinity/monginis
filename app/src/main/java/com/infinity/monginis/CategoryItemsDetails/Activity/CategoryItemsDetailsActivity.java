@@ -88,8 +88,9 @@ public class CategoryItemsDetailsActivity extends AppCompatActivity implements V
         gvItemByCategory = findViewById(R.id.gvItemByCategory);
         mySharedPreferences = new MySharedPreferences(CategoryItemsDetailsActivity.this);
         catIdIntent = getIntent();
-        catId = catIdIntent.getStringExtra("catId");
-        catName = catIdIntent.getStringExtra("catName");
+       // catId = catIdIntent.getStringExtra("catId");
+        catId = catIdIntent.getStringExtra("id");
+        catName = catIdIntent.getStringExtra("name");
         itemId = catIdIntent.getStringExtra("itemId");
         isFromPopular = catIdIntent.getBooleanExtra("isFromPopular", false);
         llNoDataFoundItemDetailsByCategory = findViewById(R.id.llNoDataFoundItemDetailsByCategory);

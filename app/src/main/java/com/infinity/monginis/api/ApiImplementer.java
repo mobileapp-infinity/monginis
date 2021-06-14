@@ -12,10 +12,12 @@ import com.infinity.monginis.dashboard.pojo.GetItemsPhotoForDashboardAppPojo;
 import com.infinity.monginis.dashboard.pojo.GetItmePosStockPojo;
 import com.infinity.monginis.dashboard.pojo.GetOccasionPojo;
 import com.infinity.monginis.dashboard.pojo.GetSchedulePojo;
+import com.infinity.monginis.dashboard.pojo.GetSectionPojo;
 import com.infinity.monginis.dashboard.pojo.GetVersionInfoPojo;
 import com.infinity.monginis.dashboard.pojo.Get_Addons_Items_List_Pojo;
 import com.infinity.monginis.dashboard.pojo.SavePartialOrderPojo;
 import com.infinity.monginis.dashboard.pojo.SearchCategoryPojo;
+import com.infinity.monginis.dashboard.pojo.SubSectionPojo;
 import com.infinity.monginis.login.Pojo.CheckLoginOTPPojo;
 import com.infinity.monginis.login.Pojo.CheckOTPVerifyPojo;
 
@@ -37,11 +39,29 @@ public class ApiImplementer {
         call.enqueue(cb);
     }
 
+    //Changing api to category dashboard to Get_Sections on 10-6-20201
     public static void GetCategoryForDashboardImplementer(String app_version, String android_id, String device_id,
                                                           String user_id, String key, String comp_id,
                                                           Callback<GetCategoryForDashboardPojo> cb) {
         final IApiInterface apiService = ApiClient.getClient().create(IApiInterface.class);
         Call<GetCategoryForDashboardPojo> call = apiService.GetCategoryForDashboard(app_version, android_id, device_id, user_id, key, comp_id);
+        call.enqueue(cb);
+    }
+    //Changing api to category dashboard to Get_Sections on 10-6-20201
+    public static void GetSections(String app_version, String android_id, String device_id,
+                                                          String user_id, String key,String cityName, String comp_id,
+                                                          Callback<GetSectionPojo> cb) {
+        final IApiInterface apiService = ApiClient.getClient().create(IApiInterface.class);
+        Call<GetSectionPojo> call = apiService.GetSections(app_version, android_id, device_id, user_id, key,cityName ,comp_id);
+        call.enqueue(cb);
+    }
+
+
+    public static void GetCategoryBySectionImplmenter(String app_version, String android_id, String device_id,
+                                   String user_id, String key,String section_id, String comp_id,
+                                   Callback<SubSectionPojo> cb) {
+        final IApiInterface apiService = ApiClient.getClient().create(IApiInterface.class);
+        Call<SubSectionPojo> call = apiService.GetCategoryBySection(app_version, android_id, device_id, user_id, key,section_id ,comp_id);
         call.enqueue(cb);
     }
 

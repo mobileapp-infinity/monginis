@@ -40,7 +40,10 @@
         android:supportsRtl="true"
         android:theme="@style/App.Theme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".ShopForItemActiivty.ShopForItemActivity"></activity>
+        <activity android:name=".dashboard.activity.ItemDetailsNewActivity"></activity>
+        <activity android:name=".dashboard.activity.AddsOnActivity" />
+        <activity android:name=".dashboard.activity.SectionsubCategoryActivity" />
+        <activity android:name=".ShopForItemActiivty.ShopForItemActivity" />
         <activity android:name=".Map.MapActivity" />
         <activity android:name=".CategoryItemsDetails.Activity.CategoryItemsDetailsActivity" />
         <activity android:name=".dashboard.activity.SelectCityActivity" />

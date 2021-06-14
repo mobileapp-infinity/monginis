@@ -14,11 +14,13 @@ import com.infinity.monginis.dashboard.pojo.GetItemsPhotoForDashboardAppPojo;
 import com.infinity.monginis.dashboard.pojo.GetItmePosStockPojo;
 import com.infinity.monginis.dashboard.pojo.GetOccasionPojo;
 import com.infinity.monginis.dashboard.pojo.GetSchedulePojo;
+import com.infinity.monginis.dashboard.pojo.GetSectionPojo;
 import com.infinity.monginis.dashboard.pojo.GetVersionInfoPojo;
 import com.infinity.monginis.dashboard.pojo.Get_Addons_Items_List_Pojo;
 import com.infinity.monginis.dashboard.pojo.SavePartialOrderDetailPojo;
 import com.infinity.monginis.dashboard.pojo.SavePartialOrderPojo;
 import com.infinity.monginis.dashboard.pojo.SearchCategoryPojo;
+import com.infinity.monginis.dashboard.pojo.SubSectionPojo;
 import com.infinity.monginis.login.Pojo.CheckLoginOTPPojo;
 import com.infinity.monginis.login.Pojo.CheckOTPVerifyPojo;
 
@@ -56,6 +58,25 @@ public interface IApiInterface {
                                                               @Query("user_id") String user_id,
                                                               @Query("key") String key,
                                                               @Query("comp_id") String comp_id);
+
+    @GET("Get_Sections")
+    Call<GetSectionPojo> GetSections(@Query("app_version") String app_version,
+                                     @Query("android_id") String android_id,
+                                     @Query("device_id") String device_id,
+                                     @Query("user_id") String user_id,
+                                     @Query("key") String key,
+                                     @Query("city_name") String city_name,
+                                     @Query("comp_id") String comp_id);
+
+    @GET("Get_category_by_section")
+    Call<SubSectionPojo> GetCategoryBySection(@Query("app_version") String app_version,
+                                              @Query("android_id") String android_id,
+                                              @Query("device_id") String device_id,
+                                              @Query("user_id") String user_id,
+                                              @Query("key") String key,
+                                              @Query("section_id") String section_id,
+                                              @Query("comp_id") String comp_id);
+
 
     @GET("Get_Items_For_Dashboard")
     Call<GetItemsForDashboardPojo> GetItemsForDashboard(@Query("app_version") String app_version,
@@ -125,6 +146,19 @@ public interface IApiInterface {
                                                           @Query("cust_id") String cust_id
 
     );
+
+    @GET("Get_Items_Detail_By_Item_Id")
+    Call<ItemDetailsByCategoryPojo> GetItemsDetailByItemIdImplementer(@Query("app_version") String app_version,
+                                                          @Query("android_id") String android_id,
+                                                          @Query("device_id") String device_id,
+                                                          @Query("user_id") String user_id,
+                                                          @Query("key") String key,
+                                                          @Query("comp_id") String comp_id,
+                                                          @Query("item_id") String item_id
+
+    );
+
+    //Get_Items_Detail_By_Item_Id
 
 
     @GET("Get_Shop_List_For_Item_Stock")
