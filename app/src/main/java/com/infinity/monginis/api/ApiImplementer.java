@@ -197,6 +197,18 @@ public class ApiImplementer {
 
 
 
+ /*   public void getMrpbyWeightAndflavour(String app_version, String android_id,
+                                         String device_id, String user_id, String key, String comp_id){
+
+        final IApiInterface apiService = ApiClient.getClient().create(IApiInterface.class);
+        Call<GetAllShopPojo> call = apiService.getAllShop(app_version, android_id, device_id, user_id, key, comp_id);
+        call.enqueue(cb);
+
+    }
+*/
+
+
+
 
 
 }

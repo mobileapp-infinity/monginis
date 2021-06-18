@@ -46,11 +46,57 @@
             android:id="@+id/exAddsOnn"
             android:layout_width="match_parent"
 
+            android:visibility="gone"
             android:layout_height="match_parent"
             android:layout_margin="10dp" />
 
 
+        <LinearLayout
+            android:id="@+id/llNoDataFound"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical">
 
+            <androidx.appcompat.widget.AppCompatImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:src="@drawable/ic_monginis_no_data_found" />
+
+            <com.infinity.monginis.custom_class.TextViewMediumFont
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:text="No Data Found !"
+                android:textColor="@color/colorAccent"
+                android:textSize="16sp" />
+
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/llProgrssBar"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+            <!--        <ProgressBar-->
+            <!--            android:layout_width="wrap_content"-->
+            <!--            android:layout_height="wrap_content"-->
+            <!--            android:indeterminate="true"-->
+            <!--            android:indeterminateTint="@color/colorPrimary" />-->
+
+            <com.github.ybq.android.spinkit.SpinKitView xmlns:app="http://schemas.android.com/apk/res-auto"
+                style="@style/SpinKitView.Large.Circle"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_gravity="center"
+                app:SpinKit_Color="@color/colorPrimary" />
+
+        </LinearLayout>
 
     </LinearLayout>
 
@@ -58,7 +104,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:padding="10dp"
-        android:visibility="visible"
+        android:id="@+id/llSkipSubmit"
+        android:visibility="gone"
 
 
         android:orientation="vertical"

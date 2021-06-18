@@ -127,6 +127,10 @@ public class BottomSheetDialogForSpecialOrder extends BottomSheetDialogFragment 
         this.activity = activity;
     }
 
+  /*  public BottomSheetDialogForSpecialOrder(ItemDetailsActivity activity) {
+        this.activity = activity;
+    }*/
+
     public BottomSheetDialogForSpecialOrder(DashboardActivity activity, GetItemsForDashboardPojo getItemsForDashboardPojo, int position) {
         this.dashboardActivity = activity;
         this.getItemsForDashboardPojo = getItemsForDashboardPojo;
@@ -173,8 +177,24 @@ public class BottomSheetDialogForSpecialOrder extends BottomSheetDialogFragment 
         btnAddsOn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(dashboardActivity,AddsOnActivity.class);
-                startActivity(intent);
+                if (isValidated()){
+                    dismiss();
+                    Intent intent = new Intent(dashboardActivity,AddsOnActivity.class);
+                    intent.putExtra("item_id",getItemsForDashboardPojo.getRecords().get(position).getId()+"");
+                    intent.putExtra("item_name",getItemsForDashboardPojo.getRecords().get(position).getItmName()+"");
+                    intent.putExtra("hsn_code",getItemsForDashboardPojo.getRecords().get(position).getHsnCode());
+                    intent.putExtra("uom_id",getItemsForDashboardPojo.getRecords().get(position).getItmUom());
+                    intent.putExtra("price",getItemsForDashboardPojo.getRecords().get(position).getPrice());
+                    intent.putExtra("weight", Double.parseDouble(spWeight.getSelectedItem() + ""));
+                    intent.putExtra("cgst_per","0.0");
+                    intent.putExtra("sgst_per","0.0");
+                    intent.putExtra("qty",Integer.parseInt("1"));
+                    intent.putExtra("mrp",100);
+                    intent.putExtra("flavour",spFlavour.getSelectedItem() + "");
+                    intent.putExtra("shape",spShape.getSelectedItem()+"");
+                    startActivity(intent);
+                }
+
 
             }
         });
@@ -1130,6 +1150,14 @@ public class BottomSheetDialogForSpecialOrder extends BottomSheetDialogFragment 
             }*/
         }
 
+    }
+
+
+    private void getItemMrpbyWeightAndFlavour(){
+
+
+
+        //Get_item_mrp_by_weight_and_flavour
     }
 
 

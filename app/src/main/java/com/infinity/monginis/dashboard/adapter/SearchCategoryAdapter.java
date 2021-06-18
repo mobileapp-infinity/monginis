@@ -31,12 +31,14 @@ public class SearchCategoryAdapter extends RecyclerView.Adapter<SearchCategoryAd
     private Activity context;
     private LayoutInflater layoutInflater;
     private ArrayList<TestPojo> testPojoArrayList;
+    IOnShopClicked iOnShopClicked;
 
 
-    public SearchCategoryAdapter(Activity context, ArrayList<TestPojo> testPojoArrayList) {
+    public SearchCategoryAdapter(Activity context, ArrayList<TestPojo> testPojoArrayList,IOnShopClicked iOnShopClicked) {
         this.context = context;
         layoutInflater = LayoutInflater.from(context);
         this.testPojoArrayList = testPojoArrayList;
+        this.iOnShopClicked = iOnShopClicked;
 
     }
 
@@ -80,6 +82,15 @@ public class SearchCategoryAdapter extends RecyclerView.Adapter<SearchCategoryAd
             }
         });
 
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                iOnShopClicked.onShopClicked();
+
+            }
+        });
+
     }
 
     @Override
@@ -112,4 +123,9 @@ public class SearchCategoryAdapter extends RecyclerView.Adapter<SearchCategoryAd
         }
     }
 
+
+    public  interface IOnShopClicked{
+
+        void onShopClicked();
+    }
 }

@@ -3,21 +3,29 @@ package com.infinity.monginis.dashboard.activity;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ExpandableListView;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.infinity.monginis.R;
+import com.infinity.monginis.api.ApiClient;
 import com.infinity.monginis.api.ApiImplementer;
 import com.infinity.monginis.api.ApiUrls;
+import com.infinity.monginis.api.IApiInterface;
 import com.infinity.monginis.dashboard.adapter.AddsOnAdapter;
+import com.infinity.monginis.dashboard.fragments.SearchFragment;
 import com.infinity.monginis.dashboard.pojo.Get_Addons_Items_List_Pojo;
+import com.infinity.monginis.dashboard.pojo.SavePartialOrderPojo;
 import com.infinity.monginis.utils.CommonUtil;
+import com.infinity.monginis.utils.DialogUtil;
 import com.infinity.monginis.utils.MySharedPreferences;
 
 import org.json.JSONArray;
@@ -28,32 +36,59 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import static com.infinity.monginis.dashboard.activity.DashboardActivity.vpDashboard;
 import static com.infinity.monginis.dashboard.adapter.AddsOnAdapter.tvAddsOnCategoryName;
 
 public class AddsOnActivity extends AppCompatActivity implements View.OnClickListener {
 
     private ImageView ivBackAddsOn;
     private MySharedPreferences mySharedPreferences;
+    IOnSubmit iOnSubmit;
     private ExpandableListView exAddsOnn;
     private ArrayList<String> categoryNameList;
     private HashMap<String, List<Get_Addons_Items_List_Pojo.Item>> filteredHashMap;
     FloatingActionButton skip_adds_on, submit_adds_on;
+    public MultipartBody.Part specialCakePhoto = null;
     TextView add_alarm_action_text, add_submit_adds_on;
-
+    private LinearLayout llSkipSubmit,llNoDataFound,llProgrssBar;
+    private IApiInterface apiInterface;
+   // private ImageView ivBackAddsOn;
     // to check whether sub FABs are visible or not
     Boolean isAllFabsVisible;
     // Use the ExtendedFloatingActionButton to handle the
     // parent FAB
     ExtendedFloatingActionButton mAddFab;
+    Intent intent;
+    String itemId,item_name,hsn_code,uom_id,price,weight,cgst_per,sgst_per,qty,mrp,flavour,shape;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_adds_on);
+
         init();
+        intent = getIntent();
+         itemId =  intent.getStringExtra("item_id");
+         item_name =  intent.getStringExtra("item_name");
+         hsn_code =  intent.getStringExtra("hsn_code");
+         uom_id =  intent.getStringExtra("uom_id");
+
+         price =  intent.getStringExtra("price");
+         weight =  intent.getStringExtra("weight");
+         cgst_per =  intent.getStringExtra("cgst_per");
+         sgst_per =  intent.getStringExtra("sgst_per");
+         qty =  intent.getStringExtra("qty");
+         mrp =  intent.getStringExtra("mrp");
+         flavour =  intent.getStringExtra("flavour");
+         shape =  intent.getStringExtra("shape");
+       // intent.putExtra("item_id",getItemsForDashboardPojo.getRecords().get(position).getId()+"");
+
         getAddonsItemsList();
     }
 
@@ -149,6 +184,56 @@ public class AddsOnActivity extends AppCompatActivity implements View.OnClickLis
                     @Override
                     public void onClick(View view) {
                         getAllSelectedAddsOn();
+
+
+                      /*  Bundle bundle = new Bundle();
+                        bundle.putString("item_id", itemId);
+                        SearchFragment fragment = new SearchFragment();
+                        fragment.setArguments(bundle);
+                        getSupportFragmentManager().beginTransaction()
+                                .replace(R.id.search, dataFragment, "anyTagName").commit();*/
+
+                       /* Bundle bundle = new Bundle();
+                        bundle.putString("item_id", itemId);
+                        bundle.putString("item_name", item_name);
+                        bundle.putString("hsn_code", hsn_code);
+                        bundle.putString("uom_id", uom_id);
+                        bundle.putString("price", price);
+                        bundle.putString("weight", weight);
+                        bundle.putString("price", price);
+                        bundle.putString("cgst_per", cgst_per);
+                        bundle.putString("sgst_per", sgst_per);
+                        bundle.putString("qty", qty);
+                        bundle.putString("mrp", mrp);
+                        bundle.putString("mrp", mrp);
+                        bundle.putString("flavour", flavour);
+                        bundle.putString("shape", shape);
+
+
+
+
+                        SearchFragment fragobj = new SearchFragment();
+                        fragobj.setArguments(bundle);*/
+                      //  iOnSubmit.submitData();
+                        finish();
+                        vpDashboard.setCurrentItem(1);
+
+                      /*  intent.putExtra("item_id",itemId);
+                        intent.putExtra("item_name",getItemsForDashboardPojo.getRecords().get(position).getItmName()+"");
+                        intent.putExtra("hsn_code",getItemsForDashboardPojo.getRecords().get(position).getHsnCode());
+                        intent.putExtra("uom_id",getItemsForDashboardPojo.getRecords().get(position).getItmUom());
+                        intent.putExtra("price",getItemsForDashboardPojo.getRecords().get(position).getPrice());
+                        intent.putExtra("weight", Double.parseDouble(spWeight.getSelectedItem() + ""));
+                        intent.putExtra("cgst_per","0.0");
+                        intent.putExtra("sgst_per","0.0");
+                        intent.putExtra("qty",Integer.parseInt("1"));
+                        intent.putExtra("mrp",100);
+                        intent.putExtra("flavour",spFlavour.getSelectedItem() + "");
+                        intent.putExtra("shape",spShape.getSelectedItem()+"");*/
+                        mySharedPreferences.setSelectedItemId(itemId);
+                        mySharedPreferences.setSelectredAddsonArray(special_item_details_adds_on_array);
+                        mySharedPreferences.setSelectedSpecilaItemJson(special_item_array);
+
                     }
                 });
 
@@ -156,7 +241,14 @@ public class AddsOnActivity extends AppCompatActivity implements View.OnClickLis
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        Toast.makeText(AddsOnActivity.this, "Alarm Added", Toast.LENGTH_SHORT).show();
+                        getAllSelectedAddsOn();
+                        finish();
+                        vpDashboard.setCurrentItem(1);
+
+
+                        mySharedPreferences.setSelectredAddsonArray(special_item_details_adds_on_array);
+                        mySharedPreferences.setSelectedSpecilaItemJson(special_item_array);
+                        //Toast.makeText(AddsOnActivity.this, "Alarm Added", Toast.LENGTH_SHORT).show();
                     }
                 });
 
@@ -166,14 +258,21 @@ public class AddsOnActivity extends AppCompatActivity implements View.OnClickLis
     private void init(){
         fabinit();
         ivBackAddsOn = findViewById(R.id.ivBackAddsOn);
+        ivBackAddsOn.setOnClickListener(this);
         exAddsOnn = findViewById(R.id.exAddsOnn);
         mySharedPreferences = new MySharedPreferences(this);
+        llSkipSubmit = findViewById(R.id.llSkipSubmit);
+        llNoDataFound = findViewById(R.id.llNoDataFound);
+        llProgrssBar = findViewById(R.id.llProgrssBar);
+        apiInterface = ApiClient.getClient().create(IApiInterface.class);
 
     }
 
 
 
     private void getAddonsItemsList() {
+        llNoDataFound.setVisibility(View.GONE);
+        llProgrssBar.setVisibility(View.VISIBLE);
         ApiImplementer.getAddonsItemsListImplementer(String.valueOf(mySharedPreferences.getVersionCode()), mySharedPreferences.getAndroidID(), mySharedPreferences.getDeviceID(), CommonUtil.USER_ID, ApiUrls.TESTING_KEY, CommonUtil.COMP_ID, CommonUtil.CUST_ID, new Callback<Get_Addons_Items_List_Pojo>() {
             @Override
             public void onResponse(Call<Get_Addons_Items_List_Pojo> call, Response<Get_Addons_Items_List_Pojo> response) {
@@ -183,6 +282,10 @@ public class AddsOnActivity extends AppCompatActivity implements View.OnClickLis
                         Get_Addons_Items_List_Pojo get_addons_items_list_pojo = response.body();
                         filteredHashMap = new HashMap<>();
                         categoryNameList = new ArrayList<>();
+                        llProgrssBar.setVisibility(View.GONE);
+                        exAddsOnn.setVisibility(View.VISIBLE);
+
+                        llSkipSubmit.setVisibility(View.VISIBLE);
                         if (get_addons_items_list_pojo != null && get_addons_items_list_pojo.getRecords().size() > 0) {
 
                             for (int i = 0; i < get_addons_items_list_pojo.getRecords().size(); i++) {
@@ -194,6 +297,10 @@ public class AddsOnActivity extends AppCompatActivity implements View.OnClickLis
 
 
                         } else {
+                            llProgrssBar.setVisibility(View.GONE);
+                            llNoDataFound.setVisibility(View.VISIBLE);
+                            exAddsOnn.setVisibility(View.GONE);
+                            llSkipSubmit.setVisibility(View.GONE);
                             Toast.makeText(AddsOnActivity.this, get_addons_items_list_pojo.getMessage(), Toast.LENGTH_SHORT).show();
                         }
                         AddsOnAdapter addsOnAdapter = new AddsOnAdapter(AddsOnActivity.this, filteredHashMap, categoryNameList,exAddsOnn);
@@ -223,6 +330,10 @@ public class AddsOnActivity extends AppCompatActivity implements View.OnClickLis
 
             @Override
             public void onFailure(Call<Get_Addons_Items_List_Pojo> call, Throwable t) {
+                llProgrssBar.setVisibility(View.GONE);
+                llNoDataFound.setVisibility(View.VISIBLE);
+                llSkipSubmit.setVisibility(View.GONE);
+                exAddsOnn.setVisibility(View.GONE);
                 Toast.makeText(AddsOnActivity.this, "Request Failed" + t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
@@ -234,11 +345,13 @@ public class AddsOnActivity extends AppCompatActivity implements View.OnClickLis
             onBackPressed();
         }
     }
-
+    JSONArray special_item_array;
+    JSONObject selectedItemJson;
+    JSONArray special_item_details_adds_on_array;
     private List<Get_Addons_Items_List_Pojo.Item> specialCategoryAddOnSelectedItemArrayList = new ArrayList<>();
     private void getAllSelectedAddsOn(){
 
-        JSONArray special_item_details_adds_on_array = new JSONArray();
+        special_item_details_adds_on_array = new JSONArray();
         double totalAddsOn = 0.0;
         for (String category : filteredHashMap.keySet()) {
             List<Get_Addons_Items_List_Pojo.Item> specialCategoryModelArrayList = filteredHashMap.get(category);
@@ -297,23 +410,23 @@ public class AddsOnActivity extends AppCompatActivity implements View.OnClickLis
 
         /***Addons array*/
         /**Json Item Array**/
-        JSONArray special_item_array = new JSONArray();
-        JSONObject selectedItemJson = new JSONObject();
+        special_item_array  = new JSONArray();
+        selectedItemJson = new JSONObject();
 
         try {
 
-            selectedItemJson.put("item_id",1);
-            selectedItemJson.put("item_name", "test");
-            selectedItemJson.put("hsn_code", Integer.parseInt("012234"));
-            selectedItemJson.put("uom_id", "uom");
+            selectedItemJson.put("item_id",itemId);
+            selectedItemJson.put("item_name", item_name);
+            selectedItemJson.put("hsn_code", hsn_code);
+            selectedItemJson.put("uom_id", uom_id);
             selectedItemJson.put("price", 100);
-            selectedItemJson.put("weight", Double.parseDouble("120"));
-            selectedItemJson.put("cgst_per", "0.0");
-            selectedItemJson.put("sgst_per", "0.0");
+            selectedItemJson.put("weight", weight);
+            selectedItemJson.put("cgst_per", cgst_per);
+            selectedItemJson.put("sgst_per", sgst_per);
             selectedItemJson.put("qty", Integer.parseInt("1"));
-            selectedItemJson.put("mrp", Double.parseDouble("100.0"));
-            selectedItemJson.put("flavour", "test" + "");
-            selectedItemJson.put("shape", "shape" + "");
+            selectedItemJson.put("mrp", mrp);
+            selectedItemJson.put("flavour", flavour);
+            selectedItemJson.put("shape", shape);
 
 
         } catch (JSONException e) {
@@ -324,4 +437,10 @@ public class AddsOnActivity extends AppCompatActivity implements View.OnClickLis
         special_item_array.put(selectedItemJson);
 
     }
+
+    public interface  IOnSubmit{
+        void submitData();
+    }
+
+
 }

@@ -6,6 +6,9 @@ import android.content.SharedPreferences;
 import com.google.gson.Gson;
 import com.infinity.monginis.dashboard.model.CartItemModel;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -113,6 +116,34 @@ public class MySharedPreferences {
         return sharedPreferences.getString(PreferencesConstants.SELECTED_CART_ITEMS, "");
     }
 
+    public void setSelectredAddsonArray(JSONArray jsonArray) {
+        editor.putString(PreferencesConstants.ADDS_ON_ARRAY, jsonArray.toString());
+        editor.apply();
+    }
+
+    public String getSelecteItemJsonArray() {
+        return sharedPreferences.getString(PreferencesConstants.ADDS_ON_ARRAY, "");
+    }
+
+    public void setSelectedSpecilaItemJson(JSONArray jsonArray){
+        editor.putString(PreferencesConstants.SPECIAL_SELECTED_ITEM_JSON, jsonArray.toString());
+        editor.apply();
+
+    }
+
+    public String getSelectedJsonObject() {
+        return sharedPreferences.getString(PreferencesConstants.SPECIAL_SELECTED_ITEM_JSON, "");
+    }
+
+    public void setSelectedItemId(String itemId){
+        editor.putString(PreferencesConstants.ITEM_ID, itemId);
+        editor.apply();
+
+    }
+
+    public String getSelectedItemId() {
+        return sharedPreferences.getString(PreferencesConstants.ITEM_ID, "");
+    }
 
 
 

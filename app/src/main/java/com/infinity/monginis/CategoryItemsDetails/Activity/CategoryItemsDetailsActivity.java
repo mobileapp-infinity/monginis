@@ -23,6 +23,8 @@ import com.infinity.monginis.api.ApiImplementer;
 import com.infinity.monginis.api.ApiUrls;
 
 import com.infinity.monginis.custom_class.TextViewRegularFont;
+import com.infinity.monginis.dashboard.activity.BottomSheetDialogForSpecialOrder;
+import com.infinity.monginis.dashboard.activity.DashboardActivity;
 import com.infinity.monginis.utils.CommonUtil;
 import com.infinity.monginis.utils.ConnectionDetector;
 import com.infinity.monginis.utils.IntentConstants;
@@ -170,6 +172,11 @@ public class CategoryItemsDetailsActivity extends AppCompatActivity implements V
 
     @Override
     public void onItemClicked(ItemDetailsByCategoryPojo itemDetailsByCategoryPojo, int position) {
+
+
+
+
+
         Intent redirectToShopForItemActivityIntent = new Intent(CategoryItemsDetailsActivity.this, ShopForItemActivity.class);
         redirectToShopForItemActivityIntent.putExtra(IntentConstants.SELECTED_ITEM_ID, itemDetailsByCategoryPojo.getRECORDS().get(position).getItmId() + "");
         redirectToShopForItemActivityIntent.putExtra(IntentConstants.SELECTED_ITEM_NAME, itemDetailsByCategoryPojo.getRECORDS().get(position).getItmName() + "");

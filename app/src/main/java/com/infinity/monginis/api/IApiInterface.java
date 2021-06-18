@@ -248,6 +248,22 @@ public interface IApiInterface {
 
     );
 
+    @GET("Get_item_mrp_by_weight_and_flavour_for_new")
+    Call<GetAllShopPojo> Get_item_mrp_by_weight_and_flavour_for_new(@Query("app_version") String app_version,
+                                    @Query("android_id") String android_id,
+                                    @Query("device_id") String device_id,
+                                    @Query("user_id") String user_id,
+                                    @Query("key") String key,
+                                    @Query("comp_id") String comp_id,
+                                    @Query("item_id") String item_id,
+                                    @Query("state_name") String state_name,
+                                    @Query("city_name") String city_name,
+                                    @Query("hsn_code") String hsn_code,
+                                    @Query("Flavour") String Flavour
+
+
+    );
+
 
 
 }
