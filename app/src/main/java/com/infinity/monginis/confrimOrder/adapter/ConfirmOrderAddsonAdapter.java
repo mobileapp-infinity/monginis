@@ -1,4 +1,4 @@
-package com.infinity.monginis.dashboard.adapter;
+package com.infinity.monginis.confrimOrder.adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -9,9 +9,8 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.infinity.monginis.R;
-import com.infinity.monginis.custom_class.TextViewMediumFont;
 import com.infinity.monginis.custom_class.TextViewRegularFont;
-import com.infinity.monginis.dashboard.pojo.ConfrimOrderReponsePojo;
+import com.infinity.monginis.confrimOrder.pojo.GetPartialOrderDetailReponsePojo;
 import com.infinity.monginis.utils.CommonUtil;
 
 import java.util.ArrayList;
@@ -21,12 +20,12 @@ public class ConfirmOrderAddsonAdapter extends RecyclerView.Adapter<ConfirmOrder
 
     private Context context;
     private ArrayList<String>addsonList;
-    private ConfrimOrderReponsePojo confrimOrderReponsePojo;
+    private GetPartialOrderDetailReponsePojo getPartialOrderDetailReponsePojo;
 
 
-    public ConfirmOrderAddsonAdapter(Context context, ConfrimOrderReponsePojo confrimOrderReponsePojo) {
+    public ConfirmOrderAddsonAdapter(Context context, GetPartialOrderDetailReponsePojo getPartialOrderDetailReponsePojo) {
         this.context = context;
-        this.confrimOrderReponsePojo = confrimOrderReponsePojo;
+        this.getPartialOrderDetailReponsePojo = getPartialOrderDetailReponsePojo;
     }
 
     @NonNull
@@ -39,25 +38,25 @@ public class ConfirmOrderAddsonAdapter extends RecyclerView.Adapter<ConfirmOrder
 
     @Override
     public void onBindViewHolder(@NonNull @org.jetbrains.annotations.NotNull ConfirmOrderAddsonAdapter.MyViewHolder holder, int position) {
-        if (!CommonUtil.checkIsEmptyOrNullCommon(confrimOrderReponsePojo.getRecords().getAddons().get(position).getItmName())){
+        if (!CommonUtil.checkIsEmptyOrNullCommon(getPartialOrderDetailReponsePojo.getRecords().getAddons().get(position).getItmName())){
 
-            holder.tvName.setText(confrimOrderReponsePojo.getRecords().getAddons().get(position).getItmName());
+            holder.tvName.setText(getPartialOrderDetailReponsePojo.getRecords().getAddons().get(position).getItmName());
         }
 
-        if (!CommonUtil.checkIsEmptyOrNullCommon(confrimOrderReponsePojo.getRecords().getAddons().get(position).getSroidItmQty())){
+        if (!CommonUtil.checkIsEmptyOrNullCommon(getPartialOrderDetailReponsePojo.getRecords().getAddons().get(position).getSroidItmQty())){
 
-            holder.tvQty.setText(confrimOrderReponsePojo.getRecords().getAddons().get(position).getSroidItmQty()+"");
+            holder.tvQty.setText(getPartialOrderDetailReponsePojo.getRecords().getAddons().get(position).getSroidItmQty()+"");
         }
 
-        if (!CommonUtil.checkIsEmptyOrNullCommon(confrimOrderReponsePojo.getRecords().getAddons().get(position).getItmPrice())){
+        if (!CommonUtil.checkIsEmptyOrNullCommon(getPartialOrderDetailReponsePojo.getRecords().getAddons().get(position).getItmPrice())){
 
-            holder.tvPrice.setText(confrimOrderReponsePojo.getRecords().getAddons().get(position).getItmPrice()+"");
+            holder.tvPrice.setText(getPartialOrderDetailReponsePojo.getRecords().getAddons().get(position).getItmPrice()+"");
         }
     }
 
     @Override
     public int getItemCount() {
-        return confrimOrderReponsePojo.getRecords().getAddons().size();
+        return getPartialOrderDetailReponsePojo.getRecords().getAddons().size();
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {

@@ -20,14 +20,10 @@ import com.google.android.material.card.MaterialCardView;
 import com.infinity.monginis.CategoryItemsDetails.Activity.CategoryItemsDetailsActivity;
 import com.infinity.monginis.R;
 import com.infinity.monginis.custom_class.TextViewRegularFont;
-import com.infinity.monginis.dashboard.activity.BottomSheetDialogForSpecialOrder;
+import com.infinity.monginis.dashboard.activity.BsFroSpecialOrder;
 import com.infinity.monginis.dashboard.activity.DashboardActivity;
-import com.infinity.monginis.dashboard.activity.ItemDetailsActivity;
 import com.infinity.monginis.dashboard.pojo.GetItemsForDashboardPojo;
 import com.infinity.monginis.utils.CommonUtil;
-
-import static com.infinity.monginis.dashboard.activity.DashboardActivity.vpDashboard;
-import static com.infinity.monginis.dashboard.adapter.TopCategoriesAdapter.isFromTopCategories;
 
 public class PopularItemsAdapter extends RecyclerView.Adapter<PopularItemsAdapter.MyViewHolder> implements View.OnClickListener {
 
@@ -151,7 +147,7 @@ public class PopularItemsAdapter extends RecyclerView.Adapter<PopularItemsAdapte
         holder.tvCustomize.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                BottomSheetDialogForSpecialOrder bottomSheetForSpecialOrder = new BottomSheetDialogForSpecialOrder((DashboardActivity) context, getItemsForDashboardPojo, position);
+                BsFroSpecialOrder bottomSheetForSpecialOrder = new BsFroSpecialOrder((DashboardActivity) context, getItemsForDashboardPojo, position);
                 bottomSheetForSpecialOrder.show(((DashboardActivity) context).getSupportFragmentManager(), "");
             }
         });

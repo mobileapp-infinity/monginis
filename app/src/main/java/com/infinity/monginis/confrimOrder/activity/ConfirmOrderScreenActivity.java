@@ -1,4 +1,4 @@
-package com.infinity.monginis.dashboard.activity;
+package com.infinity.monginis.confrimOrder.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatEditText;
@@ -24,10 +24,10 @@ import com.infinity.monginis.api.ApiUrls;
 import com.infinity.monginis.api.IApiInterface;
 import com.infinity.monginis.custom_class.TextViewMediumFont;
 import com.infinity.monginis.custom_class.TextViewRegularFont;
-import com.infinity.monginis.dashboard.adapter.ConfirmOrderAccessoriesAdapter;
-import com.infinity.monginis.dashboard.adapter.ConfirmOrderAddsonAdapter;
-import com.infinity.monginis.dashboard.pojo.ConfrimOrderReponsePojo;
-import com.infinity.monginis.dashboard.pojo.SaveSpecialOrderconfirmPojo;
+import com.infinity.monginis.confrimOrder.adapter.ConfirmOrderAccessoriesAdapter;
+import com.infinity.monginis.confrimOrder.adapter.ConfirmOrderAddsonAdapter;
+import com.infinity.monginis.confrimOrder.pojo.GetPartialOrderDetailReponsePojo;
+import com.infinity.monginis.confrimOrder.pojo.SaveSpecialOrderconfirmPojo;
 import com.infinity.monginis.utils.CommonUtil;
 import com.infinity.monginis.utils.DialogUtil;
 import com.infinity.monginis.utils.MySharedPreferences;
@@ -163,20 +163,20 @@ public class ConfirmOrderScreenActivity extends AppCompatActivity implements Vie
             }
         });
 
-        ApiImplementer.getPartialOrderDetails(mySharedPreferences.getVersionCode(), mySharedPreferences.getAndroidID(), mySharedPreferences.getDeviceID(), CommonUtil.USER_ID, ApiUrls.TESTING_KEY, CommonUtil.COMP_ID, orderId, new Callback<ConfrimOrderReponsePojo>() {
+        ApiImplementer.getPartialOrderDetails(mySharedPreferences.getVersionCode(), mySharedPreferences.getAndroidID(), mySharedPreferences.getDeviceID(), CommonUtil.USER_ID, ApiUrls.TESTING_KEY, CommonUtil.COMP_ID, orderId, new Callback<GetPartialOrderDetailReponsePojo>() {
             @Override
-            public void onResponse(Call<ConfrimOrderReponsePojo> call, Response<ConfrimOrderReponsePojo> response) {
+            public void onResponse(Call<GetPartialOrderDetailReponsePojo> call, Response<GetPartialOrderDetailReponsePojo> response) {
                 DialogUtil.hideProgressDialog();
 
                 try {
                     if (response.isSuccessful() && response.body() != null){
                         llMain.setVisibility(View.VISIBLE);
 
-                        ConfrimOrderReponsePojo confrimOrderReponsePojo = response.body();
+                        GetPartialOrderDetailReponsePojo getPartialOrderDetailReponsePojo = response.body();
 
-                        if (confrimOrderReponsePojo != null ){
-                            if (!CommonUtil.checkIsEmptyOrNullCommon(confrimOrderReponsePojo.getRecords().getMain().get(0).getSroidItmWeight())){
-                                tvWeight.setText(confrimOrderReponsePojo.getRecords().getMain().get(0).getSroidItmWeight()+"");
+                        if (getPartialOrderDetailReponsePojo != null ){
+                            if (!CommonUtil.checkIsEmptyOrNullCommon(getPartialOrderDetailReponsePojo.getRecords().getMain().get(0).getSroidItmWeight())){
+                                tvWeight.setText(getPartialOrderDetailReponsePojo.getRecords().getMain().get(0).getSroidItmWeight()+"");
 
 
 
@@ -184,45 +184,45 @@ public class ConfirmOrderScreenActivity extends AppCompatActivity implements Vie
 
                             }
 
-                            if (!CommonUtil.checkIsEmptyOrNullCommon(confrimOrderReponsePojo.getRecords().getMain().get(0).getItmName())){
-                                tvProductName.setText(confrimOrderReponsePojo.getRecords().getMain().get(0).getItmName()+"");
+                            if (!CommonUtil.checkIsEmptyOrNullCommon(getPartialOrderDetailReponsePojo.getRecords().getMain().get(0).getItmName())){
+                                tvProductName.setText(getPartialOrderDetailReponsePojo.getRecords().getMain().get(0).getItmName()+"");
                             }
-                            if (!CommonUtil.checkIsEmptyOrNullCommon(confrimOrderReponsePojo.getRecords().getMain().get(0).getFlavour())){
-                                tvFlavour.setText(confrimOrderReponsePojo.getRecords().getMain().get(0).getFlavour()+"");
+                            if (!CommonUtil.checkIsEmptyOrNullCommon(getPartialOrderDetailReponsePojo.getRecords().getMain().get(0).getFlavour())){
+                                tvFlavour.setText(getPartialOrderDetailReponsePojo.getRecords().getMain().get(0).getFlavour()+"");
                             }
-                            if (!CommonUtil.checkIsEmptyOrNullCommon(confrimOrderReponsePojo.getRecords().getMain().get(0).getShape())){
-                                tvShape.setText(confrimOrderReponsePojo.getRecords().getMain().get(0).getShape()+"");
+                            if (!CommonUtil.checkIsEmptyOrNullCommon(getPartialOrderDetailReponsePojo.getRecords().getMain().get(0).getShape())){
+                                tvShape.setText(getPartialOrderDetailReponsePojo.getRecords().getMain().get(0).getShape()+"");
                             }
 
-                            if (!CommonUtil.checkIsEmptyOrNullCommon(confrimOrderReponsePojo.getRecords().getMain().get(0).getNetMrpAmt())){
+                            if (!CommonUtil.checkIsEmptyOrNullCommon(getPartialOrderDetailReponsePojo.getRecords().getMain().get(0).getNetMrpAmt())){
 
-                                amountPayable =  confrimOrderReponsePojo.getRecords().getMain().get(0).getNetMrpAmt()+"";
+                                amountPayable =  getPartialOrderDetailReponsePojo.getRecords().getMain().get(0).getNetMrpAmt()+"";
                                 tvAmountPayable.setText(amountPayable +"");
                             }
 
 
-                            if (confrimOrderReponsePojo.getRecords().getAddons().size() > 0){
+                            if (getPartialOrderDetailReponsePojo.getRecords().getAddons().size() > 0){
 
                                 ArrayList<String> arrayList = new ArrayList();
-                                ConfirmOrderAddsonAdapter confirmOrderAddsonAdapter = new ConfirmOrderAddsonAdapter(ConfirmOrderScreenActivity.this,confrimOrderReponsePojo);
+                                ConfirmOrderAddsonAdapter confirmOrderAddsonAdapter = new ConfirmOrderAddsonAdapter(ConfirmOrderScreenActivity.this, getPartialOrderDetailReponsePojo);
                                 rvAddsOn.setAdapter(confirmOrderAddsonAdapter);
 
                             }
 
-                            if (confrimOrderReponsePojo.getRecords().getAccesories().size() > 0){
-                                ConfirmOrderAccessoriesAdapter confirmOrderAddsonAdapter = new ConfirmOrderAccessoriesAdapter(ConfirmOrderScreenActivity.this,confrimOrderReponsePojo);
+                            if (getPartialOrderDetailReponsePojo.getRecords().getAccesories().size() > 0){
+                                ConfirmOrderAccessoriesAdapter confirmOrderAddsonAdapter = new ConfirmOrderAccessoriesAdapter(ConfirmOrderScreenActivity.this, getPartialOrderDetailReponsePojo);
                                 rvAcessories.setAdapter(confirmOrderAddsonAdapter);
                             }
 
 
-                            String productName = confrimOrderReponsePojo.getRecords().getMain().get(0).getItmName();
-                            String productWeight = confrimOrderReponsePojo.getRecords().getMain().get(0).getSroidItmWeight() + "";
-                            String productQty = confrimOrderReponsePojo.getRecords().getMain().get(0).getSroidItmQty() + "";
-                            String cakeName = confrimOrderReponsePojo.getRecords().getMain().get(0).getItmName();
+                            String productName = getPartialOrderDetailReponsePojo.getRecords().getMain().get(0).getItmName();
+                            String productWeight = getPartialOrderDetailReponsePojo.getRecords().getMain().get(0).getSroidItmWeight() + "";
+                            String productQty = getPartialOrderDetailReponsePojo.getRecords().getMain().get(0).getSroidItmQty() + "";
+                            String cakeName = getPartialOrderDetailReponsePojo.getRecords().getMain().get(0).getItmName();
                            // amountPayable = confrimOrderReponsePojo.getRecords().getMain().get(0).getMrp() + "";
-                            cgst_per = confrimOrderReponsePojo.getRecords().getMain().get(0).getSroidCgstPer() + "";
-                            sgst_pr = confrimOrderReponsePojo.getRecords().getMain().get(0).getSroidSgstPer() + "";
-                            schedule_id = confrimOrderReponsePojo.getRecords().getMain().get(0).getSromScheduleId() + "";
+                            cgst_per = getPartialOrderDetailReponsePojo.getRecords().getMain().get(0).getSroidCgstPer() + "";
+                            sgst_pr = getPartialOrderDetailReponsePojo.getRecords().getMain().get(0).getSroidSgstPer() + "";
+                            schedule_id = getPartialOrderDetailReponsePojo.getRecords().getMain().get(0).getSromScheduleId() + "";
                         }
 
                     }
@@ -233,7 +233,7 @@ public class ConfirmOrderScreenActivity extends AppCompatActivity implements Vie
             }
 
             @Override
-            public void onFailure(Call<ConfrimOrderReponsePojo> call, Throwable t) {
+            public void onFailure(Call<GetPartialOrderDetailReponsePojo> call, Throwable t) {
                 DialogUtil.hideProgressDialog();
                 llMain.setVisibility(View.GONE);
             }

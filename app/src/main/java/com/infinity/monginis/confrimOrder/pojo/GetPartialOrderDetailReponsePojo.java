@@ -1,11 +1,11 @@
-package com.infinity.monginis.dashboard.pojo;
+package com.infinity.monginis.confrimOrder.pojo;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
-public class ConfrimOrderReponsePojo {
+public class GetPartialOrderDetailReponsePojo {
 
     @SerializedName("TOTAL")
     @Expose

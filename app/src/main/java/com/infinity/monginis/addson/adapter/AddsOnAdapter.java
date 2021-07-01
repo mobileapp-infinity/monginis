@@ -13,7 +13,7 @@ import androidx.appcompat.widget.AppCompatImageView;
 import com.infinity.monginis.R;
 import com.infinity.monginis.custom_class.TextViewMediumFont;
 import com.infinity.monginis.custom_class.TextViewRegularFont;
-import com.infinity.monginis.dashboard.model.AddsOnItemModel;
+import com.infinity.monginis.addson.model.AddsOnItemModel;
 import com.infinity.monginis.dashboard.pojo.Get_Addons_Items_List_Pojo;
 import com.infinity.monginis.utils.CommonUtil;
 

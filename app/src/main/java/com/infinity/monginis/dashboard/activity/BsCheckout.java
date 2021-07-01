@@ -13,18 +13,19 @@ import androidx.annotation.Nullable;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import com.infinity.monginis.R;
 import com.infinity.monginis.custom_class.TextViewRegularFont;
+import com.infinity.monginis.itemDetails.ItemDetailsActivity;
 
-public class BottomSheetDialogForCheckOut extends BottomSheetDialogFragment implements View.OnClickListener {
+public class BsCheckout extends BottomSheetDialogFragment implements View.OnClickListener {
 
     private TextViewRegularFont tvItemAndPrice;
     private Button btnCheckout;
     private ItemDetailsActivity activity;
     private DashboardActivity dashboardActivity;
 
-    public BottomSheetDialogForCheckOut(ItemDetailsActivity activity) {
+    public BsCheckout(ItemDetailsActivity activity) {
         this.activity = activity;
     }
-    public BottomSheetDialogForCheckOut(DashboardActivity activity) {
+    public BsCheckout(DashboardActivity activity) {
         this.dashboardActivity = activity;
     }
 

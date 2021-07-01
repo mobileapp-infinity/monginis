@@ -1,9 +1,6 @@
 package com.infinity.monginis.login;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,14 +9,9 @@ import android.widget.LinearLayout;
 import androidx.annotation.Nullable;
 
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
-import com.google.android.material.card.MaterialCardView;
-import com.google.android.material.textfield.TextInputEditText;
-import com.google.android.material.textfield.TextInputLayout;
 import com.infinity.monginis.R;
-import com.infinity.monginis.custom_class.TextViewMediumFont;
-import com.infinity.monginis.dashboard.activity.BottomSheetDialogForSpecialOrder;
-import com.infinity.monginis.dashboard.activity.ItemDetailsActivity;
-import com.infinity.monginis.utils.CommonUtil;
+import com.infinity.monginis.dashboard.activity.BsFroSpecialOrder;
+import com.infinity.monginis.itemDetails.ItemDetailsActivity;
 
 public class BsPlaceOrder extends BottomSheetDialogFragment implements View.OnClickListener {
 
@@ -60,7 +52,7 @@ public class BsPlaceOrder extends BottomSheetDialogFragment implements View.OnCl
         if (v.getId() == R.id.llIWillChoose) {
 
             this.dismiss();
-            BottomSheetDialogForSpecialOrder bottomSheetForSpecialOrder = new BottomSheetDialogForSpecialOrder((ItemDetailsActivity) activity);
+            BsFroSpecialOrder bottomSheetForSpecialOrder = new BsFroSpecialOrder((ItemDetailsActivity) activity);
             bottomSheetForSpecialOrder.show(((ItemDetailsActivity) activity).getSupportFragmentManager(), "");
 
 

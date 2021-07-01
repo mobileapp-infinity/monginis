@@ -1,4 +1,4 @@
-package com.infinity.monginis.dashboard.pojo;
+package com.infinity.monginis.confrimOrder.pojo;
 
 public class SaveSpecialOrderconfirmPojo {
 

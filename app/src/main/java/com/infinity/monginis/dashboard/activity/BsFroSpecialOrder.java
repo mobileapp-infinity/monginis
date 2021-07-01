@@ -37,7 +37,7 @@ import com.infinity.monginis.api.IApiInterface;
 import com.infinity.monginis.custom_class.TextViewRegularFont;
 
 
-import com.infinity.monginis.dashboard.model.AddsOnItemModel;
+import com.infinity.monginis.addson.model.AddsOnItemModel;
 import com.infinity.monginis.dashboard.model.CartItemModel;
 import com.infinity.monginis.dashboard.model.SaveOrder;
 import com.infinity.monginis.dashboard.pojo.GetAllShopPojo;
@@ -49,6 +49,7 @@ import com.infinity.monginis.dashboard.pojo.GetSchedulePojo;
 import com.infinity.monginis.dashboard.pojo.Get_Addons_Items_List_Pojo;
 import com.infinity.monginis.dashboard.pojo.ItemMrpByFlavourAndWeightPojo;
 import com.infinity.monginis.dashboard.pojo.TestPojo;
+import com.infinity.monginis.itemDetails.ItemDetailsActivity;
 import com.infinity.monginis.login.BsLogin;
 import com.infinity.monginis.utils.CommonUtil;
 import com.infinity.monginis.utils.ConnectionDetector;
@@ -84,7 +85,7 @@ import static android.app.Activity.RESULT_OK;
 import static com.infinity.monginis.dashboard.activity.DashboardActivity.vpDashboard;
 import static com.infinity.monginis.utils.IntentConstants.SPECIAL_ORDER_UPLOAD_PHOTO_GALLERY_REQUEST;
 
-public class BottomSheetDialogForSpecialOrder extends BottomSheetDialogFragment implements View.OnClickListener {
+public class BsFroSpecialOrder extends BottomSheetDialogFragment implements View.OnClickListener {
 
 
     SearchableSpinner spMenu;
@@ -125,7 +126,7 @@ public class BottomSheetDialogForSpecialOrder extends BottomSheetDialogFragment 
     private Button btnAddsOn;
     private boolean isFromSearch = false;
 
-    public BottomSheetDialogForSpecialOrder(ItemDetailsActivity activity) {
+    public BsFroSpecialOrder(ItemDetailsActivity activity) {
         this.activity = activity;
     }
 
@@ -133,13 +134,13 @@ public class BottomSheetDialogForSpecialOrder extends BottomSheetDialogFragment 
         this.activity = activity;
     }*/
 
-    public BottomSheetDialogForSpecialOrder(DashboardActivity activity, GetItemsForDashboardPojo getItemsForDashboardPojo, int position) {
+    public BsFroSpecialOrder(DashboardActivity activity, GetItemsForDashboardPojo getItemsForDashboardPojo, int position) {
         this.dashboardActivity = activity;
         this.getItemsForDashboardPojo = getItemsForDashboardPojo;
         this.position = position;
     }
 
-    public BottomSheetDialogForSpecialOrder(DashboardActivity d, ArrayList<TestPojo> testPojoArrayList, int position
+    public BsFroSpecialOrder(DashboardActivity d, ArrayList<TestPojo> testPojoArrayList, int position
             , boolean isFromSearch) {
         this.dashboardActivity = d;
         this.testPojoArrayList = testPojoArrayList;

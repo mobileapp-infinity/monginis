@@ -24,7 +24,7 @@ import com.infinity.monginis.api.ApiUrls;
 import com.infinity.monginis.custom_class.TextViewMediumFont;
 import com.infinity.monginis.dashboard.activity.CartActivity;
 import com.infinity.monginis.dashboard.activity.DashboardActivity;
-import com.infinity.monginis.dashboard.activity.ItemDetailsActivity;
+import com.infinity.monginis.itemDetails.ItemDetailsActivity;
 import com.infinity.monginis.login.Pojo.CheckLoginOTPPojo;
 import com.infinity.monginis.utils.CommonUtil;
 import com.infinity.monginis.utils.ConnectionDetector;

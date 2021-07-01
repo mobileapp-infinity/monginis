@@ -3,23 +3,27 @@ package com.infinity.monginis.favourites;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatImageView;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.GridView;
 
+import com.infinity.monginis.CategoryItemsDetails.Activity.CategoryItemsDetailsActivity;
 import com.infinity.monginis.CategoryItemsDetails.Adapter.ItemDetailsByCategoryAdapter;
 import com.infinity.monginis.R;
+import com.infinity.monginis.ShopForItemActiivty.Activity.ShopForItemActivity;
 import com.infinity.monginis.api.ApiImplementer;
 import com.infinity.monginis.api.ApiUrls;
 import com.infinity.monginis.dashboard.pojo.GetItemLikeDislikePojo;
 import com.infinity.monginis.utils.CommonUtil;
+import com.infinity.monginis.utils.IntentConstants;
 import com.infinity.monginis.utils.MySharedPreferences;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class FavouriteItemActivity extends AppCompatActivity implements View.OnClickListener {
+public class FavouriteItemActivity extends AppCompatActivity implements View.OnClickListener,FavouriteAdapter.IOnFavouriteItemClicked {
 
     private GridView gvFavouriteItems;
     private MySharedPreferences mySharedPreferences;
@@ -53,8 +57,11 @@ public class FavouriteItemActivity extends AppCompatActivity implements View.OnC
 
                         if (getItemLikeDislikePojo != null && getItemLikeDislikePojo.getRecords().size() > 0){
 
-                            ItemDetailsByCategoryAdapter itemDetailsByCategoryAdapter = new ItemDetailsByCategoryAdapter(FavouriteItemActivity.this,getItemLikeDislikePojo,true);
-                            gvFavouriteItems.setAdapter(itemDetailsByCategoryAdapter);
+                          /*  ItemDetailsByCategoryAdapter itemDetailsByCategoryAdapter = new ItemDetailsByCategoryAdapter(FavouriteItemActivity.this,getItemLikeDislikePojo,true);
+                            gvFavouriteItems.setAdapter(itemDetailsByCategoryAdapter);*/
+
+                            FavouriteAdapter favouriteAdapter  = new FavouriteAdapter(FavouriteItemActivity.this,getItemLikeDislikePojo);
+                            gvFavouriteItems.setAdapter(favouriteAdapter);
 
 
 
@@ -86,4 +93,16 @@ public class FavouriteItemActivity extends AppCompatActivity implements View.OnC
         }
 
     }
+
+    @Override
+    public void onFavouriteClicked(GetItemLikeDislikePojo getItemLikeDislikePojo, int position) {
+
+        Intent redirectToShopForItemActivityIntent = new Intent(FavouriteItemActivity.this, ShopForItemActivity.class);
+        redirectToShopForItemActivityIntent.putExtra(IntentConstants.SELECTED_ITEM_ID, getItemLikeDislikePojo.getRecords().get(position).getId() + "");
+        redirectToShopForItemActivityIntent.putExtra(IntentConstants.SELECTED_ITEM_NAME, getItemLikeDislikePojo.getRecords().get(position).getItm_name() + "");
+        redirectToShopForItemActivityIntent.putExtra(IntentConstants.SELECTED_ITEM_MRP, getItemLikeDislikePojo.getRecords().get(position).getItm_mrp() + "");
+        startActivity(redirectToShopForItemActivityIntent);
+
+    }
+
 }

@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.infinity.monginis.R;
 import com.infinity.monginis.ShopForItemActiivty.pojo.GetShopListForItemStockPojo;
 import com.infinity.monginis.custom_class.TextViewRegularFont;
-import com.infinity.monginis.dashboard.activity.ItemDetailsActivity;
+import com.infinity.monginis.itemDetails.ItemDetailsActivity;
 import com.infinity.monginis.utils.CommonUtil;
 import com.infinity.monginis.utils.IntentConstants;
 

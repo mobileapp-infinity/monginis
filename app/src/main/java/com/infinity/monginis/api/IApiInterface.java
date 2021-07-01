@@ -4,7 +4,7 @@ import com.infinity.monginis.CategoryItemsDetails.Pojo.ItemDetailsByCategoryPojo
 import com.infinity.monginis.ShopForItemActiivty.pojo.GetShopListForItemStockPojo;
 import com.infinity.monginis.ShopForItemActiivty.pojo.ShopLikeDislikePojo;
 import com.infinity.monginis.dashboard.pojo.AddAddressResponsePojo;
-import com.infinity.monginis.dashboard.pojo.ConfrimOrderReponsePojo;
+import com.infinity.monginis.confrimOrder.pojo.GetPartialOrderDetailReponsePojo;
 import com.infinity.monginis.dashboard.pojo.DeleteAddressPojo;
 import com.infinity.monginis.dashboard.pojo.GetAllCityPojo;
 import com.infinity.monginis.dashboard.pojo.GetAllShopPojo;
@@ -24,7 +24,7 @@ import com.infinity.monginis.dashboard.pojo.Get_Addons_Items_List_Pojo;
 import com.infinity.monginis.dashboard.pojo.ItemLikeDisLikePojo;
 import com.infinity.monginis.dashboard.pojo.ItemMrpByFlavourAndWeightPojo;
 import com.infinity.monginis.dashboard.pojo.SavePartialOrderPojo;
-import com.infinity.monginis.dashboard.pojo.SaveSpecialOrderconfirmPojo;
+import com.infinity.monginis.confrimOrder.pojo.SaveSpecialOrderconfirmPojo;
 import com.infinity.monginis.dashboard.pojo.SearchCategoryPojo;
 import com.infinity.monginis.dashboard.pojo.SubSectionPojo;
 import com.infinity.monginis.login.Pojo.CheckLoginOTPPojo;
@@ -272,13 +272,13 @@ public interface IApiInterface {
     );
 
     @GET("Get_partial_order_detail")
-    Call<ConfrimOrderReponsePojo> Get_partial_order_detail(@Query("app_version") String app_version,
-                                                           @Query("android_id") String android_id,
-                                                           @Query("device_id") String device_id,
-                                                           @Query("user_id") String user_id,
-                                                           @Query("key") String key,
-                                                           @Query("comp_id") String comp_id,
-                                                           @Query("id") String item_id
+    Call<GetPartialOrderDetailReponsePojo> Get_partial_order_detail(@Query("app_version") String app_version,
+                                                                    @Query("android_id") String android_id,
+                                                                    @Query("device_id") String device_id,
+                                                                    @Query("user_id") String user_id,
+                                                                    @Query("key") String key,
+                                                                    @Query("comp_id") String comp_id,
+                                                                    @Query("id") String item_id
 
 
     );

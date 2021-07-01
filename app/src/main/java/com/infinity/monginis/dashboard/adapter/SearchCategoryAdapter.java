@@ -1,7 +1,6 @@
 package com.infinity.monginis.dashboard.adapter;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,20 +11,15 @@ import android.widget.LinearLayout;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.bumptech.glide.Glide;
 import com.infinity.monginis.R;
 import com.infinity.monginis.custom_class.TextViewRegularFont;
-import com.infinity.monginis.dashboard.activity.BottomSheetDialogForSpecialOrder;
+import com.infinity.monginis.dashboard.activity.BsFroSpecialOrder;
 import com.infinity.monginis.dashboard.activity.DashboardActivity;
-import com.infinity.monginis.dashboard.activity.EditUserDetailsActivity;
-import com.infinity.monginis.dashboard.activity.ItemDetailsActivity;
-import com.infinity.monginis.dashboard.pojo.SearchCategoryPojo;
+import com.infinity.monginis.itemDetails.ItemDetailsActivity;
 import com.infinity.monginis.dashboard.pojo.TestPojo;
 import com.infinity.monginis.utils.IntentConstants;
 
 import java.util.ArrayList;
-
-import static com.infinity.monginis.dashboard.adapter.PopularItemsAdapter.isFromSpecialOrderItem;
 
 public class SearchCategoryAdapter extends RecyclerView.Adapter<SearchCategoryAdapter.MyViewHolder> {
 
@@ -71,7 +65,7 @@ public class SearchCategoryAdapter extends RecyclerView.Adapter<SearchCategoryAd
                    // bottomSheetForSpecialOrder.show(((DashboardActivity) context).getSupportFragmentManager(), "");
 
 
-                    BottomSheetDialogForSpecialOrder bottomSheetForSpecialOrder = new BottomSheetDialogForSpecialOrder((DashboardActivity) context,testPojoArrayList,position,true);
+                    BsFroSpecialOrder bottomSheetForSpecialOrder = new BsFroSpecialOrder((DashboardActivity) context,testPojoArrayList,position,true);
                     bottomSheetForSpecialOrder.show(((DashboardActivity) context).getSupportFragmentManager(), "");
                 }else{
                     Intent itemDetailsIntent = new Intent(context, ItemDetailsActivity.class);

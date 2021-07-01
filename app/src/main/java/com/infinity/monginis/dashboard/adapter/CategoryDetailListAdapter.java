@@ -14,7 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.infinity.monginis.R;
 import com.infinity.monginis.custom_class.TextViewRegularFont;
-import com.infinity.monginis.dashboard.activity.ItemDetailsActivity;
+import com.infinity.monginis.itemDetails.ItemDetailsActivity;
 import com.infinity.monginis.dashboard.pojo.CategoryDetailsPojo;
 import com.infinity.monginis.dashboard.pojo.GetItmePosStockPojo;
 import com.infinity.monginis.login.BsLogin;

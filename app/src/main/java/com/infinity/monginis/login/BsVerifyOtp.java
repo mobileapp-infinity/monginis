@@ -1,10 +1,7 @@
 package com.infinity.monginis.login;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,24 +12,14 @@ import androidx.appcompat.widget.AppCompatImageView;
 
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import com.google.android.material.card.MaterialCardView;
-import com.google.android.material.textfield.TextInputEditText;
-import com.google.android.material.textfield.TextInputLayout;
 import com.infinity.monginis.CategoryItemsDetails.Activity.CategoryItemsDetailsActivity;
 import com.infinity.monginis.R;
 import com.infinity.monginis.api.ApiImplementer;
 import com.infinity.monginis.api.ApiUrls;
 import com.infinity.monginis.custom_class.TextViewRegularFont;
-import com.infinity.monginis.dashboard.activity.BottomSheetDialogForCheckOut;
 import com.infinity.monginis.dashboard.activity.CartActivity;
-import com.infinity.monginis.dashboard.activity.ConfirmOrderActivity;
-import com.infinity.monginis.dashboard.activity.CustomizeScreenActivity;
 import com.infinity.monginis.dashboard.activity.DashboardActivity;
-import com.infinity.monginis.dashboard.activity.ItemDetailsActivity;
-import com.infinity.monginis.dashboard.adapter.DashboardViewPagerAdapter;
-import com.infinity.monginis.dashboard.fragments.CartFragment;
-import com.infinity.monginis.dashboard.fragments.ExploreFragment;
-import com.infinity.monginis.dashboard.fragments.ProfileFragment;
-import com.infinity.monginis.dashboard.fragments.SearchFragment;
+import com.infinity.monginis.itemDetails.ItemDetailsActivity;
 import com.infinity.monginis.login.Pojo.CheckOTPVerifyPojo;
 import com.infinity.monginis.utils.CommonUtil;
 import com.infinity.monginis.utils.ConnectionDetector;
@@ -44,8 +31,6 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 import static com.infinity.monginis.dashboard.activity.DashboardActivity.vpDashboard;
-import static com.infinity.monginis.dashboard.adapter.PopularItemsAdapter.isFromSpecialOrderItem;
-import static com.infinity.monginis.dashboard.adapter.TopCategoriesAdapter.isFromTopCategories;
 
 public class BsVerifyOtp extends BottomSheetDialogFragment implements View.OnClickListener {
 

@@ -1,4 +1,4 @@
-package com.infinity.monginis.dashboard.adapter;
+package com.infinity.monginis.confrimOrder.adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -9,9 +9,8 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.infinity.monginis.R;
-import com.infinity.monginis.custom_class.TextViewMediumFont;
 import com.infinity.monginis.custom_class.TextViewRegularFont;
-import com.infinity.monginis.dashboard.pojo.ConfrimOrderReponsePojo;
+import com.infinity.monginis.confrimOrder.pojo.GetPartialOrderDetailReponsePojo;
 import com.infinity.monginis.utils.CommonUtil;
 
 import org.jetbrains.annotations.NotNull;
@@ -21,11 +20,11 @@ public class ConfirmOrderAccessoriesAdapter  extends RecyclerView.Adapter<Confir
 
 
     private Context context;
-    private ConfrimOrderReponsePojo confrimOrderReponsePojo;
+    private GetPartialOrderDetailReponsePojo getPartialOrderDetailReponsePojo;
 
-    public ConfirmOrderAccessoriesAdapter(Context context, ConfrimOrderReponsePojo confrimOrderReponsePojo) {
+    public ConfirmOrderAccessoriesAdapter(Context context, GetPartialOrderDetailReponsePojo getPartialOrderDetailReponsePojo) {
         this.context = context;
-        this.confrimOrderReponsePojo = confrimOrderReponsePojo;
+        this.getPartialOrderDetailReponsePojo = getPartialOrderDetailReponsePojo;
     }
 
     @NonNull
@@ -39,19 +38,19 @@ public class ConfirmOrderAccessoriesAdapter  extends RecyclerView.Adapter<Confir
     @Override
     public void onBindViewHolder(@NonNull @NotNull ConfirmOrderAccessoriesAdapter.MyViewholder holder, int position) {
 
-        if (!CommonUtil.checkIsEmptyOrNullCommon(confrimOrderReponsePojo.getRecords().getAccesories().get(position).getLinkItem())){
-            holder.tvName.setText(confrimOrderReponsePojo.getRecords().getAccesories().get(position).getLinkItem()+"");
+        if (!CommonUtil.checkIsEmptyOrNullCommon(getPartialOrderDetailReponsePojo.getRecords().getAccesories().get(position).getLinkItem())){
+            holder.tvName.setText(getPartialOrderDetailReponsePojo.getRecords().getAccesories().get(position).getLinkItem()+"");
         }
 
-        if (!CommonUtil.checkIsEmptyOrNullCommon(confrimOrderReponsePojo.getRecords().getAccesories().get(position).getQuantity())){
-            holder.tvQty.setText(confrimOrderReponsePojo.getRecords().getAccesories().get(position).getQuantity()+"");
+        if (!CommonUtil.checkIsEmptyOrNullCommon(getPartialOrderDetailReponsePojo.getRecords().getAccesories().get(position).getQuantity())){
+            holder.tvQty.setText(getPartialOrderDetailReponsePojo.getRecords().getAccesories().get(position).getQuantity()+"");
         }
 
     }
 
     @Override
     public int getItemCount() {
-        return confrimOrderReponsePojo.getRecords().getAccesories().size();
+        return getPartialOrderDetailReponsePojo.getRecords().getAccesories().size();
     }
 
     public class MyViewholder extends RecyclerView.ViewHolder {

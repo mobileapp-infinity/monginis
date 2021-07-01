@@ -1,4 +1,4 @@
-package com.infinity.monginis.dashboard.activity;
+package com.infinity.monginis.itemDetails;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatImageView;

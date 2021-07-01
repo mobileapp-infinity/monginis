@@ -43,7 +43,7 @@
         <activity android:name=".favourites.FavouriteItemActivity"></activity>
         <activity android:name=".favourites.ShopFavouriteActivity" />
         <activity android:name=".manageAddress.AddNewaddressActivity" />
-        <activity android:name=".dashboard.activity.ConfirmOrderScreenActivity" />
+        <activity android:name=".confrimOrder.activity.ConfirmOrderScreenActivity" />
         <activity android:name=".dashboard.activity.ItemDetailsNewActivity" />
         <activity android:name=".addson.activity.AddsOnActivity" />
         <activity android:name=".dashboard.activity.SectionsubCategoryActivity" />
@@ -68,7 +68,7 @@
             android:name=".dashboard.activity.EditUserDetailsActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".dashboard.activity.ItemDetailsActivity"
+            android:name=".itemDetails.ItemDetailsActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".login.LoginActivity"

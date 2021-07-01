@@ -4,7 +4,7 @@ import com.infinity.monginis.CategoryItemsDetails.Pojo.ItemDetailsByCategoryPojo
 import com.infinity.monginis.ShopForItemActiivty.pojo.GetShopListForItemStockPojo;
 import com.infinity.monginis.ShopForItemActiivty.pojo.ShopLikeDislikePojo;
 import com.infinity.monginis.dashboard.pojo.AddAddressResponsePojo;
-import com.infinity.monginis.dashboard.pojo.ConfrimOrderReponsePojo;
+import com.infinity.monginis.confrimOrder.pojo.GetPartialOrderDetailReponsePojo;
 import com.infinity.monginis.dashboard.pojo.DeleteAddressPojo;
 import com.infinity.monginis.dashboard.pojo.GetAllCityPojo;
 import com.infinity.monginis.dashboard.pojo.GetAllShopPojo;
@@ -211,9 +211,9 @@ public class ApiImplementer {
 
 
     public static void getPartialOrderDetails(String app_version, String android_id,
-                                              String device_id, String user_id, String key, String comp_id, String id, Callback<ConfrimOrderReponsePojo> cb ){
+                                              String device_id, String user_id, String key, String comp_id, String id, Callback<GetPartialOrderDetailReponsePojo> cb ){
         final IApiInterface apiService = ApiClient.getClient().create(IApiInterface.class);
-        Call<ConfrimOrderReponsePojo> call = apiService.Get_partial_order_detail(app_version, android_id, device_id, user_id, key, comp_id,id);
+        Call<GetPartialOrderDetailReponsePojo> call = apiService.Get_partial_order_detail(app_version, android_id, device_id, user_id, key, comp_id,id);
         call.enqueue(cb);
 
     }

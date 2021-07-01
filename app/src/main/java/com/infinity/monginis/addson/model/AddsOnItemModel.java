@@ -1,4 +1,4 @@
-package com.infinity.monginis.dashboard.model;
+package com.infinity.monginis.addson.model;
 
 public class AddsOnItemModel {
 

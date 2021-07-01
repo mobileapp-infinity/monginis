@@ -37,11 +37,12 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 
-public class ItemDetailsByCategoryAdapter extends BaseAdapter /*implements Filterable*/ {
+public class ItemDetailsByCategoryAdapter extends BaseAdapter implements Filterable {
 
     private Context context;
     private MySharedPreferences mySharedPreferences;
     private ItemDetailsByCategoryPojo itemDetailsByCategoryPojo;
+    private ItemDetailsByCategoryPojo filterdItemDetails;
     private IOnItemClickListener iOnItemClickListener;
 
     private ArrayList<String> saveFavouriteItemList;
@@ -54,8 +55,9 @@ public class ItemDetailsByCategoryAdapter extends BaseAdapter /*implements Filte
     private HashMap<String, ArrayList<String>> selectedFavouriteItemList;
     private boolean isFromShopLikes, isFromItemLikes;
 
+    private ArrayList<ItemDetailsByCategoryPojo>itemDetailsByCategoryPojoArrayList;
 
-    public ItemDetailsByCategoryAdapter(CategoryItemsDetailsActivity activity, Context context, ItemDetailsByCategoryPojo itemDetailsByCategoryPojo, ArrayList<String> saveFavouriteItemList) {
+    public ItemDetailsByCategoryAdapter(ArrayList<ItemDetailsByCategoryPojo>itemDetailsByCategoryPojoArrayList,CategoryItemsDetailsActivity activity, Context context, ItemDetailsByCategoryPojo itemDetailsByCategoryPojo, ArrayList<String> saveFavouriteItemList) {
         this.activity = activity;
         this.context = context;
         this.itemDetailsByCategoryPojo = itemDetailsByCategoryPojo;
@@ -64,7 +66,9 @@ public class ItemDetailsByCategoryAdapter extends BaseAdapter /*implements Filte
         selectedFavouriteItems = new ArrayList<>();
         selectedFavouriteItemList = new HashMap<>();
         gson = new Gson();
+        filterdItemDetails = itemDetailsByCategoryPojo;
         mySharedPreferences = new MySharedPreferences(context);
+        this.itemDetailsByCategoryPojoArrayList = itemDetailsByCategoryPojoArrayList;
     }
 
 
@@ -398,45 +402,48 @@ public class ItemDetailsByCategoryAdapter extends BaseAdapter /*implements Filte
 
    /* @Override
     public Filter getFilter() {
+        return null;
+    }
+*/
+    @Override
+    public Filter getFilter() {
         return new Filter() {
             @Override
             protected FilterResults performFiltering(CharSequence constraint) {
-                String charString = constraint.toString();
+                String filterString = constraint.toString().toLowerCase();
 
-                if (charString.isEmpty()) {
-                    cityFilteredList = cityList;
+                FilterResults results = new FilterResults();
 
-                } else {
-                    ArrayList<String> filteredList = new ArrayList<>();
+                final  ItemDetailsByCategoryPojo itemDetailsByCategoryPojoo  =  itemDetailsByCategoryPojo;
 
-                    for (String cityName : cityList) {
+                int count = itemDetailsByCategoryPojoo.getRECORDS().size();
+                final ArrayList<String> nlist = new ArrayList<String>(count);
 
-                        if (cityName.toLowerCase().contains(charString.toLowerCase())) {
+                ItemDetailsByCategoryPojo.RECORD itemDetailsByCategoryPojooo ;
 
-                            filteredList.add(cityName);
-                        }
-
+                for (int i = 0; i < count; i++) {
+                    itemDetailsByCategoryPojooo = itemDetailsByCategoryPojoo.getRECORDS().get(i);
+                    if (itemDetailsByCategoryPojooo.getItmName().toLowerCase().contains(filterString)) {
+                        //itemDetailsByCategoryPojooo =
                     }
-
-
-                    cityFilteredList = filteredList;
                 }
 
-                FilterResults filterResults = new FilterResults();
-                filterResults.values = cityFilteredList;
-                return filterResults;
+                results.values = nlist;
+                results.count = nlist.size();
+
+                return results;
             }
 
             @Override
             protected void publishResults(CharSequence constraint, FilterResults results) {
 
-                cityFilteredList = (ArrayList<String>) results.values;
+               // cityFilteredList = (ArrayList<String>) results.values;
 
 
-                notifyDataSetChanged();
+                //notifyDataSetChanged();
             }
         };
-    }*/
+    }
 
 
     public interface IOnItemClickListener {

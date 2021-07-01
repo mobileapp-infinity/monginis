@@ -29,6 +29,7 @@ import com.infinity.monginis.api.ApiUrls;
 import com.infinity.monginis.custom_class.TextViewRegularFont;
 import com.infinity.monginis.dashboard.pojo.GetItemLikeDislikePojo;
 import com.infinity.monginis.dashboard.pojo.ItemLikeDisLikePojo;
+import com.infinity.monginis.favourites.FavouriteAdapter;
 import com.infinity.monginis.utils.CommonUtil;
 import com.infinity.monginis.utils.ConnectionDetector;
 import com.infinity.monginis.utils.DialogUtil;
@@ -135,7 +136,7 @@ public class CategoryItemsDetailsActivity extends AppCompatActivity implements V
 
             @Override
             public void afterTextChanged(Editable s) {
-                //itemDetailsByCategoryAdapter.getFilter().filter(s.toString());
+                itemDetailsByCategoryAdapter.getFilter().filter(s.toString());
             }
         });
         edtItemSearch.setOnTouchListener(new View.OnTouchListener() {
@@ -181,6 +182,7 @@ public class CategoryItemsDetailsActivity extends AppCompatActivity implements V
 
                     try {
 
+                        ArrayList<ItemDetailsByCategoryPojo>itemDetailsByCategoryPojoArrayList = new ArrayList<>();
                         if (response.isSuccessful() && response.body() != null) {
 
                             ItemDetailsByCategoryPojo itemDetailsByCategoryPojo = response.body();
@@ -202,9 +204,12 @@ public class CategoryItemsDetailsActivity extends AppCompatActivity implements V
 
                                     }
 
+                                    itemDetailsByCategoryPojoArrayList.add(itemDetailsByCategoryPojo);
+
+
                                 }
                                 llItemDetailsByCategory.setVisibility(View.VISIBLE);
-                                itemDetailsByCategoryAdapter = new ItemDetailsByCategoryAdapter(CategoryItemsDetailsActivity.this,CategoryItemsDetailsActivity.this, itemDetailsByCategoryPojo, saveFavouriteItemList);
+                                itemDetailsByCategoryAdapter = new ItemDetailsByCategoryAdapter(itemDetailsByCategoryPojoArrayList,CategoryItemsDetailsActivity.this,CategoryItemsDetailsActivity.this, itemDetailsByCategoryPojo, saveFavouriteItemList);
                                 gvItemByCategory.setAdapter(itemDetailsByCategoryAdapter);
 
 
@@ -421,6 +426,7 @@ public class CategoryItemsDetailsActivity extends AppCompatActivity implements V
             }
         });
     }
+
 
 
     public class ItemLikeDislikeModel{
