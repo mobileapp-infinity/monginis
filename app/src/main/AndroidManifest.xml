@@ -40,10 +40,14 @@
         android:supportsRtl="true"
         android:theme="@style/App.Theme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".dashboard.activity.ItemDetailsNewActivity"></activity>
-        <activity android:name=".dashboard.activity.AddsOnActivity" />
+        <activity android:name=".favourites.FavouriteItemActivity"></activity>
+        <activity android:name=".favourites.ShopFavouriteActivity" />
+        <activity android:name=".manageAddress.AddNewaddressActivity" />
+        <activity android:name=".dashboard.activity.ConfirmOrderScreenActivity" />
+        <activity android:name=".dashboard.activity.ItemDetailsNewActivity" />
+        <activity android:name=".addson.activity.AddsOnActivity" />
         <activity android:name=".dashboard.activity.SectionsubCategoryActivity" />
-        <activity android:name=".ShopForItemActiivty.ShopForItemActivity" />
+        <activity android:name=".ShopForItemActiivty.Activity.ShopForItemActivity" />
         <activity android:name=".Map.MapActivity" />
         <activity android:name=".CategoryItemsDetails.Activity.CategoryItemsDetailsActivity" />
         <activity android:name=".dashboard.activity.SelectCityActivity" />
@@ -53,7 +57,7 @@
         <activity android:name=".dashboard.activity.MongininsWalletActivity" />
         <activity android:name=".dashboard.activity.ApplyCoupenCodeActivity" />
         <activity android:name=".dashboard.activity.MyOrdersScreenActivity" />
-        <activity android:name=".dashboard.activity.AddressActivity" />
+        <activity android:name=".manageAddress.AddressActivity" />
         <activity android:name=".dashboard.activity.MyOrdersActivity" />
         <activity android:name=".dashboard.activity.DiscountCodeActivity" />
         <activity android:name=".dashboard.activity.PaymentOptionsActivity" />

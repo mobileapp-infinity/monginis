@@ -15,13 +15,15 @@ import android.widget.LinearLayout;
 import com.infinity.monginis.R;
 import com.infinity.monginis.custom_class.TextViewMediumFont;
 import com.infinity.monginis.custom_class.TextViewRegularFont;
-import com.infinity.monginis.dashboard.activity.AddressActivity;
-import com.infinity.monginis.dashboard.activity.MyOrdersActivity;
+import com.infinity.monginis.favourites.FavouriteItemActivity;
+import com.infinity.monginis.favourites.ShopFavouriteActivity;
+import com.infinity.monginis.manageAddress.AddressActivity;
 import com.infinity.monginis.dashboard.activity.MyOrdersScreenActivity;
 import com.infinity.monginis.dashboard.activity.PaymentOptionsActivity;
-import com.infinity.monginis.login.SplashActivity;
 import com.infinity.monginis.utils.CommonUtil;
 import com.infinity.monginis.utils.MySharedPreferences;
+
+import static com.infinity.monginis.dashboard.activity.DashboardActivity.vpDashboard;
 
 public class ProfileFragment extends Fragment implements View.OnClickListener {
 
@@ -36,6 +38,7 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
     private Dialog dialog;
     private MySharedPreferences mySharedPreferences;
     private TextViewMediumFont tvCustomerName;
+    private LinearLayout llFavouriteShop,llFavouriteItems;
 
     TextViewRegularFont tvEdit;
 
@@ -66,10 +69,13 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
     }
 
     private void initView(View view) {
+        llFavouriteItems = view.findViewById(R.id.llFavouriteItems);
+        llFavouriteItems.setOnClickListener(this);
         llMyOrders = view.findViewById(R.id.llMyOrders);
         llManageAddress = view.findViewById(R.id.llManageAddress);
         llPayments = view.findViewById(R.id.llPayments);
-        llFavourites = view.findViewById(R.id.llFavourites);
+        llFavouriteShop = view.findViewById(R.id.llFavouriteShop);
+        llFavouriteShop.setOnClickListener(this);
         llHelp = view.findViewById(R.id.llHelp);
         llLogout = view.findViewById(R.id.llLogout);
         tvEdit = view.findViewById(R.id.tvEdit);
@@ -87,8 +93,8 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
         llMyOrders.setOnClickListener(this);
         llManageAddress.setOnClickListener(this);
         llPayments.setOnClickListener(this);
-        llFavourites.setOnClickListener(this);
-        llFavourites.setOnClickListener(this);
+
+     //   llFavourites.setOnClickListener(this);
         llHelp.setOnClickListener(this);
         llLogout.setOnClickListener(this);
         tvEdit.setOnClickListener(this);
@@ -114,7 +120,10 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
             Intent paymentOptions = new Intent(getActivity(), PaymentOptionsActivity.class);
             startActivity(paymentOptions);
 
-        } else if (view.getId() == R.id.llFavourites) {
+        } else if (view.getId() == R.id.llFavouriteShop) {
+
+            Intent intent = new Intent(getActivity(), ShopFavouriteActivity.class);
+            startActivity(intent);
 
         } else if (view.getId() == R.id.llHelp) {
 
@@ -125,6 +134,9 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
 
         } else if (view.getId() == R.id.tvEdit) {
 
+        }else if (view.getId() == R.id.llFavouriteItems){
+            Intent manageAddresses = new Intent(getActivity(), FavouriteItemActivity.class);
+            startActivity(manageAddresses);
         }
     }
 
@@ -143,7 +155,7 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
 
                 dialog.dismiss();
                 mySharedPreferences.setUserMobileNo("");
-                getActivity().finish();
+                vpDashboard.setCurrentItem(0);
             }
         });
 

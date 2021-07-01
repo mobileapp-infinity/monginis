@@ -5,12 +5,18 @@ public class TestPojo {
     String shopName;
     String shopAddress;
     int is_special_flag;
+    int customerId;
+    boolean isAlreadyLikedOrNot;
+    boolean isAvailableInLikedList;
 
 
-    public TestPojo(String shopName, String shopAddress,int is_special_flag) {
+    public TestPojo(String shopName, String shopAddress,int is_special_flag,int customerId,boolean isAlreadyLikedOrNot,boolean isAvailableInLikedList) {
         this.shopName = shopName;
         this.shopAddress = shopAddress;
         this.is_special_flag = is_special_flag;
+        this.customerId = customerId;
+        this.isAlreadyLikedOrNot = isAlreadyLikedOrNot;
+        this.isAvailableInLikedList = isAvailableInLikedList;
     }
 
     public TestPojo() {
@@ -40,5 +46,30 @@ public class TestPojo {
 
     public void setIs_special_flag(int is_special_flag) {
         this.is_special_flag = is_special_flag;
+    }
+
+    public int getCustomerId() {
+        return customerId;
+    }
+
+    public void setCustomerId(int customerId) {
+        this.customerId = customerId;
+    }
+
+
+    public boolean isAlreadyLikedOrNot() {
+        return isAlreadyLikedOrNot;
+    }
+
+    public void setAlreadyLikedOrNot(boolean alreadyLikedOrNot) {
+        isAlreadyLikedOrNot = alreadyLikedOrNot;
+    }
+
+    public boolean isAvailableInLikedList() {
+        return isAvailableInLikedList;
+    }
+
+    public void setAvailableInLikedList(boolean availableInLikedList) {
+        isAvailableInLikedList = availableInLikedList;
     }
 }

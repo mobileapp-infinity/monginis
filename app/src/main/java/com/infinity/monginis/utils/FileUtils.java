@@ -401,12 +401,12 @@ public class FileUtils {
      */
     public static Bitmap getThumbnail(Context context, Uri uri, String mimeType) {
         if (DEBUG)
-           // Log.d(TAG, "Attempting to get thumbnail");
+            // Log.d(TAG, "Attempting to get thumbnail");
 
-        if (!isMediaUri(uri)) {
-            //Log.e(TAG, "You can only retrieve thumbnails for images and videos.");
-            return null;
-        }
+            if (!isMediaUri(uri)) {
+                //Log.e(TAG, "You can only retrieve thumbnails for images and videos.");
+                return null;
+            }
 
         Bitmap bm = null;
         if (uri != null) {
@@ -417,22 +417,22 @@ public class FileUtils {
                 if (cursor.moveToFirst()) {
                     final int id = cursor.getInt(0);
                     if (DEBUG)
-                       // Log.d(TAG, "Got thumb ID: " + id);
+                        // Log.d(TAG, "Got thumb ID: " + id);
 
-                    if (mimeType.contains("video")) {
-                        bm = MediaStore.Video.Thumbnails.getThumbnail(
-                                resolver,
-                                id,
-                                MediaStore.Video.Thumbnails.MINI_KIND,
-                                null);
-                    }
-                    else if (mimeType.contains(FileUtils.MIME_TYPE_IMAGE)) {
-                        bm = MediaStore.Images.Thumbnails.getThumbnail(
-                                resolver,
-                                id,
-                                MediaStore.Images.Thumbnails.MINI_KIND,
-                                null);
-                    }
+                        if (mimeType.contains("video")) {
+                            bm = MediaStore.Video.Thumbnails.getThumbnail(
+                                    resolver,
+                                    id,
+                                    MediaStore.Video.Thumbnails.MINI_KIND,
+                                    null);
+                        }
+                        else if (mimeType.contains(FileUtils.MIME_TYPE_IMAGE)) {
+                            bm = MediaStore.Images.Thumbnails.getThumbnail(
+                                    resolver,
+                                    id,
+                                    MediaStore.Images.Thumbnails.MINI_KIND,
+                                    null);
+                        }
                 }
             } catch (Exception e) {
                 if (DEBUG)

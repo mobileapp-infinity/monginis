@@ -59,6 +59,7 @@ dependencies {
     implementation 'xyz.peridy.shimmer:shimmerlayout:1.1'
     implementation 'com.github.mike14u:shimmer-recyclerview-x:1.0.3'
     testImplementation 'junit:junit:4.+'
+    implementation 'org.jetbrains:annotations:16.0.2'
     implementation 'de.hdodenhof:circleimageview:3.1.0'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'

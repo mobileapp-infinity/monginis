@@ -21,13 +21,13 @@ import com.infinity.monginis.dashboard.activity.BottomSheetDialogForSpecialOrder
 import com.infinity.monginis.dashboard.activity.ItemDetailsActivity;
 import com.infinity.monginis.utils.CommonUtil;
 
-public class BottomSheetDialogPlaceOrder extends BottomSheetDialogFragment implements View.OnClickListener {
+public class BsPlaceOrder extends BottomSheetDialogFragment implements View.OnClickListener {
 
     private ItemDetailsActivity activity;
     private LinearLayout llRepeatLast;
     private LinearLayout llIWillChoose;
 
-    public BottomSheetDialogPlaceOrder(ItemDetailsActivity activity) {
+    public BsPlaceOrder(ItemDetailsActivity activity) {
         this.activity = activity;
     }
 

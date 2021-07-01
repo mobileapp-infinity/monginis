@@ -1,11 +1,14 @@
 package com.infinity.monginis.dashboard.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.AppCompatEditText;
+import androidx.appcompat.widget.AppCompatImageView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.GridView;
 import android.widget.ImageView;
@@ -41,7 +44,9 @@ public class SectionsubCategoryActivity extends AppCompatActivity implements Sub
     private ImageView ivBack;
 
     private LinearLayoutManager linearLayoutManager;
+    private AppCompatImageView imgSearch;
     private LinearLayout llNoDataFoundShopList;
+    private AppCompatEditText edtItemSearch;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,12 +60,14 @@ public class SectionsubCategoryActivity extends AppCompatActivity implements Sub
     private void initView(){
         connectionDetector = new ConnectionDetector(this);
         ivBack = findViewById(R.id.ivBack);
+       // edtItemSearch = findViewById(R.id.edtItemSearch);
         ivBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 onBackPressed();
             }
         });
+
         secitonId = getIntent().getStringExtra("sectionId");
         sectionName = getIntent().getStringExtra("sectionName");
         linearLayoutManager = new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false);
@@ -70,6 +77,7 @@ public class SectionsubCategoryActivity extends AppCompatActivity implements Sub
         llNoDataFoundShopList = findViewById(R.id.llNoDataFoundShopList);
      //   rvSubCategory.setLayoutManager(linearLayoutManager);
         mySharedPreferences = new MySharedPreferences(this);
+
 
     }
 

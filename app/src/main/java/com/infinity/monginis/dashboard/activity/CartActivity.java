@@ -1,7 +1,6 @@
 package com.infinity.monginis.dashboard.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -12,12 +11,10 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.Toast;
 
 import com.infinity.monginis.R;
 import com.infinity.monginis.dashboard.adapter.CartScreenAdapter;
-import com.infinity.monginis.login.BottomSheetDialogForLoginUser;
-import com.infinity.monginis.login.LoginActivity;
+import com.infinity.monginis.login.BsLogin;
 
 public class CartActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -74,7 +71,7 @@ public class CartActivity extends AppCompatActivity implements View.OnClickListe
         Toast.makeText(this, toastMsg, Toast.LENGTH_LONG).show();*/
     }
 
-    BottomSheetDialogForLoginUser bottomSheetDialogForLoginUser = new BottomSheetDialogForLoginUser(CartActivity.this);
+    BsLogin bsLogin = new BsLogin(CartActivity.this);
 
     @Override
     public void onClick(View view) {

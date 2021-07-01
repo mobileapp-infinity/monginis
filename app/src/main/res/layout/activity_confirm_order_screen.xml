@@ -1,0 +1,747 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:background="@color/OFFWHITE"
+    android:layout_height="match_parent"
+    tools:context=".dashboard.activity.ConfirmOrderScreenActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="vertical"
+        android:layout_height="match_parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="52dp"
+            android:background="@color/colorPrimary"
+            android:gravity="center_vertical"
+            android:padding="4dp">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:layout_width="30dp"
+                android:id="@+id/ivBack"
+                android:layout_height="match_parent"
+                android:src="@drawable/ic_back"
+                android:tint="@color/color_white" />
+
+            <com.infinity.monginis.custom_class.TextViewRegularFont
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:id="@+id/tvSelectedCategory"
+                android:text="Confirm Order"
+                android:textColor="@color/color_white"
+                android:textSize="@dimen/text_14sp" />
+
+        </LinearLayout>
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <LinearLayout
+                android:layout_margin="8dp"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:id="@+id/llMain"
+
+                android:visibility="visible"
+                android:layout_height="match_parent">
+
+                <LinearLayout
+                    android:background="@drawable/border_cat_mainn"
+                    android:layout_width="match_parent"
+                    android:orientation="vertical"
+                    android:layout_height="wrap_content">
+
+
+
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_margin="8dp"
+                    android:orientation="vertical"
+                    android:layout_height="wrap_content">
+
+                    <com.infinity.monginis.custom_class.TextViewMediumFont
+                        android:layout_width="wrap_content"
+
+
+
+                        android:padding="5dp"
+                        android:layout_gravity="center"
+                        android:id="@+id/tvProductName"
+                        android:textColor="@color/black"
+                        android:textAlignment="center"
+                        android:layout_height="wrap_content"/>
+
+
+                    <LinearLayout
+                        android:layout_marginTop="8dp"
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <com.infinity.monginis.custom_class.TextViewMediumFont
+                            android:layout_width="wrap_content"
+                            android:text="Weight :"
+
+                            android:layout_weight="1"
+
+                            android:layout_height="match_parent"
+                            />
+
+                        <com.infinity.monginis.custom_class.TextViewMediumFont
+                            android:layout_width="wrap_content"
+                            android:text=""
+                            android:id="@+id/tvWeight"
+                            android:layout_weight="1"
+                            android:textColor="@color/black"
+                            android:layout_height="match_parent"
+                            />
+
+                    </LinearLayout>
+                    <LinearLayout
+                        android:orientation="horizontal"
+                        android:layout_marginTop="10dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <com.infinity.monginis.custom_class.TextViewMediumFont
+                            android:layout_width="wrap_content"
+                            android:text="Flavour :"
+                            android:layout_weight="1"
+                            android:layout_height="match_parent"
+                            />
+
+                        <com.infinity.monginis.custom_class.TextViewMediumFont
+                            android:layout_width="wrap_content"
+                            android:text=""
+                            android:id="@+id/tvFlavour"
+                            android:textColor="@color/black"
+                            android:layout_weight="1"
+                            android:layout_height="match_parent"
+                            />
+
+                    </LinearLayout>
+                    <LinearLayout
+                        android:orientation="horizontal"
+                        android:layout_marginTop="10dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <com.infinity.monginis.custom_class.TextViewMediumFont
+                            android:layout_width="wrap_content"
+                            android:text="Shape :"
+                            android:layout_weight="1"
+                            android:layout_height="match_parent"
+                            />
+
+                        <com.infinity.monginis.custom_class.TextViewMediumFont
+                            android:layout_width="wrap_content"
+                            android:text=""
+                            android:id="@+id/tvShape"
+                            android:textColor="@color/black"
+                            android:layout_weight="1"
+                            android:layout_height="match_parent"
+                            />
+
+                    </LinearLayout>
+
+
+
+
+                </LinearLayout>
+
+                <View
+                    android:layout_margin="8dp"
+                    android:id="@+id/divider"
+                    android:layout_width="match_parent"
+                    android:layout_height="4dp"
+                    android:backgroundTint="@color/colorPrimary"
+                    android:background="?android:attr/listDivider" />
+
+
+
+                <com.infinity.monginis.custom_class.TextViewMediumFont
+                    android:layout_width="wrap_content"
+
+                    android:text="Adds On"
+                    android:padding="5dp"
+                    android:layout_gravity="center"
+
+
+                    android:textColor="@color/black"
+                    android:textAlignment="center"
+                    android:layout_height="wrap_content"/>
+
+                <LinearLayout
+                    android:layout_margin="8dp"
+                    android:orientation="horizontal"
+                    android:padding="8dp"
+                    android:layout_marginTop="8dp"
+                    android:background="@drawable/bg_adds_on_shape"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <com.infinity.monginis.custom_class.TextViewMediumFont
+                        android:layout_width="0dp"
+                        android:text="Name"
+                        android:textAlignment="center"
+                        android:textColor="@android:color/white"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content"/>
+
+                    <com.infinity.monginis.custom_class.TextViewMediumFont
+                        android:layout_width="0dp"
+                        android:text="QTY"
+                        android:textColor="@android:color/white"
+                        android:layout_weight="1"
+                        android:textAlignment="center"
+                        android:layout_height="wrap_content"/>
+
+                    <com.infinity.monginis.custom_class.TextViewMediumFont
+                        android:layout_width="0dp"
+                        android:text="Price"
+                        android:textAlignment="center"
+                        android:textColor="@android:color/white"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content"/>
+
+
+                </LinearLayout>
+                <androidx.recyclerview.widget.RecyclerView
+                    android:layout_width="match_parent"
+                    android:layout_margin="8dp"
+                    android:id="@+id/rvAddsOn"
+                    android:layout_height="wrap_content"/>
+
+                <View
+                    android:layout_margin="8dp"
+                    android:id="@+id/divider"
+                    android:layout_width="match_parent"
+                    android:layout_height="4dp"
+                    android:backgroundTint="@color/colorPrimary"
+                    android:background="?android:attr/listDivider" />
+
+
+                <com.infinity.monginis.custom_class.TextViewMediumFont
+                    android:layout_width="wrap_content"
+
+                    android:text="Accessories"
+                    android:padding="5dp"
+                    android:layout_gravity="center"
+
+
+                    android:textColor="@color/black"
+                    android:textAlignment="center"
+                    android:layout_height="wrap_content"/>
+
+                <LinearLayout
+                    android:layout_margin="8dp"
+                    android:orientation="horizontal"
+                    android:padding="8dp"
+                    android:layout_marginTop="8dp"
+                    android:background="@drawable/bg_adds_on_shape"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <com.infinity.monginis.custom_class.TextViewMediumFont
+                        android:layout_width="0dp"
+                        android:text="Name"
+                        android:textAlignment="center"
+                        android:textColor="@android:color/white"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content"/>
+
+                    <com.infinity.monginis.custom_class.TextViewMediumFont
+                        android:layout_width="0dp"
+                        android:text="QTY"
+                        android:textColor="@android:color/white"
+                        android:layout_weight="1"
+                        android:textAlignment="center"
+                        android:layout_height="wrap_content"/>
+
+                    <com.infinity.monginis.custom_class.TextViewMediumFont
+                        android:layout_width="0dp"
+                        android:text="Price"
+                        android:visibility="gone"
+                        android:textAlignment="center"
+                        android:textColor="@android:color/white"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content"/>
+
+
+                </LinearLayout>
+                <androidx.recyclerview.widget.RecyclerView
+                    android:layout_width="match_parent"
+                    android:layout_margin="8dp"
+                    android:id="@+id/rvAcessories"
+                    android:layout_height="wrap_content"/>
+
+                <View
+                    android:layout_margin="8dp"
+                    android:id="@+id/divider"
+                    android:layout_marginBottom="8dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="4dp"
+                    android:backgroundTint="@color/colorPrimary"
+                    android:background="?android:attr/listDivider" />
+
+                </LinearLayout>
+
+                <com.infinity.monginis.custom_class.TextViewMediumFont
+                    android:layout_width="wrap_content"
+
+                    android:text="Delivery Details"
+                    android:padding="5dp"
+                    android:layout_gravity="center"
+
+
+                    android:textColor="@color/black"
+                    android:textAlignment="center"
+                    android:layout_height="wrap_content"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:weightSum="2">
+
+                    <com.infinity.monginis.custom_class.TextViewMediumFont
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:layout_weight="1"
+                        android:lines="1"
+                        android:maxLines="1"
+                        android:text="PickUp Date : "
+                        ></com.infinity.monginis.custom_class.TextViewMediumFont>
+
+                    <com.infinity.monginis.custom_class.TextViewRegularFont
+                        android:id="@+id/tvPickupDate"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:layout_weight="1"
+
+                        android:gravity="center"
+                        android:background="@drawable/border_cat_mainn"
+                        android:lines="2"
+                        android:text="455555"
+                        app:fontFamily="@font/poppins_regular"
+                        android:textColor="@color/black"
+                        ></com.infinity.monginis.custom_class.TextViewRegularFont>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:weightSum="2">
+
+                    <com.infinity.monginis.custom_class.TextViewMediumFont
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:layout_weight="1"
+                        android:lines="1"
+                        android:maxLines="1"
+                        android:text="PickUp Time : "
+
+                        ></com.infinity.monginis.custom_class.TextViewMediumFont>
+
+                    <com.infinity.monginis.custom_class.TextViewRegularFont
+                        android:id="@+id/tvPickUpTime"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/border_cat_mainn"
+                        android:lines="2"
+                        android:text=" "
+
+                        android:gravity="center"
+                        android:textColor="@color/black"
+                        ></com.infinity.monginis.custom_class.TextViewRegularFont>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:weightSum="2">
+
+                    <com.infinity.monginis.custom_class.TextViewMediumFont
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:layout_weight="1"
+                        android:lines="1"
+                        android:maxLines="1"
+                        android:text="Order By : "
+
+                        ></com.infinity.monginis.custom_class.TextViewMediumFont>
+
+                    <androidx.appcompat.widget.AppCompatEditText
+                        android:id="@+id/tvOrderBy"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:layout_weight="1"
+                        app:fontFamily="@font/poppins_regular"
+                        android:padding="5dp"
+                        android:background="@drawable/border_cat_mainn"
+                        android:hint="Person Name (Who has Ordered)"
+                        android:lines="2"
+                        android:maxLines="2"
+                        android:textStyle="bold"
+                        android:gravity="center"
+                        android:text=""
+                        android:textSize="@dimen/text_12sp"
+                        android:textColor="@color/black"
+                        >
+
+                    </androidx.appcompat.widget.AppCompatEditText>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:weightSum="2">
+
+                    <com.infinity.monginis.custom_class.TextViewMediumFont
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:layout_weight="1"
+                        android:lines="1"
+                        android:maxLines="1"
+                        android:text="Order For : "
+                        ></com.infinity.monginis.custom_class.TextViewMediumFont>
+
+                    <androidx.appcompat.widget.AppCompatEditText
+                        android:id="@+id/tvOrderFor"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        app:fontFamily="@font/poppins_regular"
+                        android:layout_marginTop="5dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/border_cat_mainn"
+                        android:hint="Person Name (Relation)"
+                        android:lines="2"
+                        android:textStyle="bold"
+                        android:maxLines="2"
+                        android:padding="5dp"
+                        android:gravity="center"
+                        android:text=""
+                        android:textColor="@color/black"
+                        android:textSize="12sp">
+
+                    </androidx.appcompat.widget.AppCompatEditText>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:weightSum="2">
+
+                    <com.infinity.monginis.custom_class.TextViewMediumFont
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:layout_weight="1"
+                        android:lines="1"
+                        android:maxLines="1"
+                        android:text="Date Of Birth : "
+
+                       ></com.infinity.monginis.custom_class.TextViewMediumFont>
+
+                    <androidx.appcompat.widget.AppCompatEditText
+                        android:id="@+id/tvDob"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/border_cat_mainn"
+                        android:hint=""
+                        android:lines="2"
+                        android:padding="5dp"
+                        android:textStyle="bold"
+                        android:fontFamily="@font/poppins_regular"
+                        android:focusable="false"
+                        android:gravity="center"
+                        android:maxLines="2"
+                        android:text=""
+                        android:textColor="@color/black"
+                        android:textSize="12sp">
+
+                    </androidx.appcompat.widget.AppCompatEditText>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:weightSum="2">
+
+                    <com.infinity.monginis.custom_class.TextViewMediumFont
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:layout_weight="1"
+                        android:lines="1"
+                        android:maxLines="1"
+                        android:text="Anniversary date : "
+                        ></com.infinity.monginis.custom_class.TextViewMediumFont>
+
+                    <androidx.appcompat.widget.AppCompatEditText
+                        android:id="@+id/tvAnniversaryDate"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:layout_weight="1"
+                        android:focusable="false"
+                        android:background="@drawable/border_cat_mainn"
+                        android:hint="Optional"
+                        android:lines="2"
+                        android:gravity="center"
+                        android:maxLines="2"
+                        android:padding="5dp"
+                        android:textStyle="bold"
+                        android:fontFamily="@font/poppins_regular"
+                        android:text=""
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/text_12sp">
+
+                    </androidx.appcompat.widget.AppCompatEditText>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:weightSum="2">
+
+                    <com.infinity.monginis.custom_class.TextViewMediumFont
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:layout_weight="1"
+                        android:lines="1"
+                        android:maxLines="1"
+                        android:text="Mobile No. : "
+                        ></com.infinity.monginis.custom_class.TextViewMediumFont>
+
+                    <androidx.appcompat.widget.AppCompatEditText
+                        android:id="@+id/tvMobileNo"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/border_cat_mainn"
+                        android:digits="0123456789"
+                        android:hint="+91"
+                        android:inputType="number"
+                        android:lines="2"
+                        android:maxLength="10"
+                        android:gravity="center"
+                        android:padding="5dp"
+                        android:textStyle="bold"
+                        android:fontFamily="@font/poppins_regular"
+                        android:maxLines="2"
+                        android:text=""
+                        android:textColor="@color/black"
+                        android:textSize="12sp">
+
+                    </androidx.appcompat.widget.AppCompatEditText>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:weightSum="2">
+
+                    <com.infinity.monginis.custom_class.TextViewMediumFont
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:layout_weight="1"
+                        android:lines="1"
+                        android:maxLines="1"
+                        android:text="Advance Amount : "
+                        ></com.infinity.monginis.custom_class.TextViewMediumFont>
+
+                    <androidx.appcompat.widget.AppCompatEditText
+                        android:id="@+id/tvAdvanceAmount"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/border_cat_mainn"
+                        android:digits="0123456789"
+                        android:hint=""
+                        android:inputType="number"
+                        android:lines="2"
+                        android:gravity="center"
+                        android:maxLength="10"
+                        android:maxLines="2"
+                        android:textStyle="bold"
+                        android:fontFamily="@font/poppins_regular"
+                        android:padding="5dp"
+                        android:text="0"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/text_12sp">
+
+                    </androidx.appcompat.widget.AppCompatEditText>
+                </LinearLayout>
+
+                <View
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp"
+                    android:layout_margin="8dp"
+                    android:id="@+id/divider"
+                    android:layout_width="match_parent"
+                    android:layout_height="4dp"
+                    android:backgroundTint="@color/colorPrimary"
+                    android:background="?android:attr/listDivider" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:weightSum="2">
+
+                    <com.infinity.monginis.custom_class.TextViewMediumFont
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:layout_weight="1"
+                        android:lines="1"
+                        android:maxLines="1"
+                        android:text="Remaining Amount : "
+                        ></com.infinity.monginis.custom_class.TextViewMediumFont>
+
+                    <androidx.appcompat.widget.AppCompatEditText
+                        android:id="@+id/tvRemainingAmount"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:background="@drawable/border_cat_mainn"
+                        android:digits="0123456789"
+                        android:hint=""
+                        android:focusable="false"
+                        android:inputType="number"
+                        android:lines="2"
+                        android:maxLength="10"
+                        android:maxLines="2"
+                        android:textStyle="bold"
+                        android:fontFamily="@font/poppins_regular"
+                        android:padding="5dp"
+                        android:text="0"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/text_12sp">
+
+                    </androidx.appcompat.widget.AppCompatEditText>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:weightSum="2">
+
+                    <com.infinity.monginis.custom_class.TextViewMediumFont
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:layout_weight="1"
+                        android:lines="1"
+                        android:maxLines="1"
+                        android:text="Amount Payable : "
+                        ></com.infinity.monginis.custom_class.TextViewMediumFont>
+
+                    <androidx.appcompat.widget.AppCompatEditText
+                        android:id="@+id/tvAmountPayable"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/border_cat_mainn"
+                        android:digits="0123456789"
+                        android:hint=""
+                        android:inputType="number"
+                        android:focusable="false"
+                        android:lines="2"
+                        android:gravity="center"
+                        android:maxLength="10"
+                        android:maxLines="2"
+                        android:textStyle="bold"
+                        android:fontFamily="@font/poppins_regular"
+                        android:padding="5dp"
+                        android:text="0"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/text_12sp">
+
+                    </androidx.appcompat.widget.AppCompatEditText>
+                </LinearLayout>
+
+
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:layout_marginTop="10dp"
+                    android:weightSum="2">
+
+                    <com.infinity.monginis.custom_class.TextViewMediumFont
+                        android:id="@+id/tv_back"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:padding="6dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/border_mian_cat_pink"
+                        android:gravity="center"
+                        android:lines="2"
+                        android:layout_margin="5dp"
+                        android:maxLines="2"
+                        android:text="Back"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/text_14sp"></com.infinity.monginis.custom_class.TextViewMediumFont>
+
+                    <com.infinity.monginis.custom_class.TextViewRegularFont
+                        android:id="@+id/tvConfirm"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="@drawable/border_mian_cat_pink"
+                        android:gravity="center"
+                        android:padding="6dp"
+                        android:lines="2"
+                        android:maxLines="2"   android:layout_margin="5dp"
+                        android:text="Confirm"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/text_14sp"></com.infinity.monginis.custom_class.TextViewRegularFont>
+                </LinearLayout>
+
+            </LinearLayout>
+        </ScrollView>
+
+
+
+
+
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

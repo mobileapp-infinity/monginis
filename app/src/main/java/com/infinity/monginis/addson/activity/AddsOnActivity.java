@@ -1,9 +1,8 @@
-package com.infinity.monginis.dashboard.activity;
+package com.infinity.monginis.addson.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -20,18 +19,16 @@ import com.infinity.monginis.api.ApiClient;
 import com.infinity.monginis.api.ApiImplementer;
 import com.infinity.monginis.api.ApiUrls;
 import com.infinity.monginis.api.IApiInterface;
-import com.infinity.monginis.dashboard.adapter.AddsOnAdapter;
-import com.infinity.monginis.dashboard.fragments.SearchFragment;
+import com.infinity.monginis.addson.adapter.AddsOnAdapter;
 import com.infinity.monginis.dashboard.pojo.Get_Addons_Items_List_Pojo;
-import com.infinity.monginis.dashboard.pojo.SavePartialOrderPojo;
 import com.infinity.monginis.utils.CommonUtil;
-import com.infinity.monginis.utils.DialogUtil;
 import com.infinity.monginis.utils.MySharedPreferences;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -44,10 +41,10 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 import static com.infinity.monginis.dashboard.activity.DashboardActivity.vpDashboard;
-import static com.infinity.monginis.dashboard.adapter.AddsOnAdapter.tvAddsOnCategoryName;
+import static com.infinity.monginis.addson.adapter.AddsOnAdapter.tvAddsOnCategoryName;
 
 public class AddsOnActivity extends AppCompatActivity implements View.OnClickListener {
-
+    RequestBody mFile = null;
     private ImageView ivBackAddsOn;
     private MySharedPreferences mySharedPreferences;
     IOnSubmit iOnSubmit;
@@ -57,6 +54,7 @@ public class AddsOnActivity extends AppCompatActivity implements View.OnClickLis
     FloatingActionButton skip_adds_on, submit_adds_on;
     public MultipartBody.Part specialCakePhoto = null;
     TextView add_alarm_action_text, add_submit_adds_on;
+    private String file = null;
     private LinearLayout llSkipSubmit,llNoDataFound,llProgrssBar;
     private IApiInterface apiInterface;
    // private ImageView ivBackAddsOn;
@@ -66,7 +64,8 @@ public class AddsOnActivity extends AppCompatActivity implements View.OnClickLis
     // parent FAB
     ExtendedFloatingActionButton mAddFab;
     Intent intent;
-    String itemId,item_name,hsn_code,uom_id,price,weight,cgst_per,sgst_per,qty,mrp,flavour,shape;
+    String itemId,item_name,hsn_code,uom_id,price,weight,cgst_per,sgst_per,qty,mrp,flavour,shape,occassionId,occassionName,addsonPrice,message,spcialIntro,schedule_id,delv_date;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -87,6 +86,22 @@ public class AddsOnActivity extends AppCompatActivity implements View.OnClickLis
          mrp =  intent.getStringExtra("mrp");
          flavour =  intent.getStringExtra("flavour");
          shape =  intent.getStringExtra("shape");
+        occassionId =  intent.getStringExtra("occassionId");
+        delv_date =  intent.getStringExtra("delv_date");
+        occassionName =  intent.getStringExtra("occassionName");
+        addsonPrice =  intent.getStringExtra("addsonPrice");
+        message =  intent.getStringExtra("message");
+        spcialIntro =  intent.getStringExtra("spcialIntro");
+        schedule_id =  intent.getStringExtra("schedule_id");
+        file =  intent.getStringExtra("file");
+        File filee = new File(file);
+        System.out.println();
+        String file_extension = filee.getAbsolutePath().substring(filee.getAbsolutePath().lastIndexOf(".") + 1);
+        mFile = RequestBody.create(MediaType.parse("image/jpeg"), filee);
+        System.out.println(mFile);
+
+
+
        // intent.putExtra("item_id",getItemsForDashboardPojo.getRecords().get(position).getId()+"");
 
         getAddonsItemsList();
@@ -231,6 +246,7 @@ public class AddsOnActivity extends AppCompatActivity implements View.OnClickLis
                         intent.putExtra("flavour",spFlavour.getSelectedItem() + "");
                         intent.putExtra("shape",spShape.getSelectedItem()+"");*/
                         mySharedPreferences.setSelectedItemId(itemId);
+                        mySharedPreferences.setSelectedItemDetails(delv_date,file,item_name,hsn_code,uom_id,weight,price,cgst_per,sgst_per,qty,mrp,flavour,shape,addsonPrice,schedule_id,occassionId,occassionName,message,spcialIntro);
                         mySharedPreferences.setSelectredAddsonArray(special_item_details_adds_on_array);
                         mySharedPreferences.setSelectedSpecilaItemJson(special_item_array);
 
@@ -244,9 +260,11 @@ public class AddsOnActivity extends AppCompatActivity implements View.OnClickLis
                         getAllSelectedAddsOn();
                         finish();
                         vpDashboard.setCurrentItem(1);
+                        mySharedPreferences.setSelectedItemId(itemId);
+                        mySharedPreferences.setSelectedItemDetails(delv_date,file,item_name,hsn_code,uom_id,weight,price,cgst_per,sgst_per,qty,mrp,flavour,shape,addsonPrice,schedule_id,occassionId,occassionName,message,spcialIntro);
+                        JSONArray jsonArray= new JSONArray();
+                        mySharedPreferences.setSelectredAddsonArray(jsonArray);
 
-
-                        mySharedPreferences.setSelectredAddsonArray(special_item_details_adds_on_array);
                         mySharedPreferences.setSelectedSpecilaItemJson(special_item_array);
                         //Toast.makeText(AddsOnActivity.this, "Alarm Added", Toast.LENGTH_SHORT).show();
                     }
@@ -352,7 +370,7 @@ public class AddsOnActivity extends AppCompatActivity implements View.OnClickLis
     private void getAllSelectedAddsOn(){
 
         special_item_details_adds_on_array = new JSONArray();
-        double totalAddsOn = 0.0;
+        double totalAddsOn = 10.0;
         for (String category : filteredHashMap.keySet()) {
             List<Get_Addons_Items_List_Pojo.Item> specialCategoryModelArrayList = filteredHashMap.get(category);
 
@@ -404,6 +422,8 @@ public class AddsOnActivity extends AppCompatActivity implements View.OnClickLis
             }
 
 
+            System.out.println(totalAddsOn);
+            addsonPrice =totalAddsOn+"";
             special_item_details_adds_on_array.put(special_item_adds_on_object);
 
         }
@@ -419,7 +439,7 @@ public class AddsOnActivity extends AppCompatActivity implements View.OnClickLis
             selectedItemJson.put("item_name", item_name);
             selectedItemJson.put("hsn_code", hsn_code);
             selectedItemJson.put("uom_id", uom_id);
-            selectedItemJson.put("price", 100);
+            selectedItemJson.put("price", price);
             selectedItemJson.put("weight", weight);
             selectedItemJson.put("cgst_per", cgst_per);
             selectedItemJson.put("sgst_per", sgst_per);

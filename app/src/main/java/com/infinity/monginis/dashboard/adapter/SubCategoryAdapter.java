@@ -88,6 +88,7 @@ public class SubCategoryAdapter extends BaseAdapter {
             public void onClick(View v) {
                 Intent intent = new Intent(context, CategoryItemsDetailsActivity.class);
                 intent.putExtra("id",subSectionPojo.getRecords().get(position).getId()+"");
+                intent.putExtra("name",subSectionPojo.getRecords().get(position).getIcmCatName()+"");
                 context.startActivity(intent);
 
             }

@@ -3,102 +3,94 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:background="@color/OFFWHITE"
     android:layout_height="match_parent"
-    tools:context=".dashboard.activity.AddressActivity">
+    tools:context=".manageAddress.AddressActivity">
 
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        android:orientation="vertical"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
-
-        <ScrollView
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            android:layout_height="52dp"
+            android:background="@color/colorPrimary"
+            android:gravity="center_vertical"
+            android:padding="4dp">
 
-            <LinearLayout
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/ivBack"
+                android:layout_width="30dp"
+                android:layout_marginLeft="8dp"
+                android:layout_height="match_parent"
+                android:src="@drawable/ic_back"
+                android:tint="@color/color_white" />
 
-                android:layout_width="match_parent"
+            <com.infinity.monginis.custom_class.TextViewMediumFont
+                android:id="@+id/tvSelectedCategory"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="Addresses"
+                android:textColor="@color/color_white"
+                android:textSize="@dimen/text_14sp" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+
+                android:layout_width="30dp"
+                android:layout_height="match_parent"
+                android:layout_marginRight="8dp"
+                android:id="@+id/imgAddAddress"
+                android:src="@drawable/ic_baseline_add_box_24"
+                android:tint="@color/color_white" />
+
+
+
+
+        </LinearLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:visibility="gone"
+            android:id="@+id/rvAddressesList"
+            android:layout_height="match_parent"/>
+
+        <LinearLayout
+            android:id="@+id/llNoDataFound"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:src="@drawable/ic_monginis_no_data_found" />
 
-                android:orientation="vertical">
+            <com.infinity.monginis.custom_class.TextViewMediumFont
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:text="No Data Found !"
+                android:textColor="@color/colorAccent"
+                android:textSize="16sp" />
 
-
-
-
-
-
-
-                <LinearLayout
-
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:orientation="horizontal"
-                    android:weightSum="2">
-
-                    <androidx.appcompat.widget.AppCompatImageView
-                        android:id="@+id/ivBack"
-                        android:layout_width="0dp"
-                        android:layout_height="40dp"
-                        android:layout_gravity="center"
-                        android:layout_margin="10dp"
-                        android:layout_weight="0.2"
-                        android:background="@drawable/bg_shape_for_back_button"
-                        android:padding="10dp"
-                        android:src="@drawable/ic_back" />
-
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_marginStart="8dp"
-                        android:layout_weight="1.7"
-                        android:gravity="center">
-
-                        <com.infinity.monginis.custom_class.TextViewMediumFont
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="Manage Address"
-                            android:textColor="@color/color_black"
-                            android:textSize="@dimen/text_18sp" />
-
-                    </LinearLayout>
-
-
-                </LinearLayout>
-
-                <androidx.recyclerview.widget.RecyclerView
-                    android:layout_margin="14dp"
-                    android:layout_width="match_parent"
-                    android:id="@+id/rvAddressesList"
-                    android:layout_marginTop="10dp"
-                    android:layout_height="wrap_content"/>
-
-                <Button
-                    android:layout_margin="14dp"
-                    android:layout_marginTop="10dp"
-                    android:id="@+id/btnAddNewAddress"
-                    android:layout_width="match_parent"
-                    android:text="Add New"
-                    android:layout_height="wrap_content"/>
+        </LinearLayout>
 
 
 
 
-
-
-
-
-
-
-
-            </LinearLayout>
-
-        </ScrollView>
-
-
-
+    </LinearLayout>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -78,6 +78,28 @@ public class ItemDetailsByCategoryPojo {
         private Object itmUrl2;
 
 
+        private boolean isItemAlreadyLiked =false;
+
+        private boolean isItemAvailableInLikedList  =false;
+
+        public boolean isItemAvailableInLikedList() {
+            return isItemAvailableInLikedList;
+        }
+
+        public void setItemAvailableInLikedList(boolean itemAvailableInLikedList) {
+            isItemAvailableInLikedList = itemAvailableInLikedList;
+        }
+
+        public boolean isItemAlreadyLiked() {
+            return isItemAlreadyLiked;
+        }
+
+
+
+        public void setItemAlreadyLiked(boolean itemAlreadyLiked) {
+            isItemAlreadyLiked = itemAlreadyLiked;
+        }
+
         private boolean isLiked;
 
         public boolean isLiked() {

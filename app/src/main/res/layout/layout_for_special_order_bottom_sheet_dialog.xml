@@ -328,7 +328,8 @@
                 <com.infinity.monginis.custom_class.TextViewMediumFont
                     android:layout_width="match_parent"
                     android:textAlignment="center"
-                    android:id="@+id/btnAddsOn"
+                    android:visibility="invisible"
+
                     android:layout_height="wrap_content"
                     android:text="Adds Onn"
 
@@ -353,6 +354,7 @@
 
 
             <LinearLayout
+                android:visibility="gone"
                 android:id="@+id/llAlmostThere"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -380,12 +382,12 @@
             </LinearLayout>
 
             <Button
-                android:id="@+id/btnProceed"
+                android:id="@+id/btnAddsOn"
                 android:layout_width="match_parent"
 
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
-                android:text="Proceed"
+                android:text="Adds On"
                 android:textColor="@android:color/white" />
 
 

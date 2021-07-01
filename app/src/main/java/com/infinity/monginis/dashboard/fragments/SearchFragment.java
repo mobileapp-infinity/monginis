@@ -6,10 +6,8 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.widget.AppCompatEditText;
 import androidx.appcompat.widget.AppCompatImageView;
-import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -23,11 +21,13 @@ import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.infinity.monginis.R;
+import com.infinity.monginis.ShopForItemActiivty.pojo.ShopLikeDislikePojo;
 import com.infinity.monginis.api.ApiClient;
 import com.infinity.monginis.api.ApiImplementer;
 import com.infinity.monginis.api.ApiUrls;
 import com.infinity.monginis.api.IApiInterface;
-import com.infinity.monginis.dashboard.activity.AddsOnActivity;
+import com.infinity.monginis.manageAddress.AddressActivity;
+import com.infinity.monginis.addson.activity.AddsOnActivity;
 import com.infinity.monginis.dashboard.adapter.SearchCategoryAdapter;
 import com.infinity.monginis.dashboard.pojo.SavePartialOrderPojo;
 import com.infinity.monginis.dashboard.pojo.SearchCategoryPojo;
@@ -37,13 +37,13 @@ import com.infinity.monginis.utils.ConnectionDetector;
 import com.infinity.monginis.utils.DialogUtil;
 import com.infinity.monginis.utils.MySharedPreferences;
 
-import org.json.JSONArray;
-
+import java.io.File;
 import java.util.ArrayList;
 
 import nl.bryanderidder.themedtogglebuttongroup.ThemedButton;
 import nl.bryanderidder.themedtogglebuttongroup.ThemedToggleButtonGroup;
 import okhttp3.MediaType;
+import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -61,7 +61,7 @@ public class SearchFragment extends Fragment implements View.OnClickListener,Add
     private ThemedToggleButtonGroup tBtnGroup;
     private RecyclerView rvSearchCategory;
     private ArrayList<TestPojo> ItemPojoArrayList = new ArrayList<>();
-    private ArrayList<TestPojo> customerPojoArrayList = new ArrayList<>();
+    public static ArrayList<TestPojo> customerPojoArrayList = new ArrayList<>();
     private SearchCategoryAdapter searchCategoryAdapter;
 
     private LinearLayout llCategory;
@@ -71,7 +71,8 @@ public class SearchFragment extends Fragment implements View.OnClickListener,Add
     private ConnectionDetector connectionDetector;
     private static boolean isItemSelected;
     private MySharedPreferences mySharedPreferences;
-
+    RequestBody mFile = null;
+    public static   MultipartBody.Part lastFileToUploadPassport = null;
     public SearchFragment() {
         // Required empty public constructor
     }
@@ -157,10 +158,14 @@ public class SearchFragment extends Fragment implements View.OnClickListener,Add
                 llNoDataFoundSearchCategory.setVisibility(View.GONE);
                 searchCategoryAdapter = new SearchCategoryAdapter(activity, customerPojoArrayList, new SearchCategoryAdapter.IOnShopClicked() {
                     @Override
-                    public void onShopClicked() {
+                    public void onShopClicked(int custId) {
 
                         Toast.makeText(getActivity(),"Shop Clicked",Toast.LENGTH_LONG).show();
-                       // saveSpecialOrderPartial();
+                        if (mySharedPreferences.getSelectedItemId() != null && !mySharedPreferences.getSelectedItemId().equals("")){
+
+                            saveSpecialOrderPartial(custId,mySharedPreferences.getSelectedItemOccassionId(),mySharedPreferences.getSelectedItemMessage(),mySharedPreferences.getDelvDate(),mySharedPreferences.getSelectedItemSpecialMessage(),mySharedPreferences.getOccassionName(),mySharedPreferences.getSelectedItemPrice(),mySharedPreferences.getSelectedItemWeight(),"1",mySharedPreferences.getSelectedItemCsgstPer(),mySharedPreferences.getSelectedItemSgstPrt(),mySharedPreferences.getAddsOnPrice(),mySharedPreferences.getSelectedScheduleId());
+                        }
+
 
                     }
                 });
@@ -179,7 +184,7 @@ public class SearchFragment extends Fragment implements View.OnClickListener,Add
                 llNoDataFoundSearchCategory.setVisibility(View.GONE);
                 searchCategoryAdapter = new SearchCategoryAdapter(activity, ItemPojoArrayList, new SearchCategoryAdapter.IOnShopClicked() {
                     @Override
-                    public void onShopClicked() {
+                    public void onShopClicked(int custId) {
 
                     }
                 });
@@ -261,7 +266,10 @@ public class SearchFragment extends Fragment implements View.OnClickListener,Add
         super.onResume();
       if (mySharedPreferences.getSelectedItemId() != null && !mySharedPreferences.getSelectedItemId().equals("")){
 
-          Toast.makeText(getActivity(),mySharedPreferences.getSelectedItemId(),Toast.LENGTH_LONG).show();
+          File file = new File(mySharedPreferences.getSelectedFile());
+          String file_extension = file.getAbsolutePath().substring(file.getAbsolutePath().lastIndexOf(".") + 1);
+          mFile = RequestBody.create(MediaType.parse("image/jpeg"), file);
+          lastFileToUploadPassport = MultipartBody.Part.createFormData("file", file.getName(), mFile);
       }
     }
 
@@ -273,6 +281,8 @@ public class SearchFragment extends Fragment implements View.OnClickListener,Add
             ApiImplementer.getSearchCategoryApiImplementer(mySharedPreferences.getVersionCode(), mySharedPreferences.getAndroidID(), mySharedPreferences.getDeviceID(), CommonUtil.USER_ID, ApiUrls.TESTING_KEY, CommonUtil.COMP_ID, new Callback<SearchCategoryPojo>() {
                 @Override
                 public void onResponse(Call<SearchCategoryPojo> call, Response<SearchCategoryPojo> response) {
+
+                    getAllShopLike("9898574748");
                     if (response.isSuccessful() && response.body() != null
                     ) {
                         llMain.setVisibility(View.VISIBLE);
@@ -289,16 +299,19 @@ public class SearchFragment extends Fragment implements View.OnClickListener,Add
 
                             for (int i = 0; i < searchCategoryPojo.getRECORDS().getCustJson().size(); i++) {
 
-                                customerPojoArrayList.add(new TestPojo(searchCategoryPojo.getRECORDS().getCustJson().get(i).getCusName(), searchCategoryPojo.getRECORDS().getCustJson().get(i).getAddress(),0));
+                                customerPojoArrayList.add(new TestPojo(searchCategoryPojo.getRECORDS().getCustJson().get(i).getCusName(), searchCategoryPojo.getRECORDS().getCustJson().get(i).getAddress(),0,searchCategoryPojo.getRECORDS().getCustJson().get(i).getId(),false,false));
 
                             }
 
 
                             searchCategoryAdapter = new SearchCategoryAdapter(activity, customerPojoArrayList, new SearchCategoryAdapter.IOnShopClicked() {
                                 @Override
-                                public void onShopClicked() {
+                                public void onShopClicked(int custId) {
                                     Toast.makeText(getActivity(),"Shop Clicked",Toast.LENGTH_LONG).show();
-                                    //saveSpecialOrderPartial();
+                                    if(mySharedPreferences.getSelectedItemId() != null && !mySharedPreferences.getSelectedItemId().equals("")){
+                                        saveSpecialOrderPartial(custId,mySharedPreferences.getSelectedItemOccassionId(),mySharedPreferences.getSelectedItemMessage(),mySharedPreferences.getDelvDate(),mySharedPreferences.getSelectedItemSpecialMessage(),mySharedPreferences.getOccassionName(),mySharedPreferences.getSelectedItemPrice(),mySharedPreferences.getSelectedItemWeight(),"1",mySharedPreferences.getSelectedItemCsgstPer(),mySharedPreferences.getSelectedItemSgstPrt(),mySharedPreferences.getAddsOnPrice()+"",mySharedPreferences.getSelectedScheduleId());
+                                    }
+
 
                                 }
                             });
@@ -311,7 +324,7 @@ public class SearchFragment extends Fragment implements View.OnClickListener,Add
                         }
                         if (searchCategoryPojo != null && searchCategoryPojo.getRECORDS().getItemJson().size() > 0) {
                             for (int j = 0; j < searchCategoryPojo.getRECORDS().getItemJson().size(); j++) {
-                                ItemPojoArrayList.add(new TestPojo(searchCategoryPojo.getRECORDS().getItemJson().get(j).getItmName(), searchCategoryPojo.getRECORDS().getItemJson().get(j).getMrp(),searchCategoryPojo.getRECORDS().getItemJson().get(j).getIs_special_flag()));
+                                ItemPojoArrayList.add(new TestPojo(searchCategoryPojo.getRECORDS().getItemJson().get(j).getItmName(), searchCategoryPojo.getRECORDS().getItemJson().get(j).getMrp(),searchCategoryPojo.getRECORDS().getItemJson().get(j).getIs_special_flag(),0,false,false));
                             }
 
                         }
@@ -352,7 +365,7 @@ public class SearchFragment extends Fragment implements View.OnClickListener,Add
         imm.hideSoftInputFromWindow(getView().getWindowToken(), 0);
     }
 
-    private void saveSpecialOrderPartial(String occasion_id, String message, String delv_date, String spe_intr, String occasion_name, String price, String weight, String qty, String cgst_per, String sgst_per, String total_addons_price, String schedule_id) {
+    private void saveSpecialOrderPartial(int custId,String occasion_id, String message, String delv_date, String spe_intr, String occasion_name, String price, String weight, String qty, String cgst_per, String sgst_per, String total_addons_price, String schedule_id) {
 
 
 
@@ -372,7 +385,7 @@ public class SearchFragment extends Fragment implements View.OnClickListener,Add
         RequestBody reg_user_id = RequestBody.create(MediaType.parse("text/plain"), String.valueOf(CommonUtil.USER_ID));
         RequestBody req_key = RequestBody.create(MediaType.parse("text/plain"), ApiUrls.TESTING_KEY);
         RequestBody req_company_id = RequestBody.create(MediaType.parse("text/plain"), CommonUtil.COMP_ID);
-        RequestBody req_cust_id = RequestBody.create(MediaType.parse("text/plain"), CommonUtil.CUST_ID);
+        RequestBody req_cust_id = RequestBody.create(MediaType.parse("text/plain"), custId+"");
         RequestBody req_occasion_id = RequestBody.create(MediaType.parse("text/plain"), occasion_id);
         RequestBody req_message = RequestBody.create(MediaType.parse("text/plain"), message);
         RequestBody req_delv_date = RequestBody.create(MediaType.parse("text/plain"), delv_date);
@@ -410,11 +423,12 @@ public class SearchFragment extends Fragment implements View.OnClickListener,Add
                 req_sgst_per,
                 req_total_addons_price,
                 req_schedule_id,
-                null,
+                lastFileToUploadPassport,
                 req_json_item_detail,
                 req_json_addonse_item_details
 
         );
+
 
 
         call.enqueue(new Callback<SavePartialOrderPojo>() {
@@ -430,7 +444,13 @@ public class SearchFragment extends Fragment implements View.OnClickListener,Add
                         SavePartialOrderPojo savePartialOrderPojo = response.body();
 
                         if (savePartialOrderPojo != null && savePartialOrderPojo.getFLAG() == 1) {
-                            getActivity().finish();
+
+
+                            Toast.makeText(getActivity(),savePartialOrderPojo.getMESSAGE(),Toast.LENGTH_LONG).show();
+                            mySharedPreferences.setSelectedItemDetails("","","","","","","","","","","","","","","","","","","");
+                            mySharedPreferences.setSelectedItemId("");
+                            Intent intent = new Intent(getActivity(), AddressActivity.class);
+                            getActivity().startActivity(intent);
                             // Intent special_order_confirmation_receipt_intent = new Intent(CustomizeScreenActivity.this, Special_Order_Confirmation_Receipt.class);
                             //  special_order_confirmation_receipt_intent.putExtra("id", savePartialOrderPojo.getID() + "");
                             //  special_order_confirmation_receipt_intent.putExtra("total_addons_price", total_addons_price);
@@ -467,4 +487,119 @@ public class SearchFragment extends Fragment implements View.OnClickListener,Add
         Toast.makeText(getActivity(),"Donee",Toast.LENGTH_LONG).show();
 
     }
+
+    public static ArrayList<ShopLikesModel>shopList;
+    private void getAllShopLike(String mobileNo){
+        ApiImplementer.getShopLikeImplementer(String.valueOf(mySharedPreferences.getVersionCode()), mySharedPreferences.getAndroidID(), mySharedPreferences.getDeviceID(), CommonUtil.USER_ID, ApiUrls.TESTING_KEY, mobileNo, new Callback<ShopLikeDislikePojo>() {
+            @Override
+            public void onResponse(Call<ShopLikeDislikePojo> call, Response<ShopLikeDislikePojo> response) {
+
+                DialogUtil.hideProgressDialog();
+
+                try {
+
+                    if (response.isSuccessful() && response.body() != null){
+
+                        ShopLikeDislikePojo shopLikeDislikePojo = response.body();
+                        shopList = new ArrayList<>();
+                        if (shopLikeDislikePojo != null){
+
+                            // for (int i=0;i<)
+                            for(int i=0;i<shopLikeDislikePojo.getRecords().size();i++){
+
+                                shopList.add(new ShopLikesModel(shopLikeDislikePojo.getRecords().get(i).getRtShopId()+"",shopLikeDislikePojo.getRecords().get(i).getRtLikeDisplikeFlag()+""));
+                            }
+
+                            for (int k=0;k<customerPojoArrayList.size();k++){
+
+
+                                for(int j=0;j<shopList.size();j++){
+                                    if (customerPojoArrayList.get(k).getCustomerId() == Integer.parseInt(shopList.get(j).getShopId())){
+                                        customerPojoArrayList.get(k).setAvailableInLikedList(true);
+                                    }
+                                    if (
+                                    customerPojoArrayList.get(k).getCustomerId() == Integer.parseInt(shopList.get(j).getShopId()) && shopList.get(j).shopLikeFlag.equals("1")){
+                                        customerPojoArrayList.get(k).setAlreadyLikedOrNot(true);
+
+
+                                    }
+                                }
+
+
+
+                            }
+
+                        }
+
+
+
+                       /* for (int l=0;l<shopList.size();l++){
+
+                            if (shopList.get(l).getShopId().equals(shopId) && shopList.get(l).getShopLikeFlag().equals("1")){
+
+                                imgLike.setImageDrawable(ContextCompat.getDrawable(ItemDetailsActivity.this, R.drawable.ic_favorite_filled));
+
+                                imgLike.startAnimation(AnimationUtils.loadAnimation(ItemDetailsActivity.this, R.anim.favourite_icon_animation));
+                                new Handler().postDelayed(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        imgLike.clearAnimation();
+                                    }
+                                }, 200);
+                                break;
+
+                            }
+                        }*/
+
+                        System.out.println(shopList);
+
+                        // if (shopList.indexOf())
+
+                    }
+
+
+                }catch (Exception e){
+
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<ShopLikeDislikePojo> call, Throwable t) {
+                DialogUtil.hideProgressDialog();
+
+            }
+        });
+
+    }
+
+    public static class ShopLikesModel{
+        public String shopId;
+        public String shopLikeFlag;
+
+
+        public ShopLikesModel(String shopId, String shopLikeFlag) {
+            this.shopId = shopId;
+            this.shopLikeFlag = shopLikeFlag;
+        }
+
+        public String getShopId() {
+            return shopId;
+        }
+
+        public void setShopId(String shopId) {
+            this.shopId = shopId;
+        }
+
+        public String getShopLikeFlag() {
+            return shopLikeFlag;
+        }
+
+        public void setShopLikeFlag(String shopLikeFlag) {
+            this.shopLikeFlag = shopLikeFlag;
+        }
+    }
+
+
+
 }

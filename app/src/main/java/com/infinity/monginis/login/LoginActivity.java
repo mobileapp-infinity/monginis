@@ -13,7 +13,7 @@ import com.google.android.material.textfield.TextInputLayout;
 import com.infinity.monginis.R;
 import com.infinity.monginis.utils.CommonUtil;
 
-public class LoginActivity extends AppCompatActivity implements View.OnClickListener, BottomSheetDialogForLoginUser.ILoginUserDialog {
+public class LoginActivity extends AppCompatActivity implements View.OnClickListener, BsLogin.ILoginUserDialog {
 
     private MaterialCardView cvLogin;
     private TextInputLayout tilMobileNumber;
@@ -58,19 +58,19 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         });
     }
 
-    BottomSheetDialogForLoginUser bottomSheetDialogForLoginUser = new BottomSheetDialogForLoginUser(LoginActivity.this);
+    BsLogin bsLogin = new BsLogin(LoginActivity.this);
 
     @Override
     public void onClick(View v) {
         if (v.getId() == R.id.cvLogin) {
-            if (!bottomSheetDialogForLoginUser.isAdded()){
-                bottomSheetDialogForLoginUser.show(getSupportFragmentManager(), "test");
+            if (!bsLogin.isAdded()){
+                bsLogin.show(getSupportFragmentManager(), "test");
             }
         }
     }
 
     @Override
     public void onLoginBtnClick(String mobileNo) {
-        bottomSheetDialogForLoginUser.dismiss();
+        bsLogin.dismiss();
     }
 }

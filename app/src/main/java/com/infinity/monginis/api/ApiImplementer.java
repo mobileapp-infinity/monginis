@@ -1,11 +1,16 @@
 package com.infinity.monginis.api;
 
 import com.infinity.monginis.CategoryItemsDetails.Pojo.ItemDetailsByCategoryPojo;
-import com.infinity.monginis.ShopForItemActiivty.GetShopListForItemStockPojo;
+import com.infinity.monginis.ShopForItemActiivty.pojo.GetShopListForItemStockPojo;
+import com.infinity.monginis.ShopForItemActiivty.pojo.ShopLikeDislikePojo;
+import com.infinity.monginis.dashboard.pojo.AddAddressResponsePojo;
+import com.infinity.monginis.dashboard.pojo.ConfrimOrderReponsePojo;
+import com.infinity.monginis.dashboard.pojo.DeleteAddressPojo;
 import com.infinity.monginis.dashboard.pojo.GetAllCityPojo;
 import com.infinity.monginis.dashboard.pojo.GetAllShopPojo;
 import com.infinity.monginis.dashboard.pojo.GetCategoryForDashboardPojo;
 import com.infinity.monginis.dashboard.pojo.GetFlavoursPojo;
+import com.infinity.monginis.dashboard.pojo.GetItemLikeDislikePojo;
 import com.infinity.monginis.dashboard.pojo.GetItemWeightPojo;
 import com.infinity.monginis.dashboard.pojo.GetItemsForDashboardPojo;
 import com.infinity.monginis.dashboard.pojo.GetItemsPhotoForDashboardAppPojo;
@@ -13,21 +18,18 @@ import com.infinity.monginis.dashboard.pojo.GetItmePosStockPojo;
 import com.infinity.monginis.dashboard.pojo.GetOccasionPojo;
 import com.infinity.monginis.dashboard.pojo.GetSchedulePojo;
 import com.infinity.monginis.dashboard.pojo.GetSectionPojo;
+import com.infinity.monginis.dashboard.pojo.GetUserByMobileNoPojo;
 import com.infinity.monginis.dashboard.pojo.GetVersionInfoPojo;
 import com.infinity.monginis.dashboard.pojo.Get_Addons_Items_List_Pojo;
-import com.infinity.monginis.dashboard.pojo.SavePartialOrderPojo;
+import com.infinity.monginis.dashboard.pojo.ItemLikeDisLikePojo;
+import com.infinity.monginis.dashboard.pojo.ItemMrpByFlavourAndWeightPojo;
 import com.infinity.monginis.dashboard.pojo.SearchCategoryPojo;
 import com.infinity.monginis.dashboard.pojo.SubSectionPojo;
 import com.infinity.monginis.login.Pojo.CheckLoginOTPPojo;
 import com.infinity.monginis.login.Pojo.CheckOTPVerifyPojo;
 
-import okhttp3.MultipartBody;
-import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.Callback;
-import retrofit2.http.Multipart;
-import retrofit2.http.POST;
-import retrofit2.http.Part;
 
 public class ApiImplementer {
 
@@ -74,10 +76,10 @@ public class ApiImplementer {
     }
 
     public static void getFlavoursImplementer(String app_version, String android_id, String device_id,
-                                              String user_id, String key, String comp_id,
+                                              String user_id, String key, String comp_id,String item_id,
                                               Callback<GetFlavoursPojo> cb) {
         final IApiInterface apiService = ApiClient.getClient().create(IApiInterface.class);
-        Call<GetFlavoursPojo> call = apiService.GetFlavours(app_version, android_id, device_id, user_id, key, comp_id);
+        Call<GetFlavoursPojo> call = apiService.GetFlavours(app_version, android_id, device_id, user_id, key, comp_id,item_id);
         call.enqueue(cb);
     }
 
@@ -197,18 +199,98 @@ public class ApiImplementer {
 
 
 
- /*   public void getMrpbyWeightAndflavour(String app_version, String android_id,
-                                         String device_id, String user_id, String key, String comp_id){
+    public static void getItemMrpByWeightAndFlavourorNewImplementer(String app_version, String android_id,
+                                                                    String device_id, String user_id, String key, String comp_id, String itemId, String state_name, String city_name, String hsn_code, String Flavour, Callback<ItemMrpByFlavourAndWeightPojo> cb ){
 
         final IApiInterface apiService = ApiClient.getClient().create(IApiInterface.class);
-        Call<GetAllShopPojo> call = apiService.getAllShop(app_version, android_id, device_id, user_id, key, comp_id);
+        Call<ItemMrpByFlavourAndWeightPojo> call = apiService.Get_item_mrp_by_weight_and_flavour_for_new(app_version, android_id, device_id, user_id, key, comp_id,itemId,state_name,city_name,hsn_code,Flavour);
         call.enqueue(cb);
 
     }
-*/
 
 
 
+    public static void getPartialOrderDetails(String app_version, String android_id,
+                                              String device_id, String user_id, String key, String comp_id, String id, Callback<ConfrimOrderReponsePojo> cb ){
+        final IApiInterface apiService = ApiClient.getClient().create(IApiInterface.class);
+        Call<ConfrimOrderReponsePojo> call = apiService.Get_partial_order_detail(app_version, android_id, device_id, user_id, key, comp_id,id);
+        call.enqueue(cb);
+
+    }
+
+
+    public static void inaerUserDetailsImplmenter(String app_version, String android_id,
+                                                  String device_id, String comp_id, String user_id, String key, String address, String orderId, String mobileNo , String id, Callback<AddAddressResponsePojo> cb ){
+        final IApiInterface apiService = ApiClient.getClient().create(IApiInterface.class);
+        Call<AddAddressResponsePojo> call = apiService.Insert_User_address_detail(app_version, android_id, device_id, user_id, key,address,orderId, comp_id,mobileNo,id);
+        call.enqueue(cb);
+
+    }
+
+    //Get_user_by_mobile_no
+
+
+    public static void getUserMobileNoImplmenter(String app_version, String android_id,
+                                                 String device_id, String comp_id, String user_id, String key, String mobileNo , Callback<GetUserByMobileNoPojo> cb ){
+        final IApiInterface apiService = ApiClient.getClient().create(IApiInterface.class);
+        Call<GetUserByMobileNoPojo> call = apiService.Get_user_by_mobile_no(app_version, android_id, device_id,comp_id, user_id, key,mobileNo);
+        call.enqueue(cb);
+
+    }
+
+
+
+    //Delete_user_address_detail_by_id
+
+    public static void deleteUserDetailsImplemnter(String app_version, String android_id,
+                                                   String device_id, String comp_id, String user_id, String key, String id , Callback<DeleteAddressPojo> cb ){
+        final IApiInterface apiService = ApiClient.getClient().create(IApiInterface.class);
+        Call<DeleteAddressPojo> call = apiService.Delete_user_address_detail_by_id(app_version, android_id, device_id,comp_id, user_id, key,id);
+        call.enqueue(cb);
+
+    }
+
+
+    public static void insertUpdateItemLike(String app_version, String android_id,
+                                            String device_id, String comp_id, String user_id, String key, String mobile_no, String item_id, String likeDislike, String is_item_already_like, Callback<ItemLikeDisLikePojo> cb ){
+        final IApiInterface apiService = ApiClient.getClient().create(IApiInterface.class);
+        Call<ItemLikeDisLikePojo> call = apiService.itmeLikeDislike(app_version, android_id, device_id,comp_id, user_id, key,mobile_no,item_id,likeDislike,is_item_already_like);
+        call.enqueue(cb);
+
+    }
+
+
+//Insert_Update_Shop_like
+
+
+    public static void insertUpdateShopLikeImplementer(String app_version, String android_id,
+                                                       String device_id, String comp_id, String user_id, String key, String mobile_no, String shopId, String liker_dislike_flag, String isShopAlreadyLiked, Callback<ItemLikeDisLikePojo> cb ){
+        final IApiInterface apiService = ApiClient.getClient().create(IApiInterface.class);
+        Call<ItemLikeDisLikePojo> call = apiService.InsertUpdateShopLike(app_version, android_id, device_id,comp_id, user_id, key,mobile_no,shopId,liker_dislike_flag,isShopAlreadyLiked);
+        call.enqueue(cb);
+
+    }
+
+    public static void getItemLikeImplementer(String appversion, String androidId, String deviceId, String user_id, String key, String mobile_no, Callback<GetItemLikeDislikePojo> cb ){
+
+        final IApiInterface apiService = ApiClient.getClient().create(IApiInterface.class);
+        Call<GetItemLikeDislikePojo> call = apiService.Get_item_like(appversion, androidId, deviceId, user_id, key,mobile_no);
+        call.enqueue(cb);
+
+
+
+    }
+
+
+    public static void getShopLikeImplementer(String appversion, String androidId, String deviceId, String user_id, String key, String mobile_no, Callback<ShopLikeDislikePojo> cb ){
+
+        final IApiInterface apiService = ApiClient.getClient().create(IApiInterface.class);
+        Call<ShopLikeDislikePojo> call = apiService.Get_shop_like(appversion, androidId, deviceId, user_id, key,mobile_no);
+        call.enqueue(cb);
+
+
+
+    }
 
 
 }

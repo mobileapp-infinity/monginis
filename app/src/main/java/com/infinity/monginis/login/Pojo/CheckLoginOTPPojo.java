@@ -47,6 +47,10 @@ public class CheckLoginOTPPojo {
         @SerializedName("otp")
         @Expose
         private Integer otp;
+
+        @SerializedName("user_id")
+        @Expose
+        private Integer user_id;
         @SerializedName("expire")
         @Expose
         private Integer expire;
@@ -65,6 +69,14 @@ public class CheckLoginOTPPojo {
 
         public void setExpire(Integer expire) {
             this.expire = expire;
+        }
+
+        public Integer getUser_id() {
+            return user_id;
+        }
+
+        public void setUser_id(Integer user_id) {
+            this.user_id = user_id;
         }
     }
 

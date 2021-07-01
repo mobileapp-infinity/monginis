@@ -1,4 +1,4 @@
-package com.infinity.monginis.ShopForItemActiivty;
+package com.infinity.monginis.ShopForItemActiivty.Model;
 
 public class ItemWithShopModel {
 

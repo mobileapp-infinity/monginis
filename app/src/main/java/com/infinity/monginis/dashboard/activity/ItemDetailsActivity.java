@@ -6,7 +6,6 @@ import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -14,25 +13,27 @@ import android.view.View;
 import android.view.animation.AnimationUtils;
 import android.view.animation.LayoutAnimationController;
 import android.widget.LinearLayout;
-import android.widget.TableLayout;
 import android.widget.Toast;
 
 import com.google.android.material.tabs.TabLayout;
 import com.infinity.monginis.R;
+import com.infinity.monginis.ShopForItemActiivty.pojo.ShopLikeDislikePojo;
 import com.infinity.monginis.api.ApiImplementer;
 import com.infinity.monginis.api.ApiUrls;
 import com.infinity.monginis.custom_class.TextViewMediumFont;
 import com.infinity.monginis.custom_class.TextViewRegularFont;
 import com.infinity.monginis.dashboard.adapter.CategoryDetailListAdapter;
 import com.infinity.monginis.dashboard.adapter.ImageSliderAdapter;
+import com.infinity.monginis.dashboard.fragments.SearchFragment;
 import com.infinity.monginis.dashboard.pojo.CategoryDetailsPojo;
 import com.infinity.monginis.dashboard.pojo.GetItmePosStockPojo;
-import com.infinity.monginis.login.BottomSheetDialogForLoginUser;
+import com.infinity.monginis.dashboard.pojo.ItemLikeDisLikePojo;
+import com.infinity.monginis.login.BsLogin;
 import com.infinity.monginis.utils.CommonUtil;
+import com.infinity.monginis.utils.DialogUtil;
 import com.infinity.monginis.utils.IntentConstants;
 import com.infinity.monginis.utils.MySharedPreferences;
 
-import java.sql.Time;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -45,6 +46,8 @@ import retrofit2.Response;
 
 import static com.infinity.monginis.dashboard.activity.DashboardActivity.vpDashboard;
 import static com.infinity.monginis.dashboard.adapter.PopularItemsAdapter.isFromSpecialOrderItem;
+import static com.infinity.monginis.dashboard.fragments.SearchFragment.customerPojoArrayList;
+import static com.infinity.monginis.dashboard.fragments.SearchFragment.shopList;
 
 public class ItemDetailsActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -58,6 +61,8 @@ public class ItemDetailsActivity extends AppCompatActivity implements View.OnCli
     private boolean isLiked = false;
     private Intent shopIdIntent;
     String shopId, shopName, shopAddress, CurrentDateTime;
+    private boolean isAlreadyLiked = false;
+    private boolean isAvailableInLikedList = false;
     private LinearLayout llShopItemList;
     private LinearLayout llNoDataFoundPosItem;
   // private MySharedPreferences mySharedPreferences;
@@ -91,6 +96,8 @@ public class ItemDetailsActivity extends AppCompatActivity implements View.OnCli
         Calendar c = Calendar.getInstance();
         CurrentDateTime = df.format(c.getTime());
         shopId = shopIdIntent.getStringExtra(IntentConstants.SELECTED_SHOP_ID);
+        isAlreadyLiked = shopIdIntent.getBooleanExtra("isItemLikedTrue",false);
+        isAvailableInLikedList = shopIdIntent.getBooleanExtra("isItemAvailableInLikedList",false);
         shopName = shopIdIntent.getStringExtra(IntentConstants.SELECTED_SHOP_NAME);
         shopAddress = shopIdIntent.getStringExtra(IntentConstants.SELECTED_SHOP_ADDRESS);
         tvSelectedShopName.setText(shopName);
@@ -107,12 +114,34 @@ public class ItemDetailsActivity extends AppCompatActivity implements View.OnCli
         imgLike.setOnClickListener(this);
         ivBack.setOnClickListener(this);
 
+        if (isAlreadyLiked){
+            isLiked = true;
+            imgLike.setImageDrawable(ContextCompat.getDrawable(ItemDetailsActivity.this, R.drawable.ic_favorite_filled));
+
+            imgLike.startAnimation(AnimationUtils.loadAnimation(ItemDetailsActivity.this, R.anim.favourite_icon_animation));
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    imgLike.clearAnimation();
+                }
+            }, 200);
+        }
+
+        String str = "Hello this is (monginis)";
+        str = str.split("[\\(\\)]")[1];
+        System.out.println(str);
+
 
     }
 
     @Override
     public void onClick(View v) {
         if (v.getId() == R.id.imgLike) {
+
+
+
+
+
 
             if (!CommonUtil.checkIsEmptyOrNullCommon(mySharedPreferences.getUserMobileNo())){
                 isLiked = !isLiked;
@@ -127,6 +156,11 @@ public class ItemDetailsActivity extends AppCompatActivity implements View.OnCli
                             imgLike.clearAnimation();
                         }
                     }, 200);
+                    if (!isAlreadyLiked && isAvailableInLikedList){
+                        shopLikeDislike("9898574748",shopId,"1","1");
+                    }else if (!isAlreadyLiked && !isAvailableInLikedList){
+                        shopLikeDislike("9898574748",shopId,"1","0");
+                    }
 
                     // imgLike.
                     //  Animation fadeInAnimation = AnimationUtils.loadAnimation(this, R.anim.fad);
@@ -138,14 +172,22 @@ public class ItemDetailsActivity extends AppCompatActivity implements View.OnCli
                         @Override
                         public void run() {
                             imgLike.clearAnimation();
+
                         }
                     }, 200);
+
+                    if (isAlreadyLiked && isAvailableInLikedList){
+                        shopLikeDislike("9898574748",shopId,"0","1");
+                    }/*else if (!isAlreadyLiked && isAvailableInLikedList){
+                        shopLikeDislike("9898574748",shopId,"0","1");
+                    }*/
+
                 }
             }else{
 
-                BottomSheetDialogForLoginUser bottomSheetDialogForLoginUser = new BottomSheetDialogForLoginUser(ItemDetailsActivity.this,true);
-                if (!bottomSheetDialogForLoginUser.isAdded()) {
-                    bottomSheetDialogForLoginUser.show(this.getSupportFragmentManager(), "test");
+                BsLogin bsLogin = new BsLogin(ItemDetailsActivity.this,true);
+                if (!bsLogin.isAdded()) {
+                    bsLogin.show(this.getSupportFragmentManager(), "test");
                 }
 
             }
@@ -220,5 +262,199 @@ public class ItemDetailsActivity extends AppCompatActivity implements View.OnCli
         });
 
     }
+
+
+
+   /* private void manageItemLikeDislike(String mobileNo,String itemId,String likeOrDislike){
+
+        ApiImplementer.Insert_Update_Item_like(String.valueOf(mySharedPreferences.getVersionCode()), mySharedPreferences.getAndroidID(), mySharedPreferences.getDeviceID(), CommonUtil.COMP_ID, "", "", "","","", new Callback<ItemLikeDisLikePojo>() {
+            @Override
+            public void onResponse(Call<ItemLikeDisLikePojo> call, Response<ItemLikeDisLikePojo> response) {
+
+                try {
+                    if (response.isSuccessful() && response.body() != null){
+
+                        ItemLikeDisLikePojo itemLikeDisLikePojo = response.body();
+                        if (itemLikeDisLikePojo != null ){
+
+                            if (itemLikeDisLikePojo.getTotal() == 1){
+                                Toast.makeText(ItemDetailsActivity.this,itemLikeDisLikePojo.getMessage(),Toast.LENGTH_LONG).show();
+
+                            }
+
+
+                        }
+
+
+
+
+
+                    }
+
+                }catch (Exception e){
+
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<ItemLikeDisLikePojo> call, Throwable t) {
+
+            }
+        });
+
+    }*/
+
+
+
+    private void shopLikeDislike(String mobileNo, String shopId, String shopLikeDislike,String isShopAlreadyLiked){
+
+        this.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                DialogUtil.showProgressDialogCancelable(ItemDetailsActivity.this, "");
+            }
+        });
+
+        ApiImplementer.insertUpdateShopLikeImplementer(String.valueOf(mySharedPreferences.getVersionCode()), mySharedPreferences.getAndroidID(), mySharedPreferences.getDeviceID(), CommonUtil.COMP_ID, CommonUtil.USER_ID, ApiUrls.TESTING_KEY, mobileNo, shopId, shopLikeDislike, isShopAlreadyLiked,new Callback<ItemLikeDisLikePojo>() {
+            @Override
+            public void onResponse(Call<ItemLikeDisLikePojo> call, Response<ItemLikeDisLikePojo> response) {
+                DialogUtil.hideProgressDialog();
+
+                try {
+                    if (response.isSuccessful() && response.body() != null){
+
+                        ItemLikeDisLikePojo itemLikeDisLikePojo = response.body();
+
+                        if (itemLikeDisLikePojo != null ){
+                            if (isAlreadyLiked){
+                                isAlreadyLiked = false;
+                            }else{
+                                isAlreadyLiked = true;
+                            }
+
+
+
+                            isAvailableInLikedList = true;
+
+                            Toast.makeText(ItemDetailsActivity.this,itemLikeDisLikePojo.getMessage(),Toast.LENGTH_LONG).show();
+
+                            getAllShopLike("9898574748");
+
+
+                        }
+
+
+
+                    }
+
+                }catch (Exception e){
+
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<ItemLikeDisLikePojo> call, Throwable t) {
+                DialogUtil.hideProgressDialog();
+
+            }
+        });
+    }
+
+
+
+    private void getAllShopLike(String mobileNo){
+        ApiImplementer.getShopLikeImplementer(String.valueOf(mySharedPreferences.getVersionCode()), mySharedPreferences.getAndroidID(), mySharedPreferences.getDeviceID(), CommonUtil.USER_ID, ApiUrls.TESTING_KEY, mobileNo, new Callback<ShopLikeDislikePojo>() {
+            @Override
+            public void onResponse(Call<ShopLikeDislikePojo> call, Response<ShopLikeDislikePojo> response) {
+
+                DialogUtil.hideProgressDialog();
+
+                try {
+
+                    if (response.isSuccessful() && response.body() != null){
+
+                        ShopLikeDislikePojo shopLikeDislikePojo = response.body();
+                        shopList = new ArrayList<>();
+                        if (shopLikeDislikePojo != null){
+
+                            // for (int i=0;i<)
+                            for(int i=0;i<shopLikeDislikePojo.getRecords().size();i++){
+
+                                shopList.add(new SearchFragment.ShopLikesModel(shopLikeDislikePojo.getRecords().get(i).getRtShopId()+"",shopLikeDislikePojo.getRecords().get(i).getRtLikeDisplikeFlag()+""));
+                            }
+
+                            for (int k = 0; k<customerPojoArrayList.size(); k++){
+
+
+                                for(int j=0;j<shopList.size();j++){
+                                    if (customerPojoArrayList.get(k).getCustomerId() == Integer.parseInt(shopList.get(j).getShopId())){
+                                        customerPojoArrayList.get(k).setAvailableInLikedList(true);
+                                    }
+                                    if (
+                                            customerPojoArrayList.get(k).getCustomerId() == Integer.parseInt(shopList.get(j).getShopId()) && shopList.get(j).shopLikeFlag.equals("1")){
+                                        customerPojoArrayList.get(k).setAlreadyLikedOrNot(true);
+
+
+                                    }
+                                    if (
+                                            customerPojoArrayList.get(k).getCustomerId() == Integer.parseInt(shopList.get(j).getShopId()) && shopList.get(j).shopLikeFlag.equals("0")){
+                                        customerPojoArrayList.get(k).setAlreadyLikedOrNot(false);
+
+
+                                    }
+                                }
+
+
+
+                            }
+
+                        }
+
+
+
+                       /* for (int l=0;l<shopList.size();l++){
+
+                            if (shopList.get(l).getShopId().equals(shopId) && shopList.get(l).getShopLikeFlag().equals("1")){
+
+                                imgLike.setImageDrawable(ContextCompat.getDrawable(ItemDetailsActivity.this, R.drawable.ic_favorite_filled));
+
+                                imgLike.startAnimation(AnimationUtils.loadAnimation(ItemDetailsActivity.this, R.anim.favourite_icon_animation));
+                                new Handler().postDelayed(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        imgLike.clearAnimation();
+                                    }
+                                }, 200);
+                                break;
+
+                            }
+                        }*/
+
+                        System.out.println(shopList);
+
+                        // if (shopList.indexOf())
+
+                    }
+
+
+                }catch (Exception e){
+
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<ShopLikeDislikePojo> call, Throwable t) {
+                DialogUtil.hideProgressDialog();
+
+            }
+        });
+
+    }
+
+
+    //private class shopa;
 
 }

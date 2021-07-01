@@ -5,7 +5,7 @@
     android:background="#F3f3F3"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".dashboard.activity.AddsOnActivity">
+    tools:context=".addson.activity.AddsOnActivity">
 
     <LinearLayout
         android:id="@+id/linearLayout3"

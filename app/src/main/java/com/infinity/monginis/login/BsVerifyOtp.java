@@ -47,7 +47,7 @@ import static com.infinity.monginis.dashboard.activity.DashboardActivity.vpDashb
 import static com.infinity.monginis.dashboard.adapter.PopularItemsAdapter.isFromSpecialOrderItem;
 import static com.infinity.monginis.dashboard.adapter.TopCategoriesAdapter.isFromTopCategories;
 
-public class BottomSheetDialogForVerifyOTP extends BottomSheetDialogFragment implements View.OnClickListener {
+public class BsVerifyOtp extends BottomSheetDialogFragment implements View.OnClickListener {
 
     private Activity activity;
     private CartActivity cartActivity;
@@ -68,30 +68,30 @@ public class BottomSheetDialogForVerifyOTP extends BottomSheetDialogFragment imp
     private boolean isFromFavrt = false;
     private boolean isfromItemDetails = false;
 
-    public BottomSheetDialogForVerifyOTP(Activity activity, String mobileNo) {
+    public BsVerifyOtp(Activity activity, String mobileNo) {
         this.activity = activity;
         this.mobileNo = mobileNo;
     }
 
-    public BottomSheetDialogForVerifyOTP(CartActivity activity, String mobileNo) {
+    public BsVerifyOtp(CartActivity activity, String mobileNo) {
         this.cartActivity = activity;
         this.mobileNo = mobileNo;
     }
 
-    public BottomSheetDialogForVerifyOTP(ItemDetailsActivity activity, String mobileNo,boolean isfromItemDetails) {
+    public BsVerifyOtp(ItemDetailsActivity activity, String mobileNo, boolean isfromItemDetails) {
         this.itemDetailsActivity = activity;
         this.mobileNo = mobileNo;
         this.isfromItemDetails = isfromItemDetails;
     }
 
 
-    public BottomSheetDialogForVerifyOTP(CategoryItemsDetailsActivity activity, String mobileNo,boolean isFromFavrt) {
+    public BsVerifyOtp(CategoryItemsDetailsActivity activity, String mobileNo, boolean isFromFavrt) {
         this.categoryItemsDetailsActivity = activity;
         this.mobileNo = mobileNo;
         this.isFromFavrt = isFromFavrt;
     }
 
-    public BottomSheetDialogForVerifyOTP(DashboardActivity activity, String mobileNo,boolean isFromProfile,boolean isFromSpecialOrder,boolean isFromCart) {
+    public BsVerifyOtp(DashboardActivity activity, String mobileNo, boolean isFromProfile, boolean isFromSpecialOrder, boolean isFromCart) {
         this.dashboardActivity = activity;
         this.mobileNo = mobileNo;
        this.isFromProfile = isFromProfile;
@@ -190,6 +190,7 @@ public class BottomSheetDialogForVerifyOTP extends BottomSheetDialogFragment imp
 
                                 if (checkOTPVerifyPojo.getRecords().get(0).getFlag() == 1) {
                                     mySharedPreferences.setUserMobileNo(mobileNo);
+
                                     //Toast.makeText(dashboardActivity, checkOTPVerifyPojo.getRecords().get(0).getMsg(), Toast.LENGTH_SHORT).show();
                                     dismiss();
                                     if (isFromProfile){

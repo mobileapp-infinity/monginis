@@ -19,7 +19,7 @@ import com.infinity.monginis.R;
 import com.infinity.monginis.custom_class.TextViewMediumFont;
 import com.infinity.monginis.utils.CommonUtil;
 
-public class BottomSheetDialogForRegisterUser extends BottomSheetDialogFragment implements View.OnClickListener {
+public class BsRegister extends BottomSheetDialogFragment implements View.OnClickListener {
 
     private MaterialCardView cvRegister;
     private TextInputLayout tilMobileNumber;
@@ -29,7 +29,7 @@ public class BottomSheetDialogForRegisterUser extends BottomSheetDialogFragment 
     private AppCompatImageView imgCloseRegisterUserDialog;
     private TextInputEditText edUserName;
 
-    public BottomSheetDialogForRegisterUser(Activity activity) {
+    public BsRegister(Activity activity) {
         this.activity = activity;
     }
 

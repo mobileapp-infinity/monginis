@@ -6,38 +6,66 @@ import com.google.gson.annotations.SerializedName;
 import java.util.List;
 
 public class GetFlavoursPojo {
+
     @SerializedName("TOTAL")
     @Expose
-    private Integer tOTAL;
+    private Integer total;
     @SerializedName("MESSAGE")
     @Expose
-    private String mESSAGE;
+    private String message;
     @SerializedName("RECORDS")
     @Expose
-    private List<Object> rECORDS = null;
+    private List<Record> records = null;
 
-    public Integer getTOTAL() {
-        return tOTAL;
+    public Integer getTotal() {
+        return total;
     }
 
-    public void setTOTAL(Integer tOTAL) {
-        this.tOTAL = tOTAL;
+    public void setTotal(Integer total) {
+        this.total = total;
     }
 
-    public String getMESSAGE() {
-        return mESSAGE;
+    public String getMessage() {
+        return message;
     }
 
-    public void setMESSAGE(String mESSAGE) {
-        this.mESSAGE = mESSAGE;
+    public void setMessage(String message) {
+        this.message = message;
     }
 
-    public List<Object> getRECORDS() {
-        return rECORDS;
+    public List<Record> getRecords() {
+        return records;
     }
 
-    public void setRECORDS(List<Object> rECORDS) {
-        this.rECORDS = rECORDS;
+    public void setRecords(List<Record> records) {
+        this.records = records;
     }
+    public class Record {
+
+        @SerializedName("iad_value")
+        @Expose
+        private String iadValue;
+        @SerializedName("shape")
+        @Expose
+        private String shape;
+
+        public String getIadValue() {
+            return iadValue;
+        }
+
+        public void setIadValue(String iadValue) {
+            this.iadValue = iadValue;
+        }
+
+        public String getShape() {
+            return shape;
+        }
+
+        public void setShape(String shape) {
+            this.shape = shape;
+        }
+}
+
+
 
 }

@@ -82,6 +82,10 @@ public class MySharedPreferences {
     public String getUserMobileNo() {
         return sharedPreferences.getString(PreferencesConstants.MOBILE_NO, "");
     }
+    public String getDelvDate() {
+        return sharedPreferences.getString(PreferencesConstants.delv_date, "");
+    }
+
 
 
     public void setFavouriteItems(HashMap<String, ArrayList<String>> testHashMap) {
@@ -144,6 +148,117 @@ public class MySharedPreferences {
     public String getSelectedItemId() {
         return sharedPreferences.getString(PreferencesConstants.ITEM_ID, "");
     }
+
+    public void setSelectedItemDetails(String delv_date,String selectedFile,String itemName,String  hsn_code,String uom_id,String weight,String price,String cgst_per,String sgst_per,String qty,String mrp,String flavour,String shape,String addsonPrice,String schedule_id,String occassion_id,String occassion_name ,String message,String specialMessage ){
+        editor.putString(PreferencesConstants.ITEM_NAME, itemName);
+        editor.putString(PreferencesConstants.HSN_CODE, hsn_code);
+        editor.putString(PreferencesConstants.uom_id, uom_id);
+        editor.putString(PreferencesConstants.price, price);
+        editor.putString(PreferencesConstants.weight, weight);
+        editor.putString(PreferencesConstants.cgst_per, cgst_per);
+        editor.putString(PreferencesConstants.sgst_per, sgst_per);
+        editor.putString(PreferencesConstants.qty, qty);
+        editor.putString(PreferencesConstants.mrp, mrp);
+        editor.putString(PreferencesConstants.flavour, flavour);
+        editor.putString(PreferencesConstants.shape, shape);
+        editor.putString(PreferencesConstants.occassion_id, occassion_id);
+        editor.putString(PreferencesConstants.occassion_name, occassion_name);
+        editor.putString(PreferencesConstants.delv_date, delv_date);
+        editor.putString(PreferencesConstants.addsonPrice, addsonPrice);
+        editor.putString(PreferencesConstants.addsonPrice, addsonPrice);
+        editor.putString(PreferencesConstants.message, message);
+        editor.putString(PreferencesConstants.specialMessage, specialMessage);
+        editor.putString(PreferencesConstants.schedule_id, schedule_id);
+        editor.putString(PreferencesConstants.selectedFile, selectedFile);
+        editor.apply();
+
+    }
+
+    public String getSelecteItemName() {
+        return sharedPreferences.getString(PreferencesConstants.ITEM_NAME, "");
+    }
+
+    public String getOccassionName() {
+        return sharedPreferences.getString(PreferencesConstants.occassion_name, "");
+    }
+
+
+    public String getSelectedFile() {
+        return sharedPreferences.getString(PreferencesConstants.selectedFile, "");
+    }
+
+
+    public String getSelectedItemHsnCode() {
+        return sharedPreferences.getString(PreferencesConstants.HSN_CODE, "");
+    }
+    public String getSelectedItemUomId() {
+        return sharedPreferences.getString(PreferencesConstants.uom_id, "");
+    }
+    public String getSelectedItemPrice() {
+        return sharedPreferences.getString(PreferencesConstants.price, "");
+    }
+    public String getSelectedItemWeight() {
+        return sharedPreferences.getString(PreferencesConstants.weight, "");
+    }
+
+
+
+
+    public String getSelectedItemCsgstPer() {
+        return sharedPreferences.getString(PreferencesConstants.cgst_per, "");
+    }
+
+    public String getSelectedItemSgstPrt() {
+        return sharedPreferences.getString(PreferencesConstants.sgst_per, "");
+    }
+
+    public String getSelectedItemMrp() {
+        return sharedPreferences.getString(PreferencesConstants.mrp, "");
+    }
+
+    public String getSelectedItemFlavours() {
+        return sharedPreferences.getString(PreferencesConstants.flavour, "");
+    }
+
+    public String getSelectedItemShape() {
+        return sharedPreferences.getString(PreferencesConstants.shape, "");
+    }
+    public String getSelectedItemOccassionId() {
+        return sharedPreferences.getString(PreferencesConstants.occassion_id, "");
+    }
+
+    public String getSelectedItemMessage() {
+        return sharedPreferences.getString(PreferencesConstants.message, "");
+    }
+    public String getSelectedItemSpecialMessage() {
+        return sharedPreferences.getString(PreferencesConstants.specialMessage, "");
+    }
+    public String getSelectedScheduleId() {
+        return sharedPreferences.getString(PreferencesConstants.schedule_id, "");
+    }
+    public String getAddsOnPrice() {
+        return sharedPreferences.getString(PreferencesConstants.addsonPrice, "");
+    }
+
+
+   /* public void setFavouriteShops(ArrayList<>) {
+
+        //  ArrayList arrayList = new ArrayList();
+        //  testHashMap = new HashMap<String, ArrayList<String>>();
+        // testHashMap.put("key1", arrayList);
+        // testHashMap.put("key2", "value2");
+
+        //convert to string using gson
+        Gson gson = new Gson();
+        String hashMapString = gson.toJson(testHashMap);
+        editor.putString(PreferencesConstants.SELECTED_FAVOURITE_ITEMS, hashMapString);
+        editor.apply();
+
+    }*/
+
+
+
+
 
 
 

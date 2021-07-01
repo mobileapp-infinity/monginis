@@ -1,13 +1,10 @@
 package com.infinity.monginis.dashboard.adapter;
 
-import android.app.Activity;
 import android.content.Context;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.widget.LinearLayout;
 
 import androidx.annotation.NonNull;
@@ -16,23 +13,14 @@ import androidx.appcompat.widget.AppCompatImageView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.infinity.monginis.R;
-import com.infinity.monginis.custom_class.TextViewMediumFont;
 import com.infinity.monginis.custom_class.TextViewRegularFont;
-import com.infinity.monginis.dashboard.activity.BottomSheetDialogForCheckOut;
-import com.infinity.monginis.dashboard.activity.BottomSheetDialogForSpecialOrder;
-import com.infinity.monginis.dashboard.activity.CartActivity;
 import com.infinity.monginis.dashboard.activity.ItemDetailsActivity;
 import com.infinity.monginis.dashboard.pojo.CategoryDetailsPojo;
 import com.infinity.monginis.dashboard.pojo.GetItmePosStockPojo;
-import com.infinity.monginis.login.BottomSheetDialogForLoginUser;
-import com.infinity.monginis.login.BottomSheetDialogPlaceOrder;
-import com.infinity.monginis.login.LoginActivity;
+import com.infinity.monginis.login.BsLogin;
 import com.infinity.monginis.utils.CommonUtil;
 
 import java.util.ArrayList;
-
-import static com.infinity.monginis.dashboard.adapter.PopularItemsAdapter.isFromRegularOrderItem;
-import static com.infinity.monginis.dashboard.adapter.TopCategoriesAdapter.isFromTopCategories;
 
 public class CategoryDetailListAdapter extends RecyclerView.Adapter<CategoryDetailListAdapter.MyViewHolder> {
 
@@ -51,7 +39,7 @@ public class CategoryDetailListAdapter extends RecyclerView.Adapter<CategoryDeta
         layoutInflater = LayoutInflater.from(context);
         this.isFromSpecialOrderItem = isFromSpecialOrderItem;
         activity = (ItemDetailsActivity) context;
-        bottomSheetDialogForLoginUser = new BottomSheetDialogForLoginUser(activity);
+        bsLogin = new BsLogin(activity);
         this.getItmePosStockPojo = getItmePosStockPojo;
     }
 
@@ -63,7 +51,7 @@ public class CategoryDetailListAdapter extends RecyclerView.Adapter<CategoryDeta
     }
 
 
-    BottomSheetDialogForLoginUser bottomSheetDialogForLoginUser;
+    BsLogin bsLogin;
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {

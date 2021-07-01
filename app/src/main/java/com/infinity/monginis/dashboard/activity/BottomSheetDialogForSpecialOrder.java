@@ -30,13 +30,12 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.infinity.monginis.R;
+import com.infinity.monginis.addson.activity.AddsOnActivity;
 import com.infinity.monginis.api.ApiImplementer;
 import com.infinity.monginis.api.ApiUrls;
 import com.infinity.monginis.api.IApiInterface;
-import com.infinity.monginis.custom_class.TextViewMediumFont;
 import com.infinity.monginis.custom_class.TextViewRegularFont;
-import com.infinity.monginis.dashboard.adapter.AddsOnAdapter;
-import com.infinity.monginis.dashboard.dao.SaveOrderDatabase;
+
 
 import com.infinity.monginis.dashboard.model.AddsOnItemModel;
 import com.infinity.monginis.dashboard.model.CartItemModel;
@@ -48,10 +47,12 @@ import com.infinity.monginis.dashboard.pojo.GetItemsForDashboardPojo;
 import com.infinity.monginis.dashboard.pojo.GetOccasionPojo;
 import com.infinity.monginis.dashboard.pojo.GetSchedulePojo;
 import com.infinity.monginis.dashboard.pojo.Get_Addons_Items_List_Pojo;
+import com.infinity.monginis.dashboard.pojo.ItemMrpByFlavourAndWeightPojo;
 import com.infinity.monginis.dashboard.pojo.TestPojo;
-import com.infinity.monginis.login.BottomSheetDialogForLoginUser;
+import com.infinity.monginis.login.BsLogin;
 import com.infinity.monginis.utils.CommonUtil;
 import com.infinity.monginis.utils.ConnectionDetector;
+import com.infinity.monginis.utils.DialogUtil;
 import com.infinity.monginis.utils.FileUtils;
 import com.infinity.monginis.utils.IntentConstants;
 import com.infinity.monginis.utils.MySharedPreferences;
@@ -113,6 +114,7 @@ public class BottomSheetDialogForSpecialOrder extends BottomSheetDialogFragment 
     private AppCompatImageView imgCloseSpecialOrder;
     private GetItemsForDashboardPojo getItemsForDashboardPojo;
     private String SELECTED_MENU_ID = "";
+    private String SELECTED_MENU = "";
     private String SELECTED_SCHEDULE_ID = "";
     ArrayList<String> menuList, menuListId;
     ArrayList<String> flavourList;
@@ -120,7 +122,7 @@ public class BottomSheetDialogForSpecialOrder extends BottomSheetDialogFragment 
     ArrayList<String> cakeShapeList;
     ArrayList<String> qtyList;
     ArrayList<TestPojo> testPojoArrayList;
-    private TextViewMediumFont btnAddsOn;
+    private Button btnAddsOn;
     private boolean isFromSearch = false;
 
     public BottomSheetDialogForSpecialOrder(ItemDetailsActivity activity) {
@@ -165,12 +167,26 @@ public class BottomSheetDialogForSpecialOrder extends BottomSheetDialogFragment 
         setFlavours();
         //  setWeight();
 
+        spWeight.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                getItemMrpbyWeightAndFlavour();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
         return view;
     }
 
-
+String mrp = "";
+    String cgst_per = "";
+    String sgst_per = "";
     private void initView(View view) {
-        saveOrderDatabase = SaveOrderDatabase.getInstance(dashboardActivity);
+        //saveOrderDatabase = SaveOrderDatabase.getInstance(dashboardActivity);
         mySharedPreferences = new MySharedPreferences(dashboardActivity);
         spFlavour = view.findViewById(R.id.spFlavour);
         btnAddsOn = view.findViewById(R.id.btnAddsOn);
@@ -179,19 +195,32 @@ public class BottomSheetDialogForSpecialOrder extends BottomSheetDialogFragment 
             public void onClick(View v) {
                 if (isValidated()){
                     dismiss();
-                    Intent intent = new Intent(dashboardActivity,AddsOnActivity.class);
+                    Intent intent = new Intent(dashboardActivity, AddsOnActivity.class);
                     intent.putExtra("item_id",getItemsForDashboardPojo.getRecords().get(position).getId()+"");
                     intent.putExtra("item_name",getItemsForDashboardPojo.getRecords().get(position).getItmName()+"");
                     intent.putExtra("hsn_code",getItemsForDashboardPojo.getRecords().get(position).getHsnCode());
-                    intent.putExtra("uom_id",getItemsForDashboardPojo.getRecords().get(position).getItmUom());
-                    intent.putExtra("price",getItemsForDashboardPojo.getRecords().get(position).getPrice());
-                    intent.putExtra("weight", Double.parseDouble(spWeight.getSelectedItem() + ""));
-                    intent.putExtra("cgst_per","0.0");
-                    intent.putExtra("sgst_per","0.0");
-                    intent.putExtra("qty",Integer.parseInt("1"));
-                    intent.putExtra("mrp",100);
+                    intent.putExtra("uom_id",getItemsForDashboardPojo.getRecords().get(position).getItmUom()+"");
+                    intent.putExtra("price",getItemsForDashboardPojo.getRecords().get(position).getPrice()+"");
+                    intent.putExtra("weight", spWeight.getSelectedItem() + "");
+                    intent.putExtra("cgst_per",cgst_per);
+                    intent.putExtra("sgst_per",sgst_per);
+                    intent.putExtra("qty","1");
+                    intent.putExtra("mrp",mrp);
                     intent.putExtra("flavour",spFlavour.getSelectedItem() + "");
                     intent.putExtra("shape",spShape.getSelectedItem()+"");
+                    intent.putExtra("occassionId",SELECTED_MENU_ID);
+                    intent.putExtra("occassionName",SELECTED_MENU);
+                    intent.putExtra("delv_date",selectedDeliveryDateString);
+                    intent.putExtra("addsonPrice","120");
+                    intent.putExtra("message",edtInstructions.getText().toString());
+                    intent.putExtra("spcialIntro",edtSpecialCakeMessage.getText().toString());
+                    intent.putExtra("schedule_id",SELECTED_SCHEDULE_ID);
+                    if (selectedFile != null){
+                        intent.putExtra("file",selectedFile.toString());
+                    }else{
+                        intent.putExtra("file","");
+                    }
+
                     startActivity(intent);
                 }
 
@@ -199,7 +228,7 @@ public class BottomSheetDialogForSpecialOrder extends BottomSheetDialogFragment 
             }
         });
         connectionDetector = new ConnectionDetector(dashboardActivity);
-        saveOrderDatabase = SaveOrderDatabase.getInstance(dashboardActivity);
+       // saveOrderDatabase = SaveOrderDatabase.getInstance(dashboardActivity);
         spMenu = view.findViewById(R.id.spMenu);
         spShape = view.findViewById(R.id.spShape);
         spWeight = view.findViewById(R.id.spWeight);
@@ -208,7 +237,7 @@ public class BottomSheetDialogForSpecialOrder extends BottomSheetDialogFragment 
         tvQty.setEnabled(false);
         tvDeliveryDate = view.findViewById(R.id.tvDeliveryDate);
         tvPhotoUpload = view.findViewById(R.id.tvPhotoUpload);
-        btnProceed = view.findViewById(R.id.btnProceed);
+      //  btnProceed = view.findViewById(R.id.btnProceed);
         tvSpecialItemName = view.findViewById(R.id.tvSpecialItemName);
         tvSpecialItemPrice = view.findViewById(R.id.tvSpecialItemPrice);
         if (isFromSearch) {
@@ -227,15 +256,15 @@ public class BottomSheetDialogForSpecialOrder extends BottomSheetDialogFragment 
         imgCloseSpecialOrder = view.findViewById(R.id.imgCloseSpecialOrder);
         tvDeliveryDate.setOnClickListener(this);
         imgCloseSpecialOrder.setOnClickListener(this);
-        btnProceed.setOnClickListener(this);
+        //btnProceed.setOnClickListener(this);
         tvPhotoUpload.setOnClickListener(this);
         exAddsOnn = view.findViewById(R.id.exAddsOnn);
         exAddsOnn.setGroupIndicator(null);
-        if (mySharedPreferences.getUserMobileNo().equals("")) {
+      /*  if (mySharedPreferences.getUserMobileNo().equals("")) {
             llAlmostThere.setVisibility(View.VISIBLE);
         } else {
             llAlmostThere.setVisibility(View.GONE);
-        }
+        }*/
         edtSpecialCakeMessage = view.findViewById(R.id.edtSpecialCakeMessage);
         edtInstructions = view.findViewById(R.id.edtInstructions);
         exAddsOnn.setOnTouchListener(new View.OnTouchListener() {
@@ -252,6 +281,7 @@ public class BottomSheetDialogForSpecialOrder extends BottomSheetDialogFragment 
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 if (position > 0) {
                     SELECTED_MENU_ID = menuListId.get(position);
+                    SELECTED_MENU = menuList.get(position);
                 }
 
             }
@@ -282,9 +312,10 @@ public class BottomSheetDialogForSpecialOrder extends BottomSheetDialogFragment 
 
 
     private void setFlavours() {
+        getFlavours(getItemsForDashboardPojo.getRecords().get(position).getId()+"");
 
 
-        if (!CommonUtil.checkIsEmptyOrNullCommon(getItemsForDashboardPojo.getRecords().get(position).getItmFlv())) {
+       /* if (!CommonUtil.checkIsEmptyOrNullCommon(getItemsForDashboardPojo.getRecords().get(position).getItmFlv())) {
 
 
             System.out.println("Flavour Available===");
@@ -301,18 +332,18 @@ public class BottomSheetDialogForSpecialOrder extends BottomSheetDialogFragment 
             spFlavour.setTitle("Select Flavour");
             //  spSpecialCakeShop.setBackgroundDrawable(R.drawable.ic_baseline_expand_more_24);
             spFlavour.setAdapter(cakeFlavourAdapter);
-            GetItemWeight(getItemsForDashboardPojo.getRecords().get(position).getId() + "");
-        }
+
+        }*/
 
 
     }
 
 
-    private void getFlavours() {
+    private void getFlavours(String itemId) {
         if (connectionDetector.isConnectingToInternet()) {
 
 
-            ApiImplementer.getFlavoursImplementer(mySharedPreferences.getVersionCode(), mySharedPreferences.getAndroidID(), mySharedPreferences.getDeviceID(), CommonUtil.USER_ID, ApiUrls.TESTING_KEY, CommonUtil.COMP_ID, new Callback<GetFlavoursPojo>() {
+            ApiImplementer.getFlavoursImplementer(mySharedPreferences.getVersionCode(), mySharedPreferences.getAndroidID(), mySharedPreferences.getDeviceID(), CommonUtil.USER_ID, ApiUrls.TESTING_KEY, CommonUtil.COMP_ID,itemId, new Callback<GetFlavoursPojo>() {
                 @Override
                 public void onResponse(Call<GetFlavoursPojo> call, Response<GetFlavoursPojo> response) {
 
@@ -324,15 +355,15 @@ public class BottomSheetDialogForSpecialOrder extends BottomSheetDialogFragment 
                         ) {
                             GetFlavoursPojo getFlavoursPojo = response.body();
 
-                            if (getFlavoursPojo != null && getFlavoursPojo.getRECORDS().size() > 0) {
+                            if (getFlavoursPojo != null && getFlavoursPojo.getRecords().size() > 0) {
 
                                 flavourList = new ArrayList<>();
                                 flavourList.add("Flavour");
 
 
-                              /*  for (int i = 0; i < getFlavoursPojo.getRECORDS().size(); i++) {
-                                    flavourList.add(getFlavoursPojo.getRECORDS().get(i) + "");
-                                }*/
+                                for (int i = 0; i < getFlavoursPojo.getRecords().size(); i++) {
+                                    flavourList.add(getFlavoursPojo.getRecords().get(i).getIadValue() + "");
+                                }
                                 ArrayAdapter<String> flavoursAdapter = new ArrayAdapter<String>(dashboardActivity, R.layout.spinner_common_layout, flavourList);
                                 flavoursAdapter.setDropDownViewResource(R.layout.spinner_common_layout);
                                 spFlavour.setTitle("Select Flavours");
@@ -348,7 +379,7 @@ public class BottomSheetDialogForSpecialOrder extends BottomSheetDialogFragment 
 
 
                             }
-
+                            GetItemWeight(getItemsForDashboardPojo.getRecords().get(position).getId() + "");
 
                         } else {
 
@@ -601,7 +632,7 @@ public class BottomSheetDialogForSpecialOrder extends BottomSheetDialogFragment 
 
     //****//
 
-    private SaveOrderDatabase saveOrderDatabase;
+  //  private SaveOrderDatabase saveOrderDatabase;
 
     private SaveOrder saveOrder;
     //****//
@@ -690,10 +721,10 @@ public class BottomSheetDialogForSpecialOrder extends BottomSheetDialogFragment 
                 selectedItemJson.put("uom_id", getItemsForDashboardPojo.getRecords().get(position).getItmUom());
                 selectedItemJson.put("price", getItemsForDashboardPojo.getRecords().get(position).getPrice());
                 selectedItemJson.put("weight", Double.parseDouble(spWeight.getSelectedItem() + ""));
-                selectedItemJson.put("cgst_per", "0.0");
-                selectedItemJson.put("sgst_per", "0.0");
+                selectedItemJson.put("cgst_per", cgst_per);
+                selectedItemJson.put("sgst_per", sgst_per);
                 selectedItemJson.put("qty", Integer.parseInt("1"));
-                selectedItemJson.put("mrp", Double.parseDouble("100.0"));
+                selectedItemJson.put("mrp", mrp);
                 selectedItemJson.put("flavour", spFlavour.getSelectedItem() + "");
                 selectedItemJson.put("shape", spShape.getSelectedItem() + "");
 
@@ -736,9 +767,9 @@ public class BottomSheetDialogForSpecialOrder extends BottomSheetDialogFragment 
             } else {
                 this.dismiss();
 
-                BottomSheetDialogForLoginUser bottomSheetDialogForLoginUser = new BottomSheetDialogForLoginUser(dashboardActivity, false, false, true);
-                if (!bottomSheetDialogForLoginUser.isAdded()) {
-                    bottomSheetDialogForLoginUser.show(dashboardActivity.getSupportFragmentManager(), "test");
+                BsLogin bsLogin = new BsLogin(dashboardActivity, false, false, true);
+                if (!bsLogin.isAdded()) {
+                    bsLogin.show(dashboardActivity.getSupportFragmentManager(), "test");
                 }
 
                 // }
@@ -840,7 +871,7 @@ public class BottomSheetDialogForSpecialOrder extends BottomSheetDialogFragment 
     private SimpleDateFormat sdf_full, serverDateFormat;
     private String selectedDeliveryDateString;
 
-
+    File selectedFile;
     File specialOrderFileUpload = null;
 
     public void deliveryDateDialog() {
@@ -914,9 +945,10 @@ public class BottomSheetDialogForSpecialOrder extends BottomSheetDialogFragment 
 
                 String fileUrl = FileUtils.getPath(getActivity(), uri);
 
-                File file = new File(fileUrl);
-                String file_extension = file.getAbsolutePath().substring(file.getAbsolutePath().lastIndexOf(".") + 1);
-                mFile = RequestBody.create(MediaType.parse("image/jpeg"), file);
+                selectedFile = new File(fileUrl);
+                String file_extension = selectedFile.getAbsolutePath().substring(selectedFile.getAbsolutePath().lastIndexOf(".") + 1);
+                mFile = RequestBody.create(MediaType.parse("image/jpeg"), selectedFile);
+                tvPhotoUpload.setText(selectedFile.getName()+"");
 
             } catch (Exception e) {
 
@@ -1136,7 +1168,7 @@ public class BottomSheetDialogForSpecialOrder extends BottomSheetDialogFragment 
         // doInBackground methods runs on a worker thread
         @Override
         protected Boolean doInBackground(Void... objs) {
-            saveOrderDatabase.getNoteDao().insert(saveOrder);
+          //  saveOrderDatabase.getNoteDao().insert(saveOrder);
             return true;
         }
 
@@ -1154,9 +1186,50 @@ public class BottomSheetDialogForSpecialOrder extends BottomSheetDialogFragment 
 
 
     private void getItemMrpbyWeightAndFlavour(){
+        getActivity().runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                DialogUtil.showProgressDialogCancelable(getActivity(), "");
+            }
+        });
 
 
+        ApiImplementer.getItemMrpByWeightAndFlavourorNewImplementer(String.valueOf(mySharedPreferences.getVersionCode()), String.valueOf(mySharedPreferences.getAndroidID()), String.valueOf(mySharedPreferences.getDeviceID()), CommonUtil.USER_ID, ApiUrls.TESTING_KEY, CommonUtil.COMP_ID, String.valueOf(getItemsForDashboardPojo.getRecords().get(position).getId()), "Gujarat", "AHMEDABAD", getItemsForDashboardPojo.getRecords().get(position).getHsnCode(), "Khari", new Callback<ItemMrpByFlavourAndWeightPojo>() {
+            @Override
+            public void onResponse(Call<ItemMrpByFlavourAndWeightPojo> call, Response<ItemMrpByFlavourAndWeightPojo> response) {
+                try{
+                    if (response.isSuccessful()){
 
+                        http://192.168.30.70/SFDelicious/Get_item_mrp_by_weight_and_flavour_for_new?app_version=1&android_id=dvdvdsvsv&device_id=0&user_id=0&key=NMEQpClmUy&comp_id=5&item_id=54&state_name=Gujarat&city_name=AHMEDABAD&hsn_code=123456&Flavour=khari
+                        DialogUtil.hideProgressDialog();
+                        ItemMrpByFlavourAndWeightPojo itemMrpByFlavourAndWeightPojo = response.body();
+                        if (itemMrpByFlavourAndWeightPojo != null && itemMrpByFlavourAndWeightPojo.getRecords().size() > 0 ){
+                            double weight = Double.parseDouble(spWeight.getSelectedItem()+"");
+                            double mrpp = weight * itemMrpByFlavourAndWeightPojo.getRecords().get(0).getPrice();
+                            mrp = mrpp+"";
+                            cgst_per = itemMrpByFlavourAndWeightPojo.getRecords().get(0).getCgstPer()+"";
+                            sgst_per = itemMrpByFlavourAndWeightPojo.getRecords().get(0).getSgstPer()+"";
+                            Toast.makeText(getActivity(),mrp,Toast.LENGTH_LONG).show();
+
+
+                        }else{
+
+                        }
+
+
+                    }
+
+                }catch (Exception e){
+
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<ItemMrpByFlavourAndWeightPojo> call, Throwable t) {
+                DialogUtil.hideProgressDialog();
+            }
+        });
         //Get_item_mrp_by_weight_and_flavour
     }
 

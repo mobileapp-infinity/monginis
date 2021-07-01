@@ -12,7 +12,6 @@ import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.AppCompatImageView;
-import androidx.core.content.ContextCompat;
 
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import com.google.android.material.card.MaterialCardView;
@@ -36,7 +35,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class BottomSheetDialogForLoginUser extends BottomSheetDialogFragment implements View.OnClickListener {
+public class BsLogin extends BottomSheetDialogFragment implements View.OnClickListener {
 
     private MaterialCardView cvLogin;
     private TextInputLayout tilMobileNumber;
@@ -61,12 +60,12 @@ public class BottomSheetDialogForLoginUser extends BottomSheetDialogFragment imp
    // private
     private AppCompatImageView imgCloseLogin;
 
-    public BottomSheetDialogForLoginUser(LoginActivity activity) {
+    public BsLogin(LoginActivity activity) {
         this.activity = activity;
         this.iLoginUserDialog = (ILoginUserDialog) activity;
     }
 
-    public BottomSheetDialogForLoginUser(CartActivity activity) {
+    public BsLogin(CartActivity activity) {
         this.cartActivity = activity;
 
     }
@@ -78,7 +77,7 @@ public class BottomSheetDialogForLoginUser extends BottomSheetDialogFragment imp
 
   //  private Activity activity;
 
-    public BottomSheetDialogForLoginUser(DashboardActivity activity,boolean isFromProfile,boolean isFromCart,boolean isFromSpecialOrder) {
+    public BsLogin(DashboardActivity activity, boolean isFromProfile, boolean isFromCart, boolean isFromSpecialOrder) {
         this.dashboardActivity = activity;
         this.isFromCart = isFromCart;
         this.isFromProfile = isFromProfile;
@@ -88,23 +87,23 @@ public class BottomSheetDialogForLoginUser extends BottomSheetDialogFragment imp
 
 
 
-    public BottomSheetDialogForLoginUser(Activity activity) {
+    public BsLogin(Activity activity) {
         this.activityy = activity;
 
     }
 
-    public BottomSheetDialogForLoginUser(ItemDetailsActivity activity,boolean isFromItemDetails) {
+    public BsLogin(ItemDetailsActivity activity, boolean isFromItemDetails) {
         this.itemDetailsActivity = activity;
         this.isFromItemDetails = isFromItemDetails;
 
     }
-    public BottomSheetDialogForLoginUser(CategoryItemsDetailsActivity activity,boolean isFromFavrt) {
+    public BsLogin(CategoryItemsDetailsActivity activity, boolean isFromFavrt) {
         this.categoryItemsDetailsActivity = activity;
         this.isFromFavrt = isFromFavrt;
 
     }
 
-    public BottomSheetDialogForLoginUser(Context context) {
+    public BsLogin(Context context) {
         this.context = context;
 
     }
@@ -197,39 +196,39 @@ public class BottomSheetDialogForLoginUser extends BottomSheetDialogFragment imp
                 //  checkLoginOTPImplementer(edMobileNumber.getText().toString());
 
                 if (activity != null) {
-                    BottomSheetDialogForVerifyOTP bottomSheetDialogForVerifyOTP = new BottomSheetDialogForVerifyOTP(activity,
+                    BsVerifyOtp bsVerifyOtp = new BsVerifyOtp(activity,
                             edMobileNumber.getText().toString());
-                    if (!bottomSheetDialogForVerifyOTP.isAdded()) {
-                        bottomSheetDialogForVerifyOTP.setCancelable(false);
-                        bottomSheetDialogForVerifyOTP.show(activity.getSupportFragmentManager(), "verfy_otp");
+                    if (!bsVerifyOtp.isAdded()) {
+                        bsVerifyOtp.setCancelable(false);
+                        bsVerifyOtp.show(activity.getSupportFragmentManager(), "verfy_otp");
                     }
                 } else if (cartActivity != null) {
-                    BottomSheetDialogForVerifyOTP bottomSheetDialogForVerifyOTP = new BottomSheetDialogForVerifyOTP(cartActivity,
+                    BsVerifyOtp bsVerifyOtp = new BsVerifyOtp(cartActivity,
                             edMobileNumber.getText().toString());
-                    if (!bottomSheetDialogForVerifyOTP.isAdded()) {
-                        bottomSheetDialogForVerifyOTP.setCancelable(false);
-                        bottomSheetDialogForVerifyOTP.show(cartActivity.getSupportFragmentManager(), "verfy_otp");
+                    if (!bsVerifyOtp.isAdded()) {
+                        bsVerifyOtp.setCancelable(false);
+                        bsVerifyOtp.show(cartActivity.getSupportFragmentManager(), "verfy_otp");
                     }
                 } else if (itemDetailsActivity != null) {
-                    BottomSheetDialogForVerifyOTP bottomSheetDialogForVerifyOTP = new BottomSheetDialogForVerifyOTP(itemDetailsActivity,
+                    BsVerifyOtp bsVerifyOtp = new BsVerifyOtp(itemDetailsActivity,
                             edMobileNumber.getText().toString(),true);
-                    if (!bottomSheetDialogForVerifyOTP.isAdded()) {
-                        bottomSheetDialogForVerifyOTP.setCancelable(false);
-                        bottomSheetDialogForVerifyOTP.show(itemDetailsActivity.getSupportFragmentManager(), "verfy_otp");
+                    if (!bsVerifyOtp.isAdded()) {
+                        bsVerifyOtp.setCancelable(false);
+                        bsVerifyOtp.show(itemDetailsActivity.getSupportFragmentManager(), "verfy_otp");
                     }
                 } else if (dashboardActivity != null) {
-                    BottomSheetDialogForVerifyOTP bottomSheetDialogForVerifyOTP = new BottomSheetDialogForVerifyOTP(dashboardActivity,
+                    BsVerifyOtp bsVerifyOtp = new BsVerifyOtp(dashboardActivity,
                             edMobileNumber.getText().toString(),isFromProfile,isFromSpecialOrder,isFromCart);
-                    if (!bottomSheetDialogForVerifyOTP.isAdded()) {
-                        bottomSheetDialogForVerifyOTP.setCancelable(false);
-                        bottomSheetDialogForVerifyOTP.show(dashboardActivity.getSupportFragmentManager(), "verfy_otp");
+                    if (!bsVerifyOtp.isAdded()) {
+                        bsVerifyOtp.setCancelable(false);
+                        bsVerifyOtp.show(dashboardActivity.getSupportFragmentManager(), "verfy_otp");
                     }
                 }else if (categoryItemsDetailsActivity != null){
-                    BottomSheetDialogForVerifyOTP bottomSheetDialogForVerifyOTP = new BottomSheetDialogForVerifyOTP(categoryItemsDetailsActivity,
+                    BsVerifyOtp bsVerifyOtp = new BsVerifyOtp(categoryItemsDetailsActivity,
                             edMobileNumber.getText().toString(),isFromFavrt);
-                    if (!bottomSheetDialogForVerifyOTP.isAdded()) {
-                        bottomSheetDialogForVerifyOTP.setCancelable(false);
-                        bottomSheetDialogForVerifyOTP.show(categoryItemsDetailsActivity.getSupportFragmentManager(), "verfy_otp");
+                    if (!bsVerifyOtp.isAdded()) {
+                        bsVerifyOtp.setCancelable(false);
+                        bsVerifyOtp.show(categoryItemsDetailsActivity.getSupportFragmentManager(), "verfy_otp");
                     }
                 }
 
@@ -238,19 +237,19 @@ public class BottomSheetDialogForLoginUser extends BottomSheetDialogFragment imp
         } else if (v.getId() == R.id.tvSignUp) {
             this.dismiss();
             if (dashboardActivity != null) {
-                BottomSheetDialogForRegisterUser bottomSheetDialogForRegisterUser = new BottomSheetDialogForRegisterUser(dashboardActivity);
-                if (!bottomSheetDialogForRegisterUser.isAdded()) {
-                    bottomSheetDialogForRegisterUser.show(dashboardActivity.getSupportFragmentManager(), "registeruser");
+                BsRegister bsRegister = new BsRegister(dashboardActivity);
+                if (!bsRegister.isAdded()) {
+                    bsRegister.show(dashboardActivity.getSupportFragmentManager(), "registeruser");
                 }
             } else if (cartActivity != null) {
-                BottomSheetDialogForRegisterUser bottomSheetDialogForRegisterUser = new BottomSheetDialogForRegisterUser(cartActivity);
-                if (!bottomSheetDialogForRegisterUser.isAdded()) {
-                    bottomSheetDialogForRegisterUser.show(cartActivity.getSupportFragmentManager(), "registeruser");
+                BsRegister bsRegister = new BsRegister(cartActivity);
+                if (!bsRegister.isAdded()) {
+                    bsRegister.show(cartActivity.getSupportFragmentManager(), "registeruser");
                 }
             } else if (itemDetailsActivity != null) {
-                BottomSheetDialogForRegisterUser bottomSheetDialogForRegisterUser = new BottomSheetDialogForRegisterUser(itemDetailsActivity);
-                if (!bottomSheetDialogForRegisterUser.isAdded()) {
-                    bottomSheetDialogForRegisterUser.show(itemDetailsActivity.getSupportFragmentManager(), "registeruser");
+                BsRegister bsRegister = new BsRegister(itemDetailsActivity);
+                if (!bsRegister.isAdded()) {
+                    bsRegister.show(itemDetailsActivity.getSupportFragmentManager(), "registeruser");
                 }
             }
 
@@ -289,32 +288,32 @@ public class BottomSheetDialogForLoginUser extends BottomSheetDialogFragment imp
 
 
                                 if (activity != null) {
-                                    BottomSheetDialogForVerifyOTP bottomSheetDialogForVerifyOTP = new BottomSheetDialogForVerifyOTP(activity,
+                                    BsVerifyOtp bsVerifyOtp = new BsVerifyOtp(activity,
                                             edMobileNumber.getText().toString());
-                                    if (!bottomSheetDialogForVerifyOTP.isAdded()) {
-                                        bottomSheetDialogForVerifyOTP.setCancelable(false);
-                                        bottomSheetDialogForVerifyOTP.show(activity.getSupportFragmentManager(), "verfy_otp");
+                                    if (!bsVerifyOtp.isAdded()) {
+                                        bsVerifyOtp.setCancelable(false);
+                                        bsVerifyOtp.show(activity.getSupportFragmentManager(), "verfy_otp");
                                     }
                                 } else if (cartActivity != null) {
-                                    BottomSheetDialogForVerifyOTP bottomSheetDialogForVerifyOTP = new BottomSheetDialogForVerifyOTP(cartActivity,
+                                    BsVerifyOtp bsVerifyOtp = new BsVerifyOtp(cartActivity,
                                             edMobileNumber.getText().toString());
-                                    if (!bottomSheetDialogForVerifyOTP.isAdded()) {
-                                        bottomSheetDialogForVerifyOTP.setCancelable(false);
-                                        bottomSheetDialogForVerifyOTP.show(cartActivity.getSupportFragmentManager(), "verfy_otp");
+                                    if (!bsVerifyOtp.isAdded()) {
+                                        bsVerifyOtp.setCancelable(false);
+                                        bsVerifyOtp.show(cartActivity.getSupportFragmentManager(), "verfy_otp");
                                     }
                                 } else if (itemDetailsActivity != null) {
-                                    BottomSheetDialogForVerifyOTP bottomSheetDialogForVerifyOTP = new BottomSheetDialogForVerifyOTP(itemDetailsActivity,
+                                    BsVerifyOtp bsVerifyOtp = new BsVerifyOtp(itemDetailsActivity,
                                             edMobileNumber.getText().toString());
-                                    if (!bottomSheetDialogForVerifyOTP.isAdded()) {
-                                        bottomSheetDialogForVerifyOTP.setCancelable(false);
-                                        bottomSheetDialogForVerifyOTP.show(itemDetailsActivity.getSupportFragmentManager(), "verfy_otp");
+                                    if (!bsVerifyOtp.isAdded()) {
+                                        bsVerifyOtp.setCancelable(false);
+                                        bsVerifyOtp.show(itemDetailsActivity.getSupportFragmentManager(), "verfy_otp");
                                     }
                                 } else if (dashboardActivity != null) {
-                                    BottomSheetDialogForVerifyOTP bottomSheetDialogForVerifyOTP = new BottomSheetDialogForVerifyOTP(dashboardActivity,
+                                    BsVerifyOtp bsVerifyOtp = new BsVerifyOtp(dashboardActivity,
                                             edMobileNumber.getText().toString());
-                                    if (!bottomSheetDialogForVerifyOTP.isAdded()) {
-                                        bottomSheetDialogForVerifyOTP.setCancelable(false);
-                                        bottomSheetDialogForVerifyOTP.show(dashboardActivity.getSupportFragmentManager(), "verfy_otp");
+                                    if (!bsVerifyOtp.isAdded()) {
+                                        bsVerifyOtp.setCancelable(false);
+                                        bsVerifyOtp.show(dashboardActivity.getSupportFragmentManager(), "verfy_otp");
                                     }
                                 }
 

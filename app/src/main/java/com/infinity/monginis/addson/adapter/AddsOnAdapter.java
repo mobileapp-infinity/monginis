@@ -1,4 +1,4 @@
-package com.infinity.monginis.dashboard.adapter;
+package com.infinity.monginis.addson.adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -9,12 +9,10 @@ import android.widget.ExpandableListView;
 
 import androidx.appcompat.widget.AppCompatEditText;
 import androidx.appcompat.widget.AppCompatImageView;
-import androidx.core.content.ContextCompat;
 
 import com.infinity.monginis.R;
 import com.infinity.monginis.custom_class.TextViewMediumFont;
 import com.infinity.monginis.custom_class.TextViewRegularFont;
-import com.infinity.monginis.dashboard.activity.AddsOnActivity;
 import com.infinity.monginis.dashboard.model.AddsOnItemModel;
 import com.infinity.monginis.dashboard.pojo.Get_Addons_Items_List_Pojo;
 import com.infinity.monginis.utils.CommonUtil;
@@ -174,13 +172,13 @@ public class AddsOnAdapter extends BaseExpandableListAdapter {
                 .get(childPosition).setQty(todouble);
 
 
-        double total = categoryItemHashMap.get(categoryNameHeader.get(groupPosition)).get(childPosition).getQty() * 5.0;
+        double total = categoryItemHashMap.get(categoryNameHeader.get(groupPosition)).get(childPosition).getQty() * categoryItemHashMap.get(categoryNameHeader.get(groupPosition)).get(childPosition).getMrp();
 
         categoryItemHashMap.get(categoryNameHeader.get(groupPosition))
                 .get(childPosition).setTotalAmt(total);
 
 
-        Double total_amt = categoryItemHashMap.get(categoryNameHeader.get(groupPosition)).get(childPosition).getQty() *3.5;
+        Double total_amt = categoryItemHashMap.get(categoryNameHeader.get(groupPosition)).get(childPosition).getQty() *categoryItemHashMap.get(categoryNameHeader.get(groupPosition)).get(childPosition).getMrp();
 
 
         categoryItemHashMap.get(categoryNameHeader.get(groupPosition))

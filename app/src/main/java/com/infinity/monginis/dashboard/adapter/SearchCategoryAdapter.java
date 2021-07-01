@@ -21,6 +21,7 @@ import com.infinity.monginis.dashboard.activity.EditUserDetailsActivity;
 import com.infinity.monginis.dashboard.activity.ItemDetailsActivity;
 import com.infinity.monginis.dashboard.pojo.SearchCategoryPojo;
 import com.infinity.monginis.dashboard.pojo.TestPojo;
+import com.infinity.monginis.utils.IntentConstants;
 
 import java.util.ArrayList;
 
@@ -74,6 +75,11 @@ public class SearchCategoryAdapter extends RecyclerView.Adapter<SearchCategoryAd
                     bottomSheetForSpecialOrder.show(((DashboardActivity) context).getSupportFragmentManager(), "");
                 }else{
                     Intent itemDetailsIntent = new Intent(context, ItemDetailsActivity.class);
+                    itemDetailsIntent.putExtra("isItemLikedTrue",testPojoArrayList.get(position).isAlreadyLikedOrNot());
+                    itemDetailsIntent.putExtra("isItemAvailableInLikedList",testPojoArrayList.get(position).isAvailableInLikedList());
+                    itemDetailsIntent.putExtra(IntentConstants.SELECTED_SHOP_ID,testPojoArrayList.get(position).getCustomerId()+"");
+                    itemDetailsIntent.putExtra(IntentConstants.SELECTED_SHOP_NAME,testPojoArrayList.get(position).getShopName()+"");
+
 
                     context.startActivity(itemDetailsIntent);
                 }
@@ -86,7 +92,7 @@ public class SearchCategoryAdapter extends RecyclerView.Adapter<SearchCategoryAd
             @Override
             public void onClick(View v) {
 
-                iOnShopClicked.onShopClicked();
+                iOnShopClicked.onShopClicked(testPojoArrayList.get(position).getCustomerId());
 
             }
         });
@@ -126,6 +132,6 @@ public class SearchCategoryAdapter extends RecyclerView.Adapter<SearchCategoryAd
 
     public  interface IOnShopClicked{
 
-        void onShopClicked();
+        void onShopClicked(int custId);
     }
 }

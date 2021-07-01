@@ -1,4 +1,4 @@
-package com.infinity.monginis.ShopForItemActiivty;
+package com.infinity.monginis.ShopForItemActiivty.pojo;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;

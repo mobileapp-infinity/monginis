@@ -1,4 +1,4 @@
-package com.infinity.monginis.ShopForItemActiivty;
+package com.infinity.monginis.ShopForItemActiivty.Activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatImageView;
@@ -12,6 +12,8 @@ import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.infinity.monginis.R;
+import com.infinity.monginis.ShopForItemActiivty.pojo.GetShopListForItemStockPojo;
+import com.infinity.monginis.ShopForItemActiivty.Adapter.ShopListAdapter;
 import com.infinity.monginis.api.ApiImplementer;
 import com.infinity.monginis.api.ApiUrls;
 import com.infinity.monginis.custom_class.TextViewRegularFont;

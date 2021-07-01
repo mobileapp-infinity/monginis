@@ -2,28 +2,22 @@ package com.infinity.monginis.dashboard.activity;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
 
 import android.content.Context;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.infinity.monginis.R;
-import com.infinity.monginis.custom_class.TextViewMediumFont;
-import com.infinity.monginis.custom_class.TextViewRegularFont;
 import com.infinity.monginis.dashboard.adapter.DashboardViewPagerAdapter;
 import com.infinity.monginis.dashboard.fragments.CartFragment;
 import com.infinity.monginis.dashboard.fragments.ExploreFragment;
 import com.infinity.monginis.dashboard.fragments.ProfileFragment;
 import com.infinity.monginis.dashboard.fragments.SearchFragment;
-import com.infinity.monginis.login.BottomSheetDialogForLoginUser;
+import com.infinity.monginis.login.BsLogin;
 import com.infinity.monginis.utils.CommonUtil;
-import com.infinity.monginis.utils.IntentConstants;
 import com.infinity.monginis.utils.MySharedPreferences;
 
 public class DashboardActivity extends AppCompatActivity {
@@ -68,9 +62,9 @@ public class DashboardActivity extends AppCompatActivity {
                             InputMethodManager cartInputManager = (InputMethodManager) DashboardActivity.this.getSystemService(Context.INPUT_METHOD_SERVICE);
                             cartInputManager.hideSoftInputFromWindow(bottomNavigationView.getWindowToken(), 0);
                         } else {
-                            BottomSheetDialogForLoginUser bottomSheetDialogForLoginUser = new BottomSheetDialogForLoginUser(DashboardActivity.this,false,true,false);
-                            if (!bottomSheetDialogForLoginUser.isAdded()) {
-                                bottomSheetDialogForLoginUser.show(getSupportFragmentManager(), "test");
+                            BsLogin bsLogin = new BsLogin(DashboardActivity.this,false,true,false);
+                            if (!bsLogin.isAdded()) {
+                                bsLogin.show(getSupportFragmentManager(), "test");
                             }
                         }
 
@@ -83,9 +77,9 @@ public class DashboardActivity extends AppCompatActivity {
                             InputMethodManager profileInputManager = (InputMethodManager) DashboardActivity.this.getSystemService(Context.INPUT_METHOD_SERVICE);
                             profileInputManager.hideSoftInputFromWindow(bottomNavigationView.getWindowToken(), 0);
                         } else {
-                            BottomSheetDialogForLoginUser bottomSheetDialogForLoginUser = new BottomSheetDialogForLoginUser(DashboardActivity.this,true,false,false);
-                            if (!bottomSheetDialogForLoginUser.isAdded()) {
-                                bottomSheetDialogForLoginUser.show(getSupportFragmentManager(), "test");
+                            BsLogin bsLogin = new BsLogin(DashboardActivity.this,true,false,false);
+                            if (!bsLogin.isAdded()) {
+                                bsLogin.show(getSupportFragmentManager(), "test");
                             }
                         }
 
