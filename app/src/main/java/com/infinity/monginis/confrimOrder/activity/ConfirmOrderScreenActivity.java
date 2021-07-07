@@ -2,11 +2,13 @@ package com.infinity.monginis.confrimOrder.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatEditText;
+import androidx.appcompat.widget.AppCompatImageView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.text.Editable;
@@ -28,6 +30,7 @@ import com.infinity.monginis.confrimOrder.adapter.ConfirmOrderAccessoriesAdapter
 import com.infinity.monginis.confrimOrder.adapter.ConfirmOrderAddsonAdapter;
 import com.infinity.monginis.confrimOrder.pojo.GetPartialOrderDetailReponsePojo;
 import com.infinity.monginis.confrimOrder.pojo.SaveSpecialOrderconfirmPojo;
+import com.infinity.monginis.manageAddress.AddressActivity;
 import com.infinity.monginis.utils.CommonUtil;
 import com.infinity.monginis.utils.DialogUtil;
 import com.infinity.monginis.utils.MySharedPreferences;
@@ -46,6 +49,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import static com.infinity.monginis.dashboard.activity.DashboardActivity.vpDashboard;
 import static com.infinity.monginis.dashboard.fragments.SearchFragment.lastFileToUploadPassport;
 
 public class ConfirmOrderScreenActivity extends AppCompatActivity implements View.OnClickListener {
@@ -56,7 +60,7 @@ public class ConfirmOrderScreenActivity extends AppCompatActivity implements Vie
     private  AppCompatEditText tvAdvanceAmount,tvMobileNo;
     private TextViewRegularFont tvConfirm;
     private String amountPayable = "";
-
+    String orderId,custID,addOnPrice;
     private String totalAddsOnPrice;
     private LinearLayout llMain;
     private TextViewMediumFont tvWeight,tvFlavour,tvShape,tvProductName;
@@ -65,6 +69,7 @@ public class ConfirmOrderScreenActivity extends AppCompatActivity implements Vie
     private AppCompatEditText tvAnniversaryDate,tvDob,tvRemainingAmount,tvAmountPayable,tvOrderBy,tvOrderFor;
     private IApiInterface apiInterface;
     private String cgst_per,sgst_pr,schedule_id;
+    private AppCompatImageView ivBack;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -72,7 +77,10 @@ public class ConfirmOrderScreenActivity extends AppCompatActivity implements Vie
 
 
         initView();
-        getPartialOrderDetails("728");
+        orderId  = getIntent().getStringExtra("orderId");
+        custID  = getIntent().getStringExtra("custId");
+        addOnPrice  = getIntent().getStringExtra("addOnPrice");
+        getPartialOrderDetails(orderId);
     }
 
 
@@ -83,6 +91,13 @@ public class ConfirmOrderScreenActivity extends AppCompatActivity implements Vie
         mySharedPreferences = new MySharedPreferences(this);
         tvWeight = findViewById(R.id.tvWeight);
         tvFlavour = findViewById(R.id.tvFlavour);
+        ivBack = findViewById(R.id.ivBack);
+        ivBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
         sdf_full = new SimpleDateFormat("dd-MM-yyyy", Locale.ENGLISH);
         serverDateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH);
         tvConfirm = findViewById(R.id.tvConfirm);
@@ -101,7 +116,7 @@ public class ConfirmOrderScreenActivity extends AppCompatActivity implements Vie
 
 
                     String orderFor = tvOrderFor.getText().toString();
-                    SaveSpecialOrderConfirm("721",orderFor,orderBy,mobileNo,advanceAmount,remainingAmount,amountPayable,cgst_per,sgst_pr,totalAddsOnPrice,schedule_id,SELECTED_ANNIVERSARY_DATE,SELECTED_DATE_OF_BIRTH,SELECTEDPICKUPDATE,PICKUP_TIME);
+                    SaveSpecialOrderConfirm(orderId,custID,addOnPrice,orderFor,orderBy,mobileNo,advanceAmount,remainingAmount,amountPayable,cgst_per,sgst_pr,totalAddsOnPrice,schedule_id,SELECTED_ANNIVERSARY_DATE,SELECTED_DATE_OF_BIRTH,SELECTEDPICKUPDATE,PICKUP_TIME);
                 }
 
             }
@@ -433,7 +448,7 @@ public class ConfirmOrderScreenActivity extends AppCompatActivity implements Vie
     }
 
 
-    private void SaveSpecialOrderConfirm(String orderId,String order_for,String order_by,String mobile_no,String adv_amt,String remaining_amt,String mrp,String cgst_per,String sgst_per,String total_addons_price, String schedule_id,String anniversery_date, String date_of_birth, String pick_up_date, String pick_up_time ){
+    private void SaveSpecialOrderConfirm(String orderId,String custId,String addsOn,String order_for,String order_by,String mobile_no,String adv_amt,String remaining_amt,String mrp,String cgst_per,String sgst_per,String total_addons_price, String schedule_id,String anniversery_date, String date_of_birth, String pick_up_date, String pick_up_time ){
 
 
 
@@ -460,7 +475,7 @@ public class ConfirmOrderScreenActivity extends AppCompatActivity implements Vie
         RequestBody reg_user_id = RequestBody.create(MediaType.parse("text/plain"), String.valueOf(CommonUtil.USER_ID));
         RequestBody req_company_id = RequestBody.create(MediaType.parse("text/plain"), CommonUtil.COMP_ID);
         RequestBody req_key = RequestBody.create(MediaType.parse("text/plain"), ApiUrls.TESTING_KEY);
-        RequestBody req_cust_id = RequestBody.create(MediaType.parse("text/plain"), "177");
+        RequestBody req_cust_id = RequestBody.create(MediaType.parse("text/plain"), custId);
         RequestBody req_order_id = RequestBody.create(MediaType.parse("text/plain"), orderId);
         RequestBody req_order_for = RequestBody.create(MediaType.parse("text/plain"), order_for);
         RequestBody req_order_by = RequestBody.create(MediaType.parse("text/plain"), order_by);
@@ -470,7 +485,7 @@ public class ConfirmOrderScreenActivity extends AppCompatActivity implements Vie
         RequestBody req_mrp = RequestBody.create(MediaType.parse("text/plain"), mrp);
         RequestBody req_cgst_per = RequestBody.create(MediaType.parse("text/plain"), cgst_per);
         RequestBody req_sgst_per = RequestBody.create(MediaType.parse("text/plain"), sgst_per);
-        RequestBody req_total_addons_price = RequestBody.create(MediaType.parse("text/plain"), "120");
+        RequestBody req_total_addons_price = RequestBody.create(MediaType.parse("text/plain"), addsOn);
         RequestBody req_schedule_id = RequestBody.create(MediaType.parse("text/plain"), schedule_id);
 
         RequestBody req_anniversery_date = RequestBody.create(MediaType.parse("text/plain"), anniversery_date);
@@ -518,6 +533,10 @@ public class ConfirmOrderScreenActivity extends AppCompatActivity implements Vie
 
 
                         if (saveSpecialOrderconfirmPojo != null && saveSpecialOrderconfirmPojo.getFLAG() == 1){
+                            Toast.makeText(ConfirmOrderScreenActivity.this,saveSpecialOrderconfirmPojo.getMESSAGE(),Toast.LENGTH_LONG).show();
+
+                            Intent addres = new Intent(ConfirmOrderScreenActivity.this, AddressActivity.class);
+                            startActivity(addres);
                             finish();
                         }
 

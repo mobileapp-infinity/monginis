@@ -10,6 +10,8 @@ public class PreferencesConstants {
     public static final String MOBILE_NO = "mobile_no";
     public static final String ADDS_ON_ARRAY = "addsonArray";
     public static final String SPECIAL_SELECTED_ITEM_JSON = "specialSelectedItems";
+    public static final String lat = "lat";
+    public static final String longitude = "longitude";
     public static final String ITEM_ID = "items";
     public static final String ITEM_NAME = "itemName";
     public static final String HSN_CODE = "hsn_code";

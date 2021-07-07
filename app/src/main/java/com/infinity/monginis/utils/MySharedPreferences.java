@@ -257,8 +257,20 @@ public class MySharedPreferences {
     }*/
 
 
+    public void setLatLong(Double lat,Double longitude){
+        editor.putString(PreferencesConstants.lat, lat.toString());
+        editor.putString(PreferencesConstants.longitude, longitude.toString());
+        editor.apply();
 
+    }
 
+    public String getLat() {
+        return sharedPreferences.getString(PreferencesConstants.lat, "");
+    }
+
+    public String getLongitutde() {
+        return sharedPreferences.getString(PreferencesConstants.longitude, "");
+    }
 
 
 

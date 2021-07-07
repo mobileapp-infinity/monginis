@@ -5,6 +5,8 @@ import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -124,6 +126,7 @@ public class BsFroSpecialOrder extends BottomSheetDialogFragment implements View
     ArrayList<String> qtyList;
     ArrayList<TestPojo> testPojoArrayList;
     private Button btnAddsOn;
+    private AppCompatImageView ivSelectedImage;
     private boolean isFromSearch = false;
 
     public BsFroSpecialOrder(ItemDetailsActivity activity) {
@@ -188,6 +191,8 @@ String mrp = "";
     String sgst_per = "";
     private void initView(View view) {
         //saveOrderDatabase = SaveOrderDatabase.getInstance(dashboardActivity);
+        ivSelectedImage = view.findViewById(R.id.ivSelectedImage);
+
         mySharedPreferences = new MySharedPreferences(dashboardActivity);
         spFlavour = view.findViewById(R.id.spFlavour);
         btnAddsOn = view.findViewById(R.id.btnAddsOn);
@@ -195,34 +200,54 @@ String mrp = "";
             @Override
             public void onClick(View v) {
                 if (isValidated()){
-                    dismiss();
-                    Intent intent = new Intent(dashboardActivity, AddsOnActivity.class);
-                    intent.putExtra("item_id",getItemsForDashboardPojo.getRecords().get(position).getId()+"");
-                    intent.putExtra("item_name",getItemsForDashboardPojo.getRecords().get(position).getItmName()+"");
-                    intent.putExtra("hsn_code",getItemsForDashboardPojo.getRecords().get(position).getHsnCode());
-                    intent.putExtra("uom_id",getItemsForDashboardPojo.getRecords().get(position).getItmUom()+"");
-                    intent.putExtra("price",getItemsForDashboardPojo.getRecords().get(position).getPrice()+"");
-                    intent.putExtra("weight", spWeight.getSelectedItem() + "");
-                    intent.putExtra("cgst_per",cgst_per);
-                    intent.putExtra("sgst_per",sgst_per);
-                    intent.putExtra("qty","1");
-                    intent.putExtra("mrp",mrp);
-                    intent.putExtra("flavour",spFlavour.getSelectedItem() + "");
-                    intent.putExtra("shape",spShape.getSelectedItem()+"");
-                    intent.putExtra("occassionId",SELECTED_MENU_ID);
-                    intent.putExtra("occassionName",SELECTED_MENU);
-                    intent.putExtra("delv_date",selectedDeliveryDateString);
-                    intent.putExtra("addsonPrice","120");
-                    intent.putExtra("message",edtInstructions.getText().toString());
-                    intent.putExtra("spcialIntro",edtSpecialCakeMessage.getText().toString());
-                    intent.putExtra("schedule_id",SELECTED_SCHEDULE_ID);
-                    if (selectedFile != null){
-                        intent.putExtra("file",selectedFile.toString());
+
+                    if (!CommonUtil.checkIsEmptyOrNullCommon(mySharedPreferences.getUserMobileNo())) {
+
+                        dismiss();
+                        Intent intent = new Intent(dashboardActivity, AddsOnActivity.class);
+                        intent.putExtra("item_id",getItemsForDashboardPojo.getRecords().get(position).getId()+"");
+                        intent.putExtra("item_name",getItemsForDashboardPojo.getRecords().get(position).getItmName()+"");
+                        intent.putExtra("hsn_code",getItemsForDashboardPojo.getRecords().get(position).getHsnCode());
+                        intent.putExtra("uom_id",getItemsForDashboardPojo.getRecords().get(position).getItmUom()+"");
+                        intent.putExtra("price",getItemsForDashboardPojo.getRecords().get(position).getPrice()+"");
+                        intent.putExtra("weight", spWeight.getSelectedItem() + "");
+                        intent.putExtra("cgst_per",cgst_per);
+                        intent.putExtra("sgst_per",sgst_per);
+                        intent.putExtra("qty","1");
+                        intent.putExtra("mrp",mrp);
+                        intent.putExtra("flavour",spFlavour.getSelectedItem() + "");
+                        intent.putExtra("shape",spShape.getSelectedItem()+"");
+                        intent.putExtra("occassionId",SELECTED_MENU_ID);
+                        intent.putExtra("occassionName",SELECTED_MENU);
+                        intent.putExtra("delv_date",selectedDeliveryDateString);
+                        intent.putExtra("addsonPrice","120");
+                        intent.putExtra("message",edtInstructions.getText().toString());
+                        intent.putExtra("spcialIntro",edtSpecialCakeMessage.getText().toString());
+                        intent.putExtra("schedule_id",SELECTED_SCHEDULE_ID);
+                        if (selectedFile != null){
+                            intent.putExtra("file",selectedFile.toString());
+                        }else{
+                            intent.putExtra("file","");
+                        }
+
+                        startActivity(intent);
+
                     }else{
-                        intent.putExtra("file","");
+
+
+
+                        BsLogin bsLogin = new BsLogin(dashboardActivity, false, false, true);
+                        if (!bsLogin.isAdded()) {
+                            bsLogin.show(dashboardActivity.getSupportFragmentManager(), "test");
+                        }
+                      /*  dismiss();
+                        BsLogin bsLogin = new BsLogin(getActivity(),true,false,false);
+                        if (!bsLogin.isAdded()) {
+                            bsLogin.show(getSupportFragmentManager(), "test");
+                        }*/
+
                     }
 
-                    startActivity(intent);
                 }
 
 
@@ -950,6 +975,9 @@ String mrp = "";
                 String file_extension = selectedFile.getAbsolutePath().substring(selectedFile.getAbsolutePath().lastIndexOf(".") + 1);
                 mFile = RequestBody.create(MediaType.parse("image/jpeg"), selectedFile);
                 tvPhotoUpload.setText(selectedFile.getName()+"");
+                Bitmap myBitmap = BitmapFactory.decodeFile(selectedFile.getAbsolutePath());
+                ivSelectedImage.setVisibility(View.VISIBLE);
+                ivSelectedImage.setImageBitmap(myBitmap);
 
             } catch (Exception e) {
 
@@ -994,7 +1022,7 @@ String mrp = "";
                                 spSchedule.setTitle("Select Schedule");
                                 spSchedule.setAdapter(cakeShapeAdapter);
                                 llSchedule.setVisibility(View.VISIBLE);
-                                Toast.makeText(dashboardActivity, getSchedulePojo.getRecords().get(0).getRsmDepTime() + "", Toast.LENGTH_SHORT).show();
+
                             } else {
                                 llSchedule.setVisibility(View.GONE);
                                 Toast.makeText(dashboardActivity, getSchedulePojo.getMessage(), Toast.LENGTH_SHORT).show();
@@ -1210,7 +1238,7 @@ String mrp = "";
                             mrp = mrpp+"";
                             cgst_per = itemMrpByFlavourAndWeightPojo.getRecords().get(0).getCgstPer()+"";
                             sgst_per = itemMrpByFlavourAndWeightPojo.getRecords().get(0).getSgstPer()+"";
-                            Toast.makeText(getActivity(),mrp,Toast.LENGTH_LONG).show();
+
 
 
                         }else{

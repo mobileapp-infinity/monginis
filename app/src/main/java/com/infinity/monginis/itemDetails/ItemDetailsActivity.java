@@ -81,7 +81,7 @@ public class ItemDetailsActivity extends AppCompatActivity implements View.OnCli
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        vpDashboard.setCurrentItem(0);
+        vpDashboard.setCurrentItem(1);
     }
 
     private void initView() {

@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">monginis</string>
+    <string name="app_name">Monginis</string>
 
     <string name="permissions_has_not_grant">Permissions has not been granted</string>
     <string name="permission_request">Permission Request</string>
@@ -21,8 +21,7 @@
 
     <string name="nav_account">Account</string>
 
-    <string name="offers_shop">Shop</string>
-
+    <string name="offers_shop">Shop</string>9898574748
     <string name="offers_schemes">Schemes</string>
 
     <string name="offers_todays_offers">Today`s Offers</string>

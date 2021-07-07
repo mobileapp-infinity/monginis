@@ -24,6 +24,7 @@ import android.widget.Toast;
 
 import com.google.android.material.button.MaterialButton;
 import com.infinity.monginis.CategoryItemsDetails.Activity.CategoryItemsDetailsActivity;
+import com.infinity.monginis.Map.MapActivity;
 import com.infinity.monginis.R;
 import com.infinity.monginis.api.ApiImplementer;
 import com.infinity.monginis.api.ApiUrls;
@@ -83,7 +84,7 @@ public class ExploreFragment extends Fragment implements View.OnClickListener {
     private LinearLayout llTopCategoryFilter;
     private TextViewMediumFont tvStreetName;
     private TextViewRegularFont tvUserAddress;
-    private String userCityName = "";
+    private String userCityName = "Rajkot";
     private ConnectionDetector connectionDetector;
     private LinearLayout llCategoryProgressbar, llPopularProgressbar, llRecyclerBannerProgressbar;
     private LinearLayout llExploreContent;
@@ -92,6 +93,7 @@ public class ExploreFragment extends Fragment implements View.OnClickListener {
     private ImageSliderAdapter imageSliderAdapter;
     RecyclerViewPager recyclerViewPagerStudentSideBanner;
     private ArrayList<String> dashboardImagesList;
+    private LinearLayout llMap;
 
     int[] images = {R.drawable.dummy_img_5, R.drawable.dummy_img_2, R.drawable.dummy_img_3, R.drawable.dummy_img_4};
 
@@ -126,6 +128,8 @@ public class ExploreFragment extends Fragment implements View.OnClickListener {
         connectionDetector = new ConnectionDetector(getActivity());
         mySharedPreferences = new MySharedPreferences(getActivity());
         llTopCategories = view.findViewById(R.id.llTopCategories);
+        llMap = view.findViewById(R.id.llMap);
+        llMap.setOnClickListener(this);
         rvTopCategories = view.findViewById(R.id.rvTopCategories);
         llTopCategoryFilter = view.findViewById(R.id.llTopCategoryFilter);
         llTopCategoryFilter.setOnClickListener(this);
@@ -156,6 +160,13 @@ public class ExploreFragment extends Fragment implements View.OnClickListener {
         tvUserAddress.setText(activity.getIntent().getStringExtra(IntentConstants.USER_CURRENT_ADDRESS));
         userCityName = activity.getIntent().getStringExtra(IntentConstants.USER_CURRENT_CITY_NAME);
 
+
+        llCategoryProgressbar = view.findViewById(R.id.llCategoryProgressbar);
+        llRecyclerBannerProgressbar = view.findViewById(R.id.llRecyclerBannerProgressbar);
+        llPopularProgressbar = view.findViewById(R.id.llPopularProgressbar);
+        llExploreContent = view.findViewById(R.id.llExploreContent);
+
+
         if (userCityName == null || userCityName.equals("")) {
 
             Intent selectCityIntent = new Intent(getActivity(), SelectCityActivity.class);
@@ -165,10 +176,6 @@ public class ExploreFragment extends Fragment implements View.OnClickListener {
         }
 
 
-        llCategoryProgressbar = view.findViewById(R.id.llCategoryProgressbar);
-        llRecyclerBannerProgressbar = view.findViewById(R.id.llRecyclerBannerProgressbar);
-        llPopularProgressbar = view.findViewById(R.id.llPopularProgressbar);
-        llExploreContent = view.findViewById(R.id.llExploreContent);
 
 
     }
@@ -181,7 +188,20 @@ public class ExploreFragment extends Fragment implements View.OnClickListener {
 
         } else if (v.getId() == R.id.llTopCategoryFilter) {
 
+        }else if (v.getId() == R.id.llMap){
+            Intent mapIntent = new Intent(getActivity(), MapActivity.class);
+            mapIntent.putExtra(IntentConstants.USER_CURRENT_LATITUDE, Double.parseDouble(mySharedPreferences.getLat()));
+            mapIntent.putExtra(IntentConstants.USER_CURRENT_LONGITUDE, Double.parseDouble(mySharedPreferences.getLongitutde()));
+            startActivity(mapIntent);
+            getActivity().finish();
+
         }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
     }
 
     private void GetCategoryForDashboardApiCall() {
@@ -189,13 +209,13 @@ public class ExploreFragment extends Fragment implements View.OnClickListener {
             rvTopCategories.setVisibility(View.GONE);
             llCategoryProgressbar.setVisibility(View.VISIBLE);
 
-            ApiImplementer.GetSections(mySharedPreferences.getVersionCode(), mySharedPreferences.getAndroidID(), mySharedPreferences.getDeviceID(), CommonUtil.USER_ID, ApiUrls.TESTING_KEY,userCityName, CommonUtil.COMP_ID, new Callback<GetSectionPojo>() {
+            ApiImplementer.GetSections(mySharedPreferences.getVersionCode(), mySharedPreferences.getAndroidID(), mySharedPreferences.getDeviceID(), CommonUtil.USER_ID, ApiUrls.TESTING_KEY,"AHEMDABAD", CommonUtil.COMP_ID, new Callback<GetSectionPojo>() {
                 @Override
                 public void onResponse(Call<GetSectionPojo> call, Response<GetSectionPojo> response) {
 
-                    if (userCityName != null && !userCityName.equals("")) {
-                        GetItemsForDashboard(userCityName);
-                    }
+                    System.out.println("call"+call.request().url());
+
+
 
 
                     try {
@@ -237,6 +257,10 @@ public class ExploreFragment extends Fragment implements View.OnClickListener {
                         llCategoryProgressbar.setVisibility(View.GONE);
                         Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_SHORT).show();
 
+                    }
+
+                    if (userCityName != null && !userCityName.equals("")) {
+                        GetItemsForDashboard(userCityName);
                     }
 
                 }

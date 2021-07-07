@@ -331,7 +331,7 @@
                         android:gravity="center"
                         android:background="@drawable/border_cat_mainn"
                         android:lines="2"
-                        android:text="455555"
+                        android:text=""
                         app:fontFamily="@font/poppins_regular"
                         android:textColor="@color/black"
                         ></com.infinity.monginis.custom_class.TextViewRegularFont>

@@ -26,6 +26,7 @@ import com.infinity.monginis.api.ApiClient;
 import com.infinity.monginis.api.ApiImplementer;
 import com.infinity.monginis.api.ApiUrls;
 import com.infinity.monginis.api.IApiInterface;
+import com.infinity.monginis.confrimOrder.activity.ConfirmOrderScreenActivity;
 import com.infinity.monginis.manageAddress.AddressActivity;
 import com.infinity.monginis.addson.activity.AddsOnActivity;
 import com.infinity.monginis.dashboard.adapter.SearchCategoryAdapter;
@@ -160,7 +161,7 @@ public class SearchFragment extends Fragment implements View.OnClickListener,Add
                     @Override
                     public void onShopClicked(int custId) {
 
-                        Toast.makeText(getActivity(),"Shop Clicked",Toast.LENGTH_LONG).show();
+                      //  Toast.makeText(getActivity(),"Shop Clicked",Toast.LENGTH_LONG).show();
                         if (mySharedPreferences.getSelectedItemId() != null && !mySharedPreferences.getSelectedItemId().equals("")){
 
                             saveSpecialOrderPartial(custId,mySharedPreferences.getSelectedItemOccassionId(),mySharedPreferences.getSelectedItemMessage(),mySharedPreferences.getDelvDate(),mySharedPreferences.getSelectedItemSpecialMessage(),mySharedPreferences.getOccassionName(),mySharedPreferences.getSelectedItemPrice(),mySharedPreferences.getSelectedItemWeight(),"1",mySharedPreferences.getSelectedItemCsgstPer(),mySharedPreferences.getSelectedItemSgstPrt(),mySharedPreferences.getAddsOnPrice(),mySharedPreferences.getSelectedScheduleId());
@@ -269,7 +270,11 @@ public class SearchFragment extends Fragment implements View.OnClickListener,Add
           File file = new File(mySharedPreferences.getSelectedFile());
           String file_extension = file.getAbsolutePath().substring(file.getAbsolutePath().lastIndexOf(".") + 1);
           mFile = RequestBody.create(MediaType.parse("image/jpeg"), file);
-          lastFileToUploadPassport = MultipartBody.Part.createFormData("file", file.getName(), mFile);
+          lastFileToUploadPassport = null;
+          if (!mySharedPreferences.getSelectedFile().equals("")){
+              lastFileToUploadPassport = MultipartBody.Part.createFormData("file", file.getName(), mFile);
+          }
+
       }
     }
 
@@ -307,7 +312,7 @@ public class SearchFragment extends Fragment implements View.OnClickListener,Add
                             searchCategoryAdapter = new SearchCategoryAdapter(activity, customerPojoArrayList, new SearchCategoryAdapter.IOnShopClicked() {
                                 @Override
                                 public void onShopClicked(int custId) {
-                                    Toast.makeText(getActivity(),"Shop Clicked",Toast.LENGTH_LONG).show();
+                                  // Toast.makeText(getActivity(),"Shop Clicked",Toast.LENGTH_LONG).show();
                                     if(mySharedPreferences.getSelectedItemId() != null && !mySharedPreferences.getSelectedItemId().equals("")){
                                         saveSpecialOrderPartial(custId,mySharedPreferences.getSelectedItemOccassionId(),mySharedPreferences.getSelectedItemMessage(),mySharedPreferences.getDelvDate(),mySharedPreferences.getSelectedItemSpecialMessage(),mySharedPreferences.getOccassionName(),mySharedPreferences.getSelectedItemPrice(),mySharedPreferences.getSelectedItemWeight(),"1",mySharedPreferences.getSelectedItemCsgstPer(),mySharedPreferences.getSelectedItemSgstPrt(),mySharedPreferences.getAddsOnPrice()+"",mySharedPreferences.getSelectedScheduleId());
                                     }
@@ -423,6 +428,7 @@ public class SearchFragment extends Fragment implements View.OnClickListener,Add
                 req_sgst_per,
                 req_total_addons_price,
                 req_schedule_id,
+
                 lastFileToUploadPassport,
                 req_json_item_detail,
                 req_json_addonse_item_details
@@ -446,11 +452,15 @@ public class SearchFragment extends Fragment implements View.OnClickListener,Add
                         if (savePartialOrderPojo != null && savePartialOrderPojo.getFLAG() == 1) {
 
 
+
+                            Intent intent = new Intent(getActivity(), ConfirmOrderScreenActivity.class);
+                            intent.putExtra("orderId",savePartialOrderPojo.getID()+"");
+                            intent.putExtra("custId",custId+"");
+                            intent.putExtra("addOnPrice",mySharedPreferences.getAddsOnPrice()+"");
+                            getActivity().startActivity(intent);
                             Toast.makeText(getActivity(),savePartialOrderPojo.getMESSAGE(),Toast.LENGTH_LONG).show();
                             mySharedPreferences.setSelectedItemDetails("","","","","","","","","","","","","","","","","","","");
                             mySharedPreferences.setSelectedItemId("");
-                            Intent intent = new Intent(getActivity(), AddressActivity.class);
-                            getActivity().startActivity(intent);
                             // Intent special_order_confirmation_receipt_intent = new Intent(CustomizeScreenActivity.this, Special_Order_Confirmation_Receipt.class);
                             //  special_order_confirmation_receipt_intent.putExtra("id", savePartialOrderPojo.getID() + "");
                             //  special_order_confirmation_receipt_intent.putExtra("total_addons_price", total_addons_price);

@@ -32,6 +32,7 @@ import com.infinity.monginis.custom_class.TextViewRegularFont;
 import com.infinity.monginis.dashboard.activity.DashboardActivity;
 import com.infinity.monginis.utils.CommonUtil;
 import com.infinity.monginis.utils.IntentConstants;
+import com.infinity.monginis.utils.MySharedPreferences;
 
 import java.util.List;
 import java.util.Locale;
@@ -48,6 +49,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     LatLng markerLatLng;
     TextViewRegularFont tvAddress;
     String userCurrentStreetName, userCurrentCityName, userCurrentAddress;
+    MySharedPreferences mySharedPreferences ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,6 +60,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
 
 
     private void initView() {
+        mySharedPreferences = new MySharedPreferences(MapActivity.this);
         llAddress = findViewById(R.id.llAddress);
         tvAddress = findViewById(R.id.tvAddress);
 
@@ -71,6 +74,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         mapIntent = getIntent();
         latitude = mapIntent.getDoubleExtra(IntentConstants.USER_CURRENT_LATITUDE, 0.0);
         longitude = mapIntent.getDoubleExtra(IntentConstants.USER_CURRENT_LONGITUDE, 0.0);
+        mySharedPreferences.setLatLong(latitude,longitude);
 
         System.out.println("latitude longitude From Fetched location " + latitude + "----------" + longitude);
     }
@@ -129,6 +133,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                     Double longitude = marker.getPosition().longitude;
 
                     markerLatLng = new LatLng(latitude, longitude);
+                    mySharedPreferences.setLatLong(latitude,longitude);
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {

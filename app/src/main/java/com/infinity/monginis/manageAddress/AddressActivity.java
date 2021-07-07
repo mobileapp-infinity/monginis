@@ -26,6 +26,8 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import static com.infinity.monginis.dashboard.activity.DashboardActivity.vpDashboard;
+
 public class AddressActivity extends AppCompatActivity implements View.OnClickListener {
 
 
@@ -69,6 +71,7 @@ public class AddressActivity extends AppCompatActivity implements View.OnClickLi
         }else if(view.getId() == R.id.ivBack){
 
             onBackPressed();
+            vpDashboard.setCurrentItem(0);
 
         }
 
